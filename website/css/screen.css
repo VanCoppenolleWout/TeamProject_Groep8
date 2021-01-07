@@ -907,20 +907,52 @@ input[type=number]::-webkit-outer-spin-button {
 /*
     Component: SVG
 */
-.c-svg--trede{
-
+.c-illustratie--sm{
+    /* display: none; */
+}
+.c-illustratie{
+    display: none;
+}
+.c-illustratie--xl{
+    display: none;
 }
 
 /*
     Component: Grid 
 */
 
-@media(min-width:1076px){
+/*
+    Configuratie.html grid
+*/
+
+@media(min-width:768px){
+    .c-illustratie--sm{
+        display: none;
+    }
+
+    .c-illustratie{
+        display: inline-block;
+    }
+
     .c-grid--configuratie{
         display: grid;
 
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 1fr;
+        /* justify-items: end; */
+        align-items: center;
+
+        /* grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr; */
+
+        grid-template-areas: 
+        "head"
+        "svg content"
+        "arrow buttons"
+        ;
+
+    }
+
+    .c-grid--configuratie__item1{
+        
     }
     
 }
