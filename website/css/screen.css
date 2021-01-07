@@ -367,6 +367,11 @@ input:disabled {
 .o-header {
     margin-bottom: calc(var(--global-whitespace-xxl) * 1.25);
 }
+.o-header--sm{
+    /* margin-bottom: var(--global-whitespace-xxl);
+     */
+     margin-bottom: 16px;
+}
 
 /*
     Object: Button reset
@@ -463,6 +468,14 @@ input:disabled {
     flex-direction: row;
 }
 
+/* 
+    Layout: Arrow + Back button
+*/
+.o-layout__buttons{
+
+}
+
+
 /*------------------------------------*\
 #COMPONENTS
 \*------------------------------------*/
@@ -480,6 +493,7 @@ input:disabled {
 
 .c-card__animation {
     margin-bottom: var(--global-whitespace-md);
+
 }
 
 .c-card__body {
@@ -666,6 +680,44 @@ input:disabled {
   }
 
 /*
+    Compontent: Input number
+*/
+
+.c-input--number {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    border: var(--global-borderWidth) solid var(--global-color-alpha-dark);
+    border-radius: var(--global-borderRadius-xxl);
+    
+    color: var(--global-color-text);
+    background-color: var(--global-input-backgroundColor);
+    font-family: inherit;
+    font-size: 0.875em;
+    font-weight: 500;
+    margin-bottom: var(--global-whitespace-md);
+    padding: 0.69rem 1rem 0.69rem;
+    outline: none;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+   opacity: 1;
+}
+
+/*
+    Component: configuratie text
+*/
+.c-configuratie__text{
+    margin-bottom: var(--global-whitespace);
+    color: var(--global-color-neutral-light);
+    font-size: 24px;
+}
+
+
+
+/*
     Component: Label
     ---
     Class to put on all form labels
@@ -720,6 +772,7 @@ input:disabled {
     var(--input-focus-boxShadowColor, var(--global-color-alpha-x-transparent));
 }
 
+<<<<<<< HEAD
 .c-button__navigation {
     font-weight: 500;
     font-size: 1.375em;
@@ -740,6 +793,10 @@ input:disabled {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+=======
+.c-button--volgende{
+    max-width: 144px;
+>>>>>>> configuratie.html
 }
 
 
@@ -893,6 +950,60 @@ input:disabled {
     width: 6px;
     height: 6px;
 }
+
+/*
+    Component: SVG
+*/
+.c-illustratie--sm{
+    /* display: none; */
+}
+.c-illustratie{
+    display: none;
+}
+.c-illustratie--xl{
+    display: none;
+}
+
+/*
+    Component: Grid 
+*/
+
+/*
+    Configuratie.html grid
+*/
+
+@media(min-width:768px){
+    .c-illustratie--sm{
+        display: none;
+    }
+
+    .c-illustratie{
+        display: inline-block;
+    }
+
+    .c-grid--configuratie{
+        display: grid;
+
+        /* justify-items: end; */
+        align-items: center;
+
+        /* grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr; */
+
+        grid-template-areas: 
+        "head"
+        "svg content"
+        "arrow buttons"
+        ;
+
+    }
+
+    .c-grid--configuratie__item1{
+        
+    }
+    
+}
+
 
 /*------------------------------------*\
 #UTILITIES
