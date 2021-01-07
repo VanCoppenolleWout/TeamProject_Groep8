@@ -538,12 +538,6 @@ input:disabled {
     margin-bottom: var(--global-whitespace-sm);
 }
 
-.c-card__welcome {
-    text-align: center;
-    color: var(--global-color-neutral-light);
-    font-size: 1.375em;
-}
-
 /*
     Component: Podium
     ---
@@ -657,24 +651,6 @@ input:disabled {
   outline: none;
 }
 
-.c-input--number {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    width: 100%;
-    border: var(--global-borderWidth) solid var(--global-color-alpha-dark);
-    border-radius: var(--global-borderRadius-xxl);
-    
-    color: var(--global-color-text);
-    background-color: var(--global-input-backgroundColor);
-    font-family: inherit;
-    font-size: 0.875em;
-    font-weight: 500;
-    margin-bottom: var(--global-whitespace-md);
-    padding: 0.69rem 1rem 0.69rem;
-    outline: none;
-  }
-
 .c-input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: var(--global-input-color);
   }
@@ -772,31 +748,8 @@ input[type=number]::-webkit-outer-spin-button {
     var(--input-focus-boxShadowColor, var(--global-color-alpha-x-transparent));
 }
 
-<<<<<<< HEAD
-.c-button__navigation {
-    font-weight: 500;
-    font-size: 1.375em;
-    width: 100%;
-    font-size: 0.875em;
-    text-align: left;
-    padding-top: calc(var(--global-whitespace-sm) + 1px);
-    padding-bottom: calc(var(--global-whitespace-sm) + 3px);
-    padding-left: var(--global-whitespace-md);
-    padding-right: var(--global-whitespace-md);
-    margin-bottom: var(--global-whitespace-lg);
-    color: var(--global-color-neutral-xxx-light);
-    border-radius: calc(var(--global-borderRadius) * 2);
-    background-color: var(--global-color-neutral-light);
-    box-shadow: var(--global-input-focus-boxShadowSpread-text);
-
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-=======
 .c-button--volgende{
     max-width: 144px;
->>>>>>> configuratie.html
 }
 
 
