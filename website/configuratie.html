@@ -16,12 +16,16 @@
             <form action="c-card">
                 <div class="c-card__body c-grid--configuratie">
 
-                    <div class="o-header c-grid--configuratie__item1">
+                    <div class="o-header--sm c-grid--configuratie__item1">
                         <h1 class="c-card__title">Trappenspel</h1>
+                        
+                    </div>
 
+                    <div class="c-configuratie__text">
+                        Configuratie spel
                     </div>
                     
-                    <div class="c-card__animation"><svg xmlns="http://www.w3.org/2000/svg"
+                    <div class="c-card__animation"><svg class="c-svg--trede" xmlns="http://www.w3.org/2000/svg"
                             xmlns:xlink="http://www.w3.org/1999/xlink" width="114" height="90.584"
                             viewBox="0 0 114 90.584">
                             <defs>
@@ -57,14 +61,32 @@
                                         transform="translate(-465.467 -27.732)" fill="#dad1d1" />
                                 </g>
                             </g>
-                        </svg></div>
+                        </svg>
+                    
+                        
+                    </div>
 
                     <div class="c-grid--configuratie__item4">
-                        <label for="naam" class="c-card__text">Geef het aantal trappen in2</label>
+                        <label for="naam" class="c-card__text">Aantal trappen</label>
 
                         <input class="c-input--number" min="2" max="10" step="2" value="2" type="number" name="" id="">
 
-                        <button class="o-button-reset c-button" type="submit">Ga verder</button></div>
+
+                        <div class="o-layout__buttons">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+                                <g id="arrow_right_alt-24px" transform="translate(243 -58)">
+                                    <path id="Path_4" data-name="Path 4" d="M0,0H40V40H0Z" transform="translate(-243 58)"
+                                        fill="none" />
+                                    <path id="Path_1" data-name="Path 1" d="M10,19,3,12m0,0,7-7M3,12H21"
+                                        transform="translate(-235 66)" fill="none" stroke="#1d63dc" stroke-linecap="round"
+                                        stroke-linejoin="round" stroke-width="2" />
+                                </g>
+                            </svg>
+    
+                            <button class="o-button-reset c-button c-button--volgende" type="submit">Volgende</button>
+                        </div>
+
+                    </div>
                 </div>
             </form>
         </div>

@@ -367,6 +367,11 @@ input:disabled {
 .o-header {
     margin-bottom: calc(var(--global-whitespace-xxl) * 1.25);
 }
+.o-header--sm{
+    /* margin-bottom: var(--global-whitespace-xxl);
+     */
+     margin-bottom: 16px;
+}
 
 /*
     Object: Button reset
@@ -463,6 +468,14 @@ input:disabled {
     flex-direction: row;
 }
 
+/* 
+    Layout: Arrow + Back button
+*/
+.o-layout__buttons{
+
+}
+
+
 /*------------------------------------*\
 #COMPONENTS
 \*------------------------------------*/
@@ -480,6 +493,7 @@ input:disabled {
 
 .c-card__animation {
     margin-bottom: var(--global-whitespace-md);
+
 }
 
 .c-card__body {
@@ -637,6 +651,14 @@ input:disabled {
   outline: none;
 }
 
+.c-input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: var(--global-input-color);
+  }
+
+/*
+    Compontent: Input number
+*/
+
 .c-input--number {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -653,11 +675,23 @@ input:disabled {
     margin-bottom: var(--global-whitespace-md);
     padding: 0.69rem 1rem 0.69rem;
     outline: none;
-  }
+}
 
-.c-input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color: var(--global-input-color);
-  }
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+   opacity: 1;
+}
+
+/*
+    Component: configuratie text
+*/
+.c-configuratie__text{
+    margin-bottom: var(--global-whitespace);
+    color: var(--global-color-neutral-light);
+    font-size: 24px;
+}
+
+
 
 /*
     Component: Label
@@ -712,6 +746,10 @@ input:disabled {
   border-color: var(--global-color-alpha-lighter);
   box-shadow: var(--global-input-focus-boxShadowSpread)
     var(--input-focus-boxShadowColor, var(--global-color-alpha-x-transparent));
+}
+
+.c-button--volgende{
+    max-width: 144px;
 }
 
 
@@ -866,7 +904,18 @@ input:disabled {
     height: 6px;
 }
 
-@media(min-width:875px){
+/*
+    Component: SVG
+*/
+.c-svg--trede{
+
+}
+
+/*
+    Component: Grid 
+*/
+
+@media(min-width:1076px){
     .c-grid--configuratie{
         display: grid;
 
