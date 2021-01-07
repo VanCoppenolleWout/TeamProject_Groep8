@@ -643,6 +643,24 @@ input:disabled {
   outline: none;
 }
 
+.c-input--number {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    border: var(--global-borderWidth) solid var(--global-color-alpha-dark);
+    border-radius: var(--global-borderRadius-xxl);
+    
+    color: var(--global-color-text);
+    background-color: var(--global-input-backgroundColor);
+    font-family: inherit;
+    font-size: 0.875em;
+    font-weight: 500;
+    margin-bottom: var(--global-whitespace-md);
+    padding: 0.69rem 1rem 0.69rem;
+    outline: none;
+  }
+
 .c-input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: var(--global-input-color);
   }
