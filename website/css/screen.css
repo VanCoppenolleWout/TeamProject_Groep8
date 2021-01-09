@@ -674,6 +674,8 @@ input:disabled {
     margin-bottom: var(--global-whitespace-md);
     padding: 0.69rem 1rem 0.69rem;
     outline: none;
+
+    max-height: 2.5rem;
 }
 
 input[type=number]::-webkit-inner-spin-button,
@@ -940,7 +942,43 @@ input[type=number]::-webkit-outer-spin-button {
 /*
     Component: Grid
 */
-@media(min-width:768px){
+
+.c-grid--error{
+    margin-top: -12px;
+    color: rgb(202, 45, 45);
+    padding-left: 8px;
+}
+
+.c-arrow{
+    padding: 16px;
+}
+
+@media(min-width:760px){
+
+    /*Global styling */
+
+    .c-arrow{
+        padding: 0px;
+    }
+    .c-card__title{
+        font-size: 48px;
+        margin-bottom: 98px;
+    }
+
+    .c-configuratie__text{
+        font-size: 28px;
+        margin-bottom: 0px;
+        padding-bottom: 0px;
+    }
+
+    .c-card__text{
+        font-size: 28px;
+    }
+
+    .c-button--volgende{
+        max-width: 220px;
+    }
+
     .c-illustratie--sm{
         display: none;
     }
@@ -949,25 +987,77 @@ input[type=number]::-webkit-outer-spin-button {
         display: inline-block;
     }
 
+    .c-arrow{
+        padding-top: 8px;
+        margin-top: 4px;
+    }
+
+    .c-button--volgende{
+        height: 40px;
+    }
+
+    /* Grid Styling */
+
     .c-grid--configuratie{
         display: grid;
 
-        /* justify-items: end; */
-        align-items: center;
-
-        /* grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 1fr 1fr; */
-
         grid-template-areas: 
-        "head"
+        "head head"
         "svg content"
-        "arrow buttons"
+        "button button"
         ;
+        
+        width: 700px;
+        margin: 0 auto;
+        padding-right: 48px;
+        padding-left: 48px;
+    }
+
+    .c-grid--configuratie__head{
+        grid-area: head;
+    }
+
+    .c-grid--configuratie__svg{
+        grid-area: svg;
+    }
+
+    .c-grid--configuratie__configuratie{
+        grid-area: content;
+        justify-self: end;
+        padding-right: 14px;
+        
+    }
+
+    .c-grid--trappen{
+        grid-area: content;
+        margin-top: 48px;
+        justify-self: end;
+        padding-right: 28px;
 
     }
 
-    .c-grid--configuratie__item1{
-        
+    .c-grid--input{
+        grid-area: content;
+        margin-top: 120px;
+        max-width: 220px;
+        margin-right: 4px;
+        justify-self: end;
+    }
+
+    .c-grid--error{
+        grid-area: content;
+        margin-top: 165px;
+        justify-self: end;
+        max-width: 220px;
+        color: rgb(202, 45, 45);
+        font-size: 14px;
+    }
+
+    .c-grid--buttons{
+        grid-area: button;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
     }
     
 }

@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/screen.css">
     <link rel="stylesheet" href="css/normalize.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js" type="text/javascript">
+    </script>
     <script src="./script/app.js"></script>
     <title>Trappenspel</title>
 </head>
@@ -13,19 +15,19 @@
 <body class="login-page">
     <section class="o-row">
         <div class="o-container">
-            <form action="c-card">
+            <form class="js-form-quantity" action="/website/index.html">
                 <div class="c-card__body c-grid--configuratie">
 
-                    <div class="o-header--sm c-grid--configuratie__item1">
+                    <div class="o-header--sm c-grid--configuratie__head">
                         <h1 class="c-card__title">Trappenspel</h1>
 
                     </div>
 
-                    <div class="c-configuratie__text c-grid--configuratie__item2">
+                    <div class="c-configuratie__text c-grid--configuratie__configuratie">
                         Configuratie spel
                     </div>
 
-                    <div class="c-card__animation c-grid--configuratie__item3">
+                    <div class="c-card__animation c-grid--configuratie__svg">
                         <svg class="c-illustratie--sm" xmlns="http://www.w3.org/2000/svg"
                             xmlns:xlink="http://www.w3.org/1999/xlink" width="114" height="90.584"
                             viewBox="0 0 114 90.584">
@@ -221,28 +223,46 @@
                     </div>
 
 
-                    <label for="naam" class="c-card__text">Aantal trappen</label>
-
-                    <input class="c-input--number" min="2" max="10" step="2" value="2" type="number" name="" id="">
+                    <label for="naam" class="c-card__text c-grid--trappen">Aantal trappen</label>
 
 
-                    <div class="o-layout__buttons">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
-                            <g id="arrow_right_alt-24px" transform="translate(243 -58)">
-                                <path id="Path_4" data-name="Path 4" d="M0,0H40V40H0Z" transform="translate(-243 58)"
+                    <input class="js-quantity-input c-input--number c-grid--input" min="2" max="10" step="2" value="2"
+                        type="number" name="" id="">
+                    <div class="c-grid--error js-input-error"></div>
+                    <div class="o-layout__buttons  c-grid--buttons">
+
+                        <svg class="c-grid--arrow c-arrow" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" width="76.447" height="64.894"
+                            viewBox="0 0 76.447 64.894">
+                            <defs>
+                                <filter id="Path_1" x="0" y="0" width="71.447" height="64.894"
+                                    filterUnits="userSpaceOnUse">
+                                    <feOffset dy="4" input="SourceAlpha" />
+                                    <feGaussianBlur stdDeviation="2.5" result="blur" />
+                                    <feFlood flood-opacity="0.161" />
+                                    <feComposite operator="in" in2="blur" />
+                                    <feComposite in="SourceGraphic" />
+                                </filter>
+                            </defs>
+                            <g id="arrow_right_alt-24px" transform="translate(332.447 -33.553)">
+                                <path id="Path_4" data-name="Path 4" d="M0,0H64V56H0Z" transform="translate(-320 34)"
                                     fill="none" />
-                                <path id="Path_1" data-name="Path 1" d="M10,19,3,12m0,0,7-7M3,12H21"
-                                    transform="translate(-235 66)" fill="none" stroke="#1d63dc" stroke-linecap="round"
-                                    stroke-linejoin="round" stroke-width="2" />
+                                <g transform="matrix(1, 0, 0, 1, -332.45, 33.55)" filter="url(#Path_1)">
+                                    <path id="Path_1-2" data-name="Path 1" d="M21.667,45,3,25m0,0L21.667,5M3,25H51"
+                                        transform="translate(9.45 3.45)" fill="none" stroke="#1d63dc"
+                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="7" />
+                                </g>
                             </g>
                         </svg>
 
-                        <button class="o-button-reset c-button c-button--volgende" type="submit">Volgende</button>
+
+                        <button class="o-button-reset c-button c-button--volgende c-grid--button js-button-quantity"
+                            type="submit">Volgende</button>
                     </div>
 
 
-        </div>
-        </form>
+                </div>
+            </form>
         </div>
     </section>
 </body>

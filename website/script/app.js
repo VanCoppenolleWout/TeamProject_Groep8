@@ -11,15 +11,7 @@
 
     const prefix = "teamproject/groep8/";
 
-    const onClickQuantity = (event) => {
-        html_quantity_steps = document.querySelector(".js-quantity-steps");
-        
-        event.preventDefault();
-        
-        payload = {"steps": html_quantity_steps.value};
-        console.log(payload);
-        client.publish(`${prefix}quantitysteps`, JSON.stringify(payload));
-    };
+    
 
     const onClickStart = (event) => {
         html_game_name = document.querySelector(".js-game-name");
@@ -40,15 +32,57 @@
         client.publish(`${prefix}gamestop`, JSON.stringify(payload));
     };
 
+    const onClickQuantity = (event) => {
+      event.preventDefault();
+      // html_quantity_steps = document.querySelector(".js-quantity-steps");
+      html_quantity_steps = document.querySelector('.js-quantity-input');
+          
+      payload = {"steps": html_quantity_steps.value};
+
+      console.log(payload);
+      client.publish(`${prefix}quantitysteps`, JSON.stringify(payload));
+      
+  };
+
+    const onInputQuantity = (event) =>{
+      let quantityInput = document.querySelector('.js-quantity-input').value;
+      let errormsg = document.querySelector('.js-input-error');
+
+      console.log(quantityInput);
+      
+      if(quantityInput%2 != 0) errormsg.innerHTML = '*Gelieve een veelvoud van 2 in te voeren';
+      if(quantityInput==0) errormsg.innerHTML = '*Gelieve een getal groter dan 0 in te voeren';
+      if(quantityInput>=10) errormsg.innerHTML = '*Gelieve een getal kleiner dan 10 in te voeren';
+
+      if(quantityInput>0 && quantityInput<=10 && quantityInput%2 == 0) errormsg.innerHTML = '';
+
+
+    }
+
     const init = () => {
+        /*Buttons*/
         html_button_quantity = document.querySelector(".js-button-quantity");
+        html_button_quantity = document.querySelector(".js-button-name");
+        html_button_quantity = document.querySelector(".js-button-difficulty");
         html_button_start = document.querySelector(".js-button-start");
         html_button_stop = document.querySelector(".js-button-stop");
 
-        html_button_quantity.addEventListener("click", onClickQuantity);
-        html_button_start.addEventListener("click", onClickStart);
-        html_button_stop.addEventListener("click", onClickStop);
+        let html_form_quantity = document.querySelector('.js-form-quantity');
 
+        /*Input values*/
+        html_input_quantity = document.querySelector(".js-quantity-input");
+
+        /*Eventlisteners*/
+        if(html_input_quantity) html_input_quantity.addEventListener("blur", onInputQuantity);
+
+        if(html_form_quantity) html_form_quantity.addEventListener('submit', onClickQuantity);
+
+        // if(html_button_quantity) html_button_quantity.addEventListener("click", onClickQuantity);
+        if(html_button_start) html_button_start.addEventListener("click", onClickStart);
+        if(html_button_stop) html_button_stop.addEventListener("click", onClickStop);
+
+        
+        
         mqtt = require('mqtt');
         client  = mqtt.connect("ws://13.81.105.139");
 
