@@ -6,28 +6,23 @@
 
 
     let html_button_quantity, html_button_start, html_button_stop, html_quantity_steps, html_quantity_steps_answer, html_game_name, html_game_difficulty,
-    html_game_answer, html_gamestart_start, html_gamestart_name, html_gamestart_score, html_game, html_quantity;
+    html_game_answer, html_gamestart_start, html_gamestart_name, html_gamestart_score, html_game, html_quantity,html_form_quantity,html_form_difficulty, html_button_back, html_dropdown_button, html_dropdown_hidden, html_difficulty, html_dropdown_items;
+    let difficulty, name, steps;
     let mqtt, client;
 
     const prefix = "teamproject/groep8/";
 
-    const onClickQuantity = (event) => {
-        html_quantity_steps = document.querySelector(".js-quantity-steps");
-        
-        event.preventDefault();
-        
-        payload = {"steps": html_quantity_steps.value};
-        console.log(payload);
-        client.publish(`${prefix}quantitysteps`, JSON.stringify(payload));
-    };
+    
 
     const onClickStart = (event) => {
-        html_game_name = document.querySelector(".js-game-name");
-        html_game_difficulty = document.querySelector(".js-game-difficulty");
+        // html_game_name = document.querySelector(".js-game-name");
+        // html_game_difficulty = document.querySelector(".js-game-difficulty");
+        
         
         event.preventDefault();
 
-        payload = {"name": html_game_name.value, "difficulty": html_game_difficulty.value};
+        // payload = {"name": html_game_name.value, "difficulty": html_game_difficulty.value};
+        payload = {"name": 'Kasper', "difficulty": html_difficulty.innerText};
         console.log(payload);
         client.publish(`${prefix}gamestart`, JSON.stringify(payload));
     };
@@ -40,15 +35,88 @@
         client.publish(`${prefix}gamestop`, JSON.stringify(payload));
     };
 
+    const onClickQuantity = (event) => {
+      event.preventDefault();
+      // html_quantity_steps = document.querySelector(".js-quantity-steps");
+      html_quantity_steps = document.querySelector('.js-quantity-input');
+
+      if(html_quantity_steps.value >= 0 && html_quantity_steps.value <= 10 && html_quantity_steps.value%2 == 0){
+        payload = {"steps": html_quantity_steps.value};
+        console.log(payload);
+        client.publish(`${prefix}quantitysteps`, JSON.stringify(payload));
+
+        html_form_quantity.submit();
+      }
+  };
+
+    const onInputQuantity = (event) =>{
+      let quantityInput = document.querySelector('.js-quantity-input').value;
+      let errormsg = document.querySelector('.js-input-error');
+      
+      if(quantityInput%2 != 0) errormsg.innerHTML = '*Gelieve een veelvoud van 2 in te voeren';
+      if(quantityInput==0) errormsg.innerHTML = '*Gelieve een getal groter dan 0 in te voeren';
+      if(quantityInput>=10) errormsg.innerHTML = '*Gelieve een getal kleiner dan 10 in te voeren';
+
+      if(quantityInput>0 && quantityInput<=10 && quantityInput%2 == 0) errormsg.innerHTML = '';
+
+
+    };
+
+    const onClickBack = () =>{
+      // window.history.back();
+      if(window.location.href == 'http://127.0.0.1:5500/website/configuratie.html?' || window.location.href =='http://127.0.0.1:5500/website/configuratie.html') window.location.href='http://127.0.0.1:5500/website/main.html';
+
+      if(window.location.href == 'http://127.0.0.1:5500/website/configuratie-moeilijkheid.html?' || window.location.href =='http://127.0.0.1:5500/website/configuratie-moeilijkheid.html') window.location.href='http://127.0.0.1:5500/website/configuratie.html';
+      
+    };
+
+    const onClickDropdown = () =>{
+      if(html_dropdown_hidden.className=='c-dropdown--hidden js-dropdown-hidden'){
+        html_dropdown_hidden.setAttribute('class', 'js-dropdown-hidden c-dropdown--visible');
+        document.querySelector('.js-dropdown-svg').setAttribute('class', 'c-dropdown--svg c-dropdown--svg__180 js-dropdown-svg');
+        }
+      else{
+        html_dropdown_hidden.setAttribute('class', "c-dropdown--hidden js-dropdown-hidden");
+        document.querySelector('.js-dropdown-svg').setAttribute('class', 'c-dropdown--svg js-dropdown-svg');
+        }
+    };
+
     const init = () => {
+        /*Buttons*/
         html_button_quantity = document.querySelector(".js-button-quantity");
+        html_button_quantity = document.querySelector(".js-button-name");
+        html_button_quantity = document.querySelector(".js-button-difficulty");
         html_button_start = document.querySelector(".js-button-start");
         html_button_stop = document.querySelector(".js-button-stop");
+        html_button_back = document.querySelector('.js-button-back');
+        html_dropdown_button = document.querySelector('.js-dropdown');
 
-        html_button_quantity.addEventListener("click", onClickQuantity);
-        html_button_start.addEventListener("click", onClickStart);
-        html_button_stop.addEventListener("click", onClickStop);
+        /*Dropdown properties*/
+        html_dropdown_hidden = document.querySelector('.js-dropdown-hidden');
+        html_difficulty = document.querySelector('.js-difficulty');
+        html_dropdown_items = document.querySelectorAll('.js-dropdown-items');
+        
+        /*Forms*/
+        html_form_quantity = document.querySelector('.js-form-quantity');
+        html_form_difficulty = document.querySelector('.js-form-difficulty');
 
+        /*Input values*/
+        html_input_quantity = document.querySelector(".js-quantity-input");
+
+        /*Eventlisteners*/
+        if(html_input_quantity) html_input_quantity.addEventListener("blur", onInputQuantity);
+
+        if(html_form_quantity) html_form_quantity.addEventListener('submit', onClickQuantity);
+        if(html_button_start) html_button_start.addEventListener("submit", onClickStart);
+
+        // if(html_button_quantity) html_button_quantity.addEventListener("click", onClickQuantity);
+        // if(html_button_start) html_button_start.addEventListener("click", onClickStart);
+        if(html_button_stop) html_button_stop.addEventListener("click", onClickStop);
+        if(html_button_back) html_button_back.addEventListener('click', onClickBack);
+        if(html_dropdown_items) html_dropdown_items.forEach(element => {
+          element.addEventListener('click', () =>{ html_difficulty.innerText = element.innerText; })});
+        if(html_dropdown_button) html_dropdown_button.addEventListener('click', onClickDropdown);
+        
         mqtt = require('mqtt');
         client  = mqtt.connect("ws://13.81.105.139");
 

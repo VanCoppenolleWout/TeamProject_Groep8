@@ -15,7 +15,7 @@
 <body class="login-page">
     <section class="o-row">
         <div class="o-container">
-            <form class="js-form-quantity" action="/website/configuratie-moeilijkheid.html">
+            <form class="js-form-difficulty js-button-start" action="/website/index.html">
                 <div class="c-card__body c-grid--configuratie">
 
                     <div class="o-header--sm c-grid--configuratie__head">
@@ -23,7 +23,7 @@
 
                     </div>
 
-                    <div class="c-configuratie__text c-grid--configuratie__configuratie">
+                    <div class="c-configuratie__text c-grid--configuratie__configuratie2">
                         Configuratie spel
                     </div>
 
@@ -223,12 +223,42 @@
                     </div>
 
 
-                    <label for="naam" class="c-card__text c-grid--trappen">Aantal trappen</label>
+                    <label for="naam" class="c-card__text c-grid--moeilijkheidsgraad">Moeilijkheidsgraad</label>
 
 
-                    <input class="js-quantity-input c-input--number c-grid--input c-input--number__hidden" min="2" max="10" step="2" value="2"
-                        type="number" name="" id="">
-                    <div class="c-grid--error js-input-error"></div>
+                    <div class="c-grid--dropdown c-dropdown js-dropdown">
+                        <div class="c-dropdown--button">
+                            <div class="js-difficulty">Makkelijk</div>
+
+                            <div>
+                                <svg class="c-dropdown--svg js-dropdown-svg" xmlns="http://www.w3.org/2000/svg"
+                                    height="24" viewBox="0 0 24 24" width="24">
+                                    <path d="M0 0h24v24H0V0z" fill="none" />
+                                    <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" /></svg>
+                            </div>
+                        </div>
+
+                        <div class="c-dropdown--hidden js-dropdown-hidden">
+                            <ul class="c-dropdown--items">
+                                <li class="c-dropdown--item js-dropdown-items">
+                                    Makkelijk
+                                </li>
+                                <li class="c-dropdown--item js-dropdown-items">
+                                    Gemiddeld
+                                </li>
+
+                                <li class="c-dropdown--item js-dropdown-items">
+                                    Moeilijk
+                                </li>
+
+                                <li class="c-dropdown--item js-dropdown-items">
+                                    Onverslaanbaar
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+
                     <div class="o-layout__buttons  c-grid--buttons">
 
                         <svg class="c-grid--arrow c-arrow js-button-back" xmlns="http://www.w3.org/2000/svg"
@@ -256,8 +286,8 @@
                         </svg>
 
 
-                        <button class="o-button-reset c-button c-button--volgende c-grid--button js-button-quantity"
-                            type="submit">Volgende</button>
+                        <button class="o-button-reset c-button c-button--volgende c-grid--button"
+                            type="submit">Start spel</button>
                     </div>
 
 
