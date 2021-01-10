@@ -773,6 +773,76 @@ input[type=number]::-webkit-outer-spin-button {
     max-width: 144px;
 }
 
+/*
+    Components: Dropdown
+*/
+
+.c-dropdown--button{
+    cursor:pointer;
+    background-color: var(--global-color-neutral-light);
+    color: var(--global-color-text);
+    margin: auto;
+    height: 2.5rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 16px;
+
+    border: var(--global-borderWidth) solid var(--global-color-alpha-dark);
+    border-radius: var(--global-borderRadius-xxl);
+    
+    color: var(--global-color-text);
+    background-color: var(--global-input-backgroundColor);
+    font-family: inherit;
+    font-size: 0.875em;
+    margin-bottom: 16px;
+
+}
+
+
+.c-dropdown--items{
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    padding-left: 1px;
+    margin-top: -12px;
+
+    margin-bottom: 1rem;
+}
+
+.c-dropdown--item{
+    cursor: pointer;
+    padding: 16px;
+    background-color: var(--global-color-neutral-light);
+    color: var(--global-color-text);
+}
+
+.c-dropdown--item:nth-child(1){
+    border-radius: 16px 16px 0px 0px;
+}
+
+.c-dropdown--item:nth-child(4){
+    border-radius: 0px 0px 16px 16px;
+}
+
+.c-dropdown--item:hover{
+    background-color: var(--global-color-background);
+}
+
+.c-dropdown--svg{
+    fill: var(--global-color-alpha-dark);
+}
+
+.c-dropdown--hidden{
+    display: none;
+}
+
+.c-dropdown--svg__180{
+    transform: rotate(180deg);
+}
+
+
 
 /*
     Component: Forms
@@ -944,39 +1014,41 @@ input[type=number]::-webkit-outer-spin-button {
 */
 
 .c-grid--error{
-    margin-top: -12px;
+    margin-top: -0.75rem;
     color: rgb(202, 45, 45);
     padding-left: 8px;
 }
 
 .c-arrow{
-    padding: 16px;
+    padding: 1rem;
+    cursor: pointer;
 }
 
 @media(min-width:760px){
 
-    /*Global styling */
+    /*Global styling at 760px*/
 
     .c-arrow{
         padding: 0px;
     }
     .c-card__title{
-        font-size: 48px;
-        margin-bottom: 98px;
+        font-size: 3rem;
+        margin-bottom: 6.125rem;
     }
 
     .c-configuratie__text{
-        font-size: 28px;
+        font-size: 1.75rem;
         margin-bottom: 0px;
         padding-bottom: 0px;
     }
 
     .c-card__text{
-        font-size: 28px;
+        font-size: 1.75rem;
     }
 
     .c-button--volgende{
-        max-width: 220px;
+        max-width: 13.75rem;
+        cursor: pointer;
     }
 
     .c-illustratie--sm{
@@ -988,15 +1060,15 @@ input[type=number]::-webkit-outer-spin-button {
     }
 
     .c-arrow{
-        padding-top: 8px;
-        margin-top: 4px;
+        padding-top: 0.5rem;
+        margin-top: 0.25rem;
     }
 
     .c-button--volgende{
-        height: 40px;
+        height: 2.5rem;
     }
 
-    /* Grid Styling */
+    /* Grid Styling at 760px*/
 
     .c-grid--configuratie{
         display: grid;
@@ -1007,10 +1079,10 @@ input[type=number]::-webkit-outer-spin-button {
         "button button"
         ;
         
-        width: 700px;
+        width: 43.75rem;
         margin: 0 auto;
-        padding-right: 48px;
-        padding-left: 48px;
+        padding-right: 3rem;
+        padding-left: 3rem;
     }
 
     .c-grid--configuratie__head{
@@ -1024,33 +1096,44 @@ input[type=number]::-webkit-outer-spin-button {
     .c-grid--configuratie__configuratie{
         grid-area: content;
         justify-self: end;
-        padding-right: 14px;
+        padding-right: 0.875rem;
+        
+
+         /* padding-right: 36px; */
+        
+    }
+
+    .c-grid--configuratie__configuratie2{
+        grid-area: content;
+        justify-self: end;
+
+         padding-right: 36px;
         
     }
 
     .c-grid--trappen{
         grid-area: content;
-        margin-top: 48px;
+        margin-top: 3rem;
         justify-self: end;
-        padding-right: 28px;
+        padding-right: 2rem;
 
     }
 
     .c-grid--input{
         grid-area: content;
-        margin-top: 120px;
-        max-width: 220px;
-        margin-right: 4px;
+        margin-top: 6.25rem;
+        max-width: 236px;
         justify-self: end;
     }
 
     .c-grid--error{
         grid-area: content;
-        margin-top: 165px;
+        margin-top: 9rem;
         justify-self: end;
-        max-width: 220px;
+        max-width: 13.75rem;
         color: rgb(202, 45, 45);
         font-size: 14px;
+        margin-right: 8px;
     }
 
     .c-grid--buttons{
@@ -1058,6 +1141,20 @@ input[type=number]::-webkit-outer-spin-button {
         width: 100%;
         display: flex;
         justify-content: space-between;
+    }
+
+    .c-grid--dropdown{
+        grid-area: content;
+        margin-top: 100px;
+        max-width: 258px;
+        width: 100%;
+        justify-self: end;
+    }
+
+    .c-grid--moeilijkheidsgraad{
+        grid-area: content;
+        margin-top: 3rem;
+        justify-self: end;
     }
     
 }
