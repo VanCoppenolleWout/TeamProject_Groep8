@@ -19,6 +19,7 @@
         // difficulty = html_difficulty.value;
         
         event.preventDefault();
+        console.log(html_difficulty.innerText);
 
         // payload = {"name": html_game_name.value, "difficulty": html_game_difficulty.value};
         if(html_difficulty.innerText == 'Makkelijk') payload = document.cookie = `difficulty=easy`;;
@@ -26,7 +27,12 @@
         if(html_difficulty.innerText == 'Moeilijk') payload = document.cookie = `difficulty=hard`;
 
         difficulty = getCookies('difficulty');
-        console.log(difficulty);
+        steps = getCookies('steps');
+        name = getCookies('name');
+        console.log(difficulty+name+steps);
+
+        payload = {"name":name, "difficulty": difficulty, "steps": steps};
+        client.publish(`${prefix}gamestart`, JSON.stringify(payload));
         
         
         // console.log(payload);
@@ -129,14 +135,30 @@
       }
    };
 
-   const checkDetails = () =>{
-     name = getCookies('name');
-     steps = getCookies('steps');
-     difficulty = getCookies('difficulty');
+   const checkDetails = async () =>{
+    //  name = getCookies('name');
+    //  steps = getCookies('steps');
+    //  difficulty = getCookies('difficulty');
+
+    //  payload = "gamestarted";
+
+    //  if(game_started == true){
+    //    if(answer.score == 0){
+
+    //    }
+    //  }
+
+    //  console.log('Checking details');
+
      
-     if(name == undefined || steps == undefined || difficulty == undefined){
-       window.location.href = 'http://127.0.0.1:5500/website/login.html'
-     };
+     
+    //  if(name == undefined || steps == undefined || difficulty == undefined){
+    //    window.location.href = 'http://127.0.0.1:5500/website/login.html'
+    //  };
+
+
+
+     
 
    };
 
@@ -217,18 +239,22 @@
         /*SET NAME*/
         
         /*TIMER*/
-        if(html_text_timer) checkDetails();
+        
         
         mqtt = require('mqtt');
         client  = mqtt.connect("ws://13.81.105.139");
 
         if(html_text_name) setName();
+        if(html_text_timer) checkDetails();
+        
+        client.publish(`${prefix}gamestarted`, JSON.stringify('gamestarted'));
 
         client.on('connect', function () {
             client.subscribe(`${prefix}quantitysteps/answer`);
             client.subscribe(`${prefix}gamestart/answer`);
             client.subscribe(`${prefix}game/answer`);
             client.subscribe(`${prefix}getname/answer`);
+            client.subscribe(`${prefix}gamestarted/answer`);
             
         });
          
@@ -245,13 +271,29 @@
                 answer = JSON.parse(message);
                 html_quantity_steps_answer.innerHTML = answer.answer;
             } else if(topic == `${prefix}gamestart/answer`) {
+              /*On game start*/
 
                 answer = JSON.parse(message);
                 console.log(answer)
                 // html_game_answer.innerHTML = answer.answer;
             } else if (topic == `${prefix}game/answer`) {
+              /*On game busy*/
                 answer = JSON.parse(message);
-                console.log(answer);
+                console.log('riigger');
+                console.log(answer.seconds);
+
+                if(answer.seconds==0){
+                  document.querySelector('.js-text-busy').innerHTML = `${answer.name} is aan het spelen...`;
+                  document.querySelector('.js-text-timer').innerHTML = `${answer.score}`;
+                  document.querySelector('.js-text-start').innerHTML = `Huidige score`;
+                  document.getElementById('jumpingman').setAttribute("class", "jumpingman");
+                  console.log('seconds == 0');
+                }
+
+                if(answer.seconds>0){
+                  document.querySelector('.js-text-timer').innerHTML = `${answer.seconds}`;
+                  console.log('seconds > 0');
+                }
 
                 // if(answer.start) {
                 //     html_gamestart_start.innerHTML = "Spel is gestart";
@@ -267,9 +309,15 @@
                 //     html_game.style.opacity = "1";
                 //     html_quantity.style.opacity = "1";
                 // };
-            } else if (topic == `${prefix}getname/answer`){
-              answer = JSON.parse(message)
-              html_text_name.innerHTML = answer.name;
+            } else if (topic == `${prefix}gamestarted/answer`){
+              console.log('game started triggered');
+              answer = JSON.parse(message);
+              game_started = answer.gamestarted;
+              if(game_started == true){
+                if(window.location.href != 'http://127.0.0.1:5500/website/game.html?') window.location.href='http://127.0.0.1:5500/website/game.html?';
+              }
+
+              if(game_started == false) console.log('helaaspindakees');
             }
             
         });
