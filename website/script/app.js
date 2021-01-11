@@ -6,14 +6,13 @@
 
 
     let html_button_quantity, html_button_start, html_button_stop, html_quantity_steps, html_quantity_steps_answer, html_game_name, html_game_difficulty,
-    html_game_answer, html_gamestart_start, html_gamestart_name, html_gamestart_score, html_game, html_quantity,html_form_quantity,html_form_difficulty, html_button_back, html_dropdown_button, html_dropdown_hidden, html_difficulty, html_dropdown_items, html_text_start;
+    html_game_answer, html_gamestart_start, html_gamestart_name, html_gamestart_score, html_game, html_quantity,html_form_quantity,html_form_difficulty, html_button_back, html_dropdown_button, html_dropdown_hidden, html_difficulty, html_dropdown_items, html_text_start, html_form_name;
     let difficulty, name, steps,seconds;
     let mqtt, client;
 
     const prefix = "teamproject/groep8/";
 
-    
-
+  
     const onClickStart = (event) => {
         // html_game_name = document.querySelector(".js-game-name");
         // html_game_difficulty = document.querySelector(".js-game-difficulty");
@@ -22,9 +21,13 @@
         event.preventDefault();
 
         // payload = {"name": html_game_name.value, "difficulty": html_game_difficulty.value};
-        payload = {"name": 'Kasper', "difficulty": html_difficulty.innerText};
+        if(html_difficulty.innerText == 'Makkelijk') payload = {"difficulty": 'easy'};
+        if(html_difficulty.innerText == 'Gemiddeld') payload = {"difficulty": 'normal'};
+        if(html_difficulty.innerText == 'Moeilijk') console.log('hard');
+        
+        
         console.log(payload);
-        // client.publish(`${prefix}gamestart`, JSON.stringify(payload));
+        client.publish(`${prefix}gamestart`, JSON.stringify(payload));
     };
 
     const onClickStop = (event) => {
@@ -62,6 +65,19 @@
 
     };
 
+    const onClickName = (event) =>{
+      event.preventDefault();
+      name = document.querySelector('.js-name-value').value;
+      if (name.match(/^ *$/) == null){
+
+        payload =  {"name": name};
+        client.publish(`${prefix}name`, JSON.stringify(payload));
+        html_form_name.submit();
+      }
+
+      
+    };
+
     const onClickBack = () =>{
       // window.history.back();
       if(window.location.href == 'http://127.0.0.1:5500/website/configuratie.html?' || window.location.href =='http://127.0.0.1:5500/website/configuratie.html') window.location.href='http://127.0.0.1:5500/website/main.html';
@@ -85,6 +101,11 @@
         }
     };
 
+    const setName = () =>{
+      payload =  "name";
+      client.publish(`${prefix}getname`, JSON.stringify(payload));
+    };
+
     const init = () => {
         /*Buttons*/
         html_button_quantity = document.querySelector(".js-button-quantity");
@@ -103,11 +124,13 @@
         /*Text*/
         html_text_start = document.querySelector('.js-text-start');
         html_text_timer = document.querySelector('.js-text-timer');
+        html_text_name = document.querySelector('.js-name');
 
 
         /*Forms*/
         html_form_quantity = document.querySelector('.js-form-quantity');
         html_form_difficulty = document.querySelector('.js-form-difficulty');
+        html_form_name = document.querySelector('.js-form-name');
 
         /*Input values*/
         html_input_quantity = document.querySelector(".js-quantity-input");
@@ -116,7 +139,9 @@
         if(html_input_quantity) html_input_quantity.addEventListener("blur", onInputQuantity);
 
         if(html_form_quantity) html_form_quantity.addEventListener('submit', onClickQuantity);
-        if(html_button_start) html_button_start.addEventListener("submit", onClickStart);
+        // if(html_button_start) html_button_start.addEventListener("submit", onClickStart);
+        if(html_form_name) html_form_name.addEventListener('submit', onClickName);
+        if(html_form_difficulty) html_form_difficulty.addEventListener('submit', onClickStart);
 
         // if(html_button_quantity) html_button_quantity.addEventListener("click", onClickQuantity);
         // if(html_button_start) html_button_start.addEventListener("click", onClickStart);
@@ -126,16 +151,22 @@
           element.addEventListener('click', () =>{ html_difficulty.innerText = element.innerText; })});
         if(html_dropdown_button) html_dropdown_button.addEventListener('click', onClickDropdown);
 
+        /*SET NAME*/
+        
         /*TIMER*/
         if(html_text_timer) setInterval(changeTimer, 1000);
         
         mqtt = require('mqtt');
         client  = mqtt.connect("ws://13.81.105.139");
 
+        if(html_text_name) setName();
+
         client.on('connect', function () {
             client.subscribe(`${prefix}quantitysteps/answer`);
             client.subscribe(`${prefix}gamestart/answer`);
             client.subscribe(`${prefix}game/answer`);
+            client.subscribe(`${prefix}getname/answer`);
+            
         });
          
         client.on('message', function (topic, message) {
@@ -151,27 +182,33 @@
                 answer = JSON.parse(message);
                 html_quantity_steps_answer.innerHTML = answer.answer;
             } else if(topic == `${prefix}gamestart/answer`) {
-                answer = JSON.parse(message);
-                html_game_answer.innerHTML = answer.answer;
-            } else if (topic = `${prefix}game/answer`) {
+
                 answer = JSON.parse(message);
                 console.log(answer)
+                // html_game_answer.innerHTML = answer.answer;
+            } else if (topic == `${prefix}game/answer`) {
+                answer = JSON.parse(message);
+                console.log(answer);
 
-                if(answer.start) {
-                    html_gamestart_start.innerHTML = "Spel is gestart";
-                    html_gamestart_name.innerHTML = `Naam: ${answer.name}`;
-                    html_gamestart_score.innerHTML = `Score: ${answer.score}`;
-                    // TODO: maak het onmogelijk dat de speler nieuwe data kan ingeven
-                    html_game.style.opacity = "0.4";
-                    html_quantity.style.opacity = "0.4";
-                } else {
-                    html_gamestart_start.innerHTML = "Spel is gestopt";
-                    html_gamestart_name.innerHTML = `Naam: ${answer.name}`;
-                    html_gamestart_score.innerHTML = `Score: ${answer.score}`;
-                    html_game.style.opacity = "1";
-                    html_quantity.style.opacity = "1";
-                };
-            };
+                // if(answer.start) {
+                //     html_gamestart_start.innerHTML = "Spel is gestart";
+                //     html_gamestart_name.innerHTML = `Naam: ${answer.name}`;
+                //     html_gamestart_score.innerHTML = `Score: ${answer.score}`;
+                //     // TODO: maak het onmogelijk dat de speler nieuwe data kan ingeven
+                //     html_game.style.opacity = "0.4";
+                //     html_quantity.style.opacity = "0.4";
+                // } else {
+                //     html_gamestart_start.innerHTML = "Spel is gestopt";
+                //     html_gamestart_name.innerHTML = `Naam: ${answer.name}`;
+                //     html_gamestart_score.innerHTML = `Score: ${answer.score}`;
+                //     html_game.style.opacity = "1";
+                //     html_quantity.style.opacity = "1";
+                // };
+            } else if (topic == `${prefix}getname/answer`){
+              answer = JSON.parse(message)
+              html_text_name.innerHTML = answer.name;
+            }
+            
         });
     };
 
