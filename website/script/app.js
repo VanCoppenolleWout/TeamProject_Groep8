@@ -6,7 +6,7 @@
 
 
     let html_button_quantity, html_button_start, html_button_stop, html_quantity_steps, html_quantity_steps_answer, html_game_name, html_game_difficulty,
-    html_game_answer, html_gamestart_start, html_gamestart_name, html_gamestart_score, html_game, html_quantity,html_form_quantity,html_form_difficulty, html_button_back, html_dropdown_button, html_dropdown_hidden, html_difficulty, html_dropdown_items, html_text_start;
+    html_game_answer, html_gamestart_start, html_gamestart_name, html_gamestart_score, html_game, html_quantity,html_form_quantity,html_form_difficulty, html_button_back, html_dropdown_button, html_dropdown_hidden, html_difficulty, html_dropdown_items, html_text_start, html_form_name;
     let difficulty, name, steps,seconds;
     let mqtt, client;
 
@@ -62,6 +62,18 @@
 
     };
 
+    const onClickName = (event) =>{
+      event.preventDefault();
+      name = document.querySelector('.js-name-value').value;
+      if (name.match(/^ *$/) == null){
+        payload =  {"name": name};
+        client.publish(`${prefix}name`, JSON.stringify(payload));
+        html_form_name.submit();
+      }
+
+      
+    };
+
     const onClickBack = () =>{
       // window.history.back();
       if(window.location.href == 'http://127.0.0.1:5500/website/configuratie.html?' || window.location.href =='http://127.0.0.1:5500/website/configuratie.html') window.location.href='http://127.0.0.1:5500/website/main.html';
@@ -108,6 +120,7 @@
         /*Forms*/
         html_form_quantity = document.querySelector('.js-form-quantity');
         html_form_difficulty = document.querySelector('.js-form-difficulty');
+        html_form_name = document.querySelector('.js-form-name');
 
         /*Input values*/
         html_input_quantity = document.querySelector(".js-quantity-input");
@@ -117,6 +130,7 @@
 
         if(html_form_quantity) html_form_quantity.addEventListener('submit', onClickQuantity);
         if(html_button_start) html_button_start.addEventListener("submit", onClickStart);
+        if(html_form_name) html_form_name.addEventListener('submit', onClickName);
 
         // if(html_button_quantity) html_button_quantity.addEventListener("click", onClickQuantity);
         // if(html_button_start) html_button_start.addEventListener("click", onClickStart);
