@@ -473,6 +473,11 @@ input:disabled {
     flex-direction: row;
 }
 
+.o-layout__uitleg {
+    display: flex;
+    flex-direction: column;
+}
+
 /*------------------------------------*\
 #COMPONENTS
 \*------------------------------------*/
@@ -509,6 +514,18 @@ input:disabled {
     text-align: center;
 }
 
+.c-card__subtitle {
+    font-size: 1.25em;
+    margin: var(--global-whitespace-sm) 0;
+    line-height: inherit;
+}
+
+.c-card__subtitleh2 {
+    font-size: 1.15em;
+    margin: var(--global-whitespace-sm) 0;
+    line-height: inherit;
+}
+
 .c-card__text {
     margin-bottom: var(--global-whitespace);
     color: var(--global-color-neutral-light);
@@ -538,6 +555,39 @@ input:disabled {
     text-align: center;
     color: var(--global-color-neutral-light);
     font-size: 1.375em;
+}
+
+.c-card__navigation {
+    font-weight: 500;
+    font-size: 1.375em;
+    width: 100%;
+    font-size: 0.875em;
+    text-align: left;
+    padding-top: calc(var(--global-whitespace-sm) + 1px);
+    padding-bottom: calc(var(--global-whitespace-sm) + 3px);
+    padding-left: var(--global-whitespace-md);
+    padding-right: var(--global-whitespace-md);
+    margin-bottom: var(--global-whitespace-lg);
+    color: var(--global-color-neutral-xxx-light);
+    border-radius: calc(var(--global-borderRadius) * 2);
+    background-color: var(--global-color-neutral-light);
+    box-shadow: var(--global-input-focus-boxShadowSpread-text);
+}
+
+.c-card__uitlegheader {
+    font-size: 1.25rem;
+    margin-bottom: var(--global-whitespace-sm);
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.c-card__uitlegtekst {
+    font-size: 1em;
+    font-weight: 400;
+    margin-bottom: var(--global-whitespace-sm);
 }
 
 /*
@@ -753,9 +803,8 @@ input[type=number]::-webkit-outer-spin-button {
 
 .c-button__navigation {
     font-weight: 500;
-    font-size: 1.375em;
+    font-size: 1.25em;
     width: 100%;
-    font-size: 0.875em;
     text-align: left;
     padding-top: calc(var(--global-whitespace-sm) + 1px);
     padding-bottom: calc(var(--global-whitespace-sm) + 3px);

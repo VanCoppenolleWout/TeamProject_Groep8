@@ -6,7 +6,7 @@
 
 
     let html_button_quantity, html_button_start, html_button_stop, html_quantity_steps, html_quantity_steps_answer, html_game_name, html_game_difficulty,
-    html_game_answer, html_gamestart_start, html_gamestart_name, html_gamestart_score, html_game, html_quantity,html_form_quantity,html_form_difficulty, html_button_back, html_dropdown_button, html_dropdown_hidden, html_difficulty, html_dropdown_items, html_text_start, html_form_name;
+    html_game_answer, html_gamestart_start, html_gamestart_name, html_gamestart_score, html_game, html_quantity,html_form_quantity,html_form_difficulty, html_button_back, html_dropdown_button, html_dropdown_hidden, html_difficulty, html_dropdown_items, html_text_start, html_buttton_uitleg_gesloten, html_buttton_uitleg_open;
     let difficulty, name, steps,seconds;
     let mqtt, client;
 
@@ -106,6 +106,21 @@
       client.publish(`${prefix}getname`, JSON.stringify(payload));
     };
 
+    const toggleState = function() {
+      var d1 = document.getElementById("js-geslotendiv");
+      var d2 = document.getElementById("js-opendiv");
+      if( d2.style.display == "none" )
+      {
+         d1.style.display = "none";
+         d2.style.display = "flex";
+      }
+      else
+      {
+         d1.style.display = "flex";
+         d2.style.display = "none";
+      }
+   };
+
     const init = () => {
         /*Buttons*/
         html_button_quantity = document.querySelector(".js-button-quantity");
@@ -115,6 +130,8 @@
         html_button_stop = document.querySelector(".js-button-stop");
         html_button_back = document.querySelector('.js-button-back');
         html_dropdown_button = document.querySelector('.js-dropdown');
+        html_buttton_uitleg_gesloten = document.querySelector(".js-uitleg__gesloten");
+        html_buttton_uitleg_open = document.querySelector(".js-uitleg__open");
 
         /*Dropdown properties*/
         html_dropdown_hidden = document.querySelector('.js-dropdown-hidden');
@@ -142,6 +159,9 @@
         // if(html_button_start) html_button_start.addEventListener("submit", onClickStart);
         if(html_form_name) html_form_name.addEventListener('submit', onClickName);
         if(html_form_difficulty) html_form_difficulty.addEventListener('submit', onClickStart);
+
+        if(html_buttton_uitleg_gesloten) html_buttton_uitleg_gesloten.addEventListener('click', toggleState);
+        if(html_buttton_uitleg_open) html_buttton_uitleg_open.addEventListener('click', toggleState);
 
         // if(html_button_quantity) html_button_quantity.addEventListener("click", onClickQuantity);
         // if(html_button_start) html_button_start.addEventListener("click", onClickStart);
