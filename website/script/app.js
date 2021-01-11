@@ -7,21 +7,11 @@
 
     let html_button_quantity, html_button_start, html_button_stop, html_quantity_steps, html_quantity_steps_answer, html_game_name, html_game_difficulty,
     html_game_answer, html_gamestart_start, html_gamestart_name, html_gamestart_score, html_game, html_quantity,html_form_quantity,html_form_difficulty, html_button_back, html_dropdown_button, html_dropdown_hidden, html_difficulty, html_dropdown_items, html_text_start, html_buttton_uitleg_gesloten, html_buttton_uitleg_open, html_form_name;
-    let difficulty, name, steps,seconds;
+    let difficulty, name, steps,seconds, game_started;
+    var cookies;
     let mqtt, client;
 
     const prefix = "teamproject/groep8/";
-
-    const getCookies = (choice) => {
-      var cookies = document.cookie
-      .split(';')
-      .map(cookie => cookie.split('='))
-      .reduce((accumulator, [key, value]) => ({ ...accumulator, [key.trim()]: decodeURIComponent(value) }), {});
-
-        if(choice == 'name')return cookies.name;
-        if(choice == 'steps')return cookies.steps;
-        if(choice == 'difficulty')return cookies.difficulty;
-    };
   
     const onClickDifficulty = (event) => {
         // html_game_name = document.querySelector(".js-game-name");
@@ -139,8 +129,41 @@
       }
    };
 
-    const init = () => {
-      
+   const checkDetails = () =>{
+     name = getCookies('name');
+     steps = getCookies('steps');
+     difficulty = getCookies('difficulty');
+     
+     if(name == undefined || steps == undefined || difficulty == undefined){
+       window.location.href = 'http://127.0.0.1:5500/website/login.html'
+     };
+
+   };
+
+
+   function deleteAllCookies() {
+    var cookies = document.cookie.split(";");
+
+    for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i];
+        var eqPos = cookie.indexOf("=");
+        var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    };
+  };
+
+  const getCookies = (choice) => {
+    cookies = document.cookie
+    .split(';')
+    .map(cookie => cookie.split('='))
+    .reduce((accumulator, [key, value]) => ({ ...accumulator, [key.trim()]: decodeURIComponent(value) }), {});
+
+      if(choice == 'name')return cookies.name;
+      if(choice == 'steps')return cookies.steps;
+      if(choice == 'difficulty')return cookies.difficulty;
+    };
+
+    const init = () => {     
         /*Buttons*/
         html_button_quantity = document.querySelector(".js-button-quantity");
         html_button_quantity = document.querySelector(".js-button-name");
@@ -160,6 +183,7 @@
         /*Text*/
         html_text_start = document.querySelector('.js-text-start');
         html_text_timer = document.querySelector('.js-text-timer');
+        html_text_busy = document.querySelector('.js-text-busy')
         html_text_name = document.querySelector('.js-name');
 
 
@@ -193,7 +217,7 @@
         /*SET NAME*/
         
         /*TIMER*/
-        if(html_text_timer) setInterval(changeTimer, 1000);
+        if(html_text_timer) checkDetails();
         
         mqtt = require('mqtt');
         client  = mqtt.connect("ws://13.81.105.139");
