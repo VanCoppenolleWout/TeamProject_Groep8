@@ -6,8 +6,8 @@
 
 
     let html_button_quantity, html_button_start, html_button_stop, html_quantity_steps, html_quantity_steps_answer, html_game_name, html_game_difficulty,
-    html_game_answer, html_gamestart_start, html_gamestart_name, html_gamestart_score, html_game, html_quantity,html_form_quantity,html_form_difficulty, html_button_back, html_dropdown_button, html_dropdown_hidden, html_difficulty, html_dropdown_items;
-    let difficulty, name, steps;
+    html_game_answer, html_gamestart_start, html_gamestart_name, html_gamestart_score, html_game, html_quantity,html_form_quantity,html_form_difficulty, html_button_back, html_dropdown_button, html_dropdown_hidden, html_difficulty, html_dropdown_items, html_text_start;
+    let difficulty, name, steps,seconds;
     let mqtt, client;
 
     const prefix = "teamproject/groep8/";
@@ -24,7 +24,7 @@
         // payload = {"name": html_game_name.value, "difficulty": html_game_difficulty.value};
         payload = {"name": 'Kasper', "difficulty": html_difficulty.innerText};
         console.log(payload);
-        client.publish(`${prefix}gamestart`, JSON.stringify(payload));
+        // client.publish(`${prefix}gamestart`, JSON.stringify(payload));
     };
 
     const onClickStop = (event) => {
@@ -70,6 +70,10 @@
       
     };
 
+    const changeTimer = () =>{
+      
+    };
+
     const onClickDropdown = () =>{
       if(html_dropdown_hidden.className=='c-dropdown--hidden js-dropdown-hidden'){
         html_dropdown_hidden.setAttribute('class', 'js-dropdown-hidden c-dropdown--visible');
@@ -95,7 +99,12 @@
         html_dropdown_hidden = document.querySelector('.js-dropdown-hidden');
         html_difficulty = document.querySelector('.js-difficulty');
         html_dropdown_items = document.querySelectorAll('.js-dropdown-items');
-        
+
+        /*Text*/
+        html_text_start = document.querySelector('.js-text-start');
+        html_text_timer = document.querySelector('.js-text-timer');
+
+
         /*Forms*/
         html_form_quantity = document.querySelector('.js-form-quantity');
         html_form_difficulty = document.querySelector('.js-form-difficulty');
@@ -116,6 +125,9 @@
         if(html_dropdown_items) html_dropdown_items.forEach(element => {
           element.addEventListener('click', () =>{ html_difficulty.innerText = element.innerText; })});
         if(html_dropdown_button) html_dropdown_button.addEventListener('click', onClickDropdown);
+
+        /*TIMER*/
+        if(html_text_timer) setInterval(changeTimer, 1000);
         
         mqtt = require('mqtt');
         client  = mqtt.connect("ws://13.81.105.139");
