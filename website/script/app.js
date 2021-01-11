@@ -12,22 +12,36 @@
 
     const prefix = "teamproject/groep8/";
 
+    const getCookies = (choice) => {
+      var cookies = document.cookie
+      .split(';')
+      .map(cookie => cookie.split('='))
+      .reduce((accumulator, [key, value]) => ({ ...accumulator, [key.trim()]: decodeURIComponent(value) }), {});
+
+        if(choice == 'name')return cookies.name;
+        if(choice == 'steps')return cookies.steps;
+        if(choice == 'difficulty')return cookies.difficulty;
+    };
   
-    const onClickStart = (event) => {
+    const onClickDifficulty = (event) => {
         // html_game_name = document.querySelector(".js-game-name");
         // html_game_difficulty = document.querySelector(".js-game-difficulty");
-        
+        // difficulty = html_difficulty.value;
         
         event.preventDefault();
 
         // payload = {"name": html_game_name.value, "difficulty": html_game_difficulty.value};
-        if(html_difficulty.innerText == 'Makkelijk') payload = {"difficulty": 'easy'};
-        if(html_difficulty.innerText == 'Gemiddeld') payload = {"difficulty": 'normal'};
-        if(html_difficulty.innerText == 'Moeilijk') console.log('hard');
+        if(html_difficulty.innerText == 'Makkelijk') payload = document.cookie = `difficulty=easy`;;
+        if(html_difficulty.innerText == 'Gemiddeld') payload = document.cookie = `difficulty=normal`;
+        if(html_difficulty.innerText == 'Moeilijk') payload = document.cookie = `difficulty=hard`;
+
+        difficulty = getCookies('difficulty');
+        console.log(difficulty);
         
         
-        console.log(payload);
-        client.publish(`${prefix}gamestart`, JSON.stringify(payload));
+        // console.log(payload);
+        // client.publish(`${prefix}gamestart`, JSON.stringify(payload));
+        html_form_difficulty.submit();
     };
 
     const onClickStop = (event) => {
@@ -44,10 +58,11 @@
       html_quantity_steps = document.querySelector('.js-quantity-input');
 
       if(html_quantity_steps.value >= 0 && html_quantity_steps.value <= 10 && html_quantity_steps.value%2 == 0){
-        payload = {"steps": html_quantity_steps.value};
-        console.log(payload);
-        client.publish(`${prefix}quantitysteps`, JSON.stringify(payload));
-
+        // payload = {"steps": html_quantity_steps.value};
+        // console.log(payload);
+        // client.publish(`${prefix}quantitysteps`, JSON.stringify(payload));
+        steps = html_quantity_steps.value
+        document.cookie = `steps=${steps}`;
         html_form_quantity.submit();
       }
   };
@@ -70,8 +85,9 @@
       name = document.querySelector('.js-name-value').value;
       if (name.match(/^ *$/) == null){
 
-        payload =  {"name": name};
-        client.publish(`${prefix}name`, JSON.stringify(payload));
+        // payload =  {"name": name};
+        // client.publish(`${prefix}name`, JSON.stringify(payload));
+        document.cookie = `name=${name}`;
         html_form_name.submit();
       }
 
@@ -102,8 +118,10 @@
     };
 
     const setName = () =>{
-      payload =  "name";
-      client.publish(`${prefix}getname`, JSON.stringify(payload));
+      // payload =  "name";
+      // client.publish(`${prefix}getname`, JSON.stringify(payload));
+      name = getCookies('name');
+      html_text_name.innerHTML = name;
     };
 
     const toggleState = function() {
@@ -122,6 +140,7 @@
    };
 
     const init = () => {
+      
         /*Buttons*/
         html_button_quantity = document.querySelector(".js-button-quantity");
         html_button_quantity = document.querySelector(".js-button-name");
@@ -158,7 +177,7 @@
         if(html_form_quantity) html_form_quantity.addEventListener('submit', onClickQuantity);
         // if(html_button_start) html_button_start.addEventListener("submit", onClickStart);
         if(html_form_name) html_form_name.addEventListener('submit', onClickName);
-        if(html_form_difficulty) html_form_difficulty.addEventListener('submit', onClickStart);
+        if(html_form_difficulty) html_form_difficulty.addEventListener('submit', onClickDifficulty);
 
         if(html_buttton_uitleg_gesloten) html_buttton_uitleg_gesloten.addEventListener('click', toggleState);
         if(html_buttton_uitleg_open) html_buttton_uitleg_open.addEventListener('click', toggleState);
