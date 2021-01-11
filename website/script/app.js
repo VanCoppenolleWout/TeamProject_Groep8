@@ -21,9 +21,13 @@
         event.preventDefault();
 
         // payload = {"name": html_game_name.value, "difficulty": html_game_difficulty.value};
-        payload = {"name": 'Kasper', "difficulty": html_difficulty.innerText};
+        if(html_difficulty.innerText == 'Makkelijk') payload = {"difficulty": 'easy'};
+        if(html_difficulty.innerText == 'Gemiddeld') payload = {"difficulty": 'normal'};
+        if(html_difficulty.innerText == 'Moeilijk') console.log('hard');
+        
+        
         console.log(payload);
-        // client.publish(`${prefix}gamestart`, JSON.stringify(payload));
+        client.publish(`${prefix}gamestart`, JSON.stringify(payload));
     };
 
     const onClickStop = (event) => {
@@ -135,8 +139,9 @@
         if(html_input_quantity) html_input_quantity.addEventListener("blur", onInputQuantity);
 
         if(html_form_quantity) html_form_quantity.addEventListener('submit', onClickQuantity);
-        if(html_button_start) html_button_start.addEventListener("submit", onClickStart);
+        // if(html_button_start) html_button_start.addEventListener("submit", onClickStart);
         if(html_form_name) html_form_name.addEventListener('submit', onClickName);
+        if(html_form_difficulty) html_form_difficulty.addEventListener('submit', onClickStart);
 
         // if(html_button_quantity) html_button_quantity.addEventListener("click", onClickQuantity);
         // if(html_button_start) html_button_start.addEventListener("click", onClickStart);
@@ -177,26 +182,28 @@
                 answer = JSON.parse(message);
                 html_quantity_steps_answer.innerHTML = answer.answer;
             } else if(topic == `${prefix}gamestart/answer`) {
-                answer = JSON.parse(message);
-                html_game_answer.innerHTML = answer.answer;
-            } else if (topic == `${prefix}game/answer`) {
+
                 answer = JSON.parse(message);
                 console.log(answer)
+                // html_game_answer.innerHTML = answer.answer;
+            } else if (topic == `${prefix}game/answer`) {
+                answer = JSON.parse(message);
+                console.log(answer);
 
-                if(answer.start) {
-                    html_gamestart_start.innerHTML = "Spel is gestart";
-                    html_gamestart_name.innerHTML = `Naam: ${answer.name}`;
-                    html_gamestart_score.innerHTML = `Score: ${answer.score}`;
-                    // TODO: maak het onmogelijk dat de speler nieuwe data kan ingeven
-                    html_game.style.opacity = "0.4";
-                    html_quantity.style.opacity = "0.4";
-                } else {
-                    html_gamestart_start.innerHTML = "Spel is gestopt";
-                    html_gamestart_name.innerHTML = `Naam: ${answer.name}`;
-                    html_gamestart_score.innerHTML = `Score: ${answer.score}`;
-                    html_game.style.opacity = "1";
-                    html_quantity.style.opacity = "1";
-                };
+                // if(answer.start) {
+                //     html_gamestart_start.innerHTML = "Spel is gestart";
+                //     html_gamestart_name.innerHTML = `Naam: ${answer.name}`;
+                //     html_gamestart_score.innerHTML = `Score: ${answer.score}`;
+                //     // TODO: maak het onmogelijk dat de speler nieuwe data kan ingeven
+                //     html_game.style.opacity = "0.4";
+                //     html_quantity.style.opacity = "0.4";
+                // } else {
+                //     html_gamestart_start.innerHTML = "Spel is gestopt";
+                //     html_gamestart_name.innerHTML = `Naam: ${answer.name}`;
+                //     html_gamestart_score.innerHTML = `Score: ${answer.score}`;
+                //     html_game.style.opacity = "1";
+                //     html_quantity.style.opacity = "1";
+                // };
             } else if (topic == `${prefix}getname/answer`){
               answer = JSON.parse(message)
               html_text_name.innerHTML = answer.name;
