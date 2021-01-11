@@ -6,7 +6,7 @@
 
 
     let html_button_quantity, html_button_start, html_button_stop, html_quantity_steps, html_quantity_steps_answer, html_game_name, html_game_difficulty,
-    html_game_answer, html_gamestart_start, html_gamestart_name, html_gamestart_score, html_game, html_quantity,html_form_quantity,html_form_difficulty, html_button_back, html_dropdown_button, html_dropdown_hidden, html_difficulty, html_dropdown_items, html_text_start, html_buttton_uitleg_gesloten, html_buttton_uitleg_open;
+    html_game_answer, html_gamestart_start, html_gamestart_name, html_gamestart_score, html_game, html_quantity,html_form_quantity,html_form_difficulty, html_button_back, html_dropdown_button, html_dropdown_hidden, html_difficulty, html_dropdown_items, html_text_start, html_buttton_uitleg_gesloten, html_buttton_uitleg_open, html_form_name;
     let difficulty, name, steps,seconds;
     let mqtt, client;
 
