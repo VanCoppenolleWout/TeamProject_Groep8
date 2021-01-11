@@ -1101,6 +1101,23 @@ input[type=number]::-webkit-outer-spin-button {
     width: 2em;
 }
 
+.jumpingman{
+    animation: jump 1s ease-in-out alternate infinite;
+}
+
+
+/*
+    Keyframes: jumpingman
+*/
+@keyframes jump{
+    from{
+        transform: rotateX(0deg);
+    }
+    to{
+        transform: rotateX(30deg);
+    }
+}
+
 /*
     Component: Grid
 */
