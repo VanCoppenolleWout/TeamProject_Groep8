@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/screen.css">
     <link rel="stylesheet" href="css/normalize.css">
-    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js" type="text/javascript">
+    </script>
+    <script src="./script/app.js"></script>
+    <title>Trappenspel</title>
 </head>
 <body class="login-page">
     <section class="o-row">
@@ -15,7 +18,7 @@
                     <div class="o-header">
                       <h1 class="c-card__title">Trappenspel</h1>
                     </div>
-                    <p class="c-card__welcome js-playername">Welkom <strong>Kobe</strong></p>
+                    <p class="c-card__welcome js-playername">Welkom <strong class="js-name"></strong></p>
                     <div>
                         <button class="o-button-reset c-button__navigation" type="submit">Spel starten <svg id="sports_handball-24px" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                             <g id="Group_3" data-name="Group 3">

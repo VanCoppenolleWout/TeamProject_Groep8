@@ -12,8 +12,7 @@
 
     const prefix = "teamproject/groep8/";
 
-    
-
+  
     const onClickStart = (event) => {
         // html_game_name = document.querySelector(".js-game-name");
         // html_game_difficulty = document.querySelector(".js-game-difficulty");
@@ -66,6 +65,7 @@
       event.preventDefault();
       name = document.querySelector('.js-name-value').value;
       if (name.match(/^ *$/) == null){
+
         payload =  {"name": name};
         client.publish(`${prefix}name`, JSON.stringify(payload));
         html_form_name.submit();
@@ -97,6 +97,11 @@
         }
     };
 
+    const setName = () =>{
+      payload =  "name";
+      client.publish(`${prefix}getname`, JSON.stringify(payload));
+    };
+
     const init = () => {
         /*Buttons*/
         html_button_quantity = document.querySelector(".js-button-quantity");
@@ -115,6 +120,7 @@
         /*Text*/
         html_text_start = document.querySelector('.js-text-start');
         html_text_timer = document.querySelector('.js-text-timer');
+        html_text_name = document.querySelector('.js-name');
 
 
         /*Forms*/
@@ -140,16 +146,22 @@
           element.addEventListener('click', () =>{ html_difficulty.innerText = element.innerText; })});
         if(html_dropdown_button) html_dropdown_button.addEventListener('click', onClickDropdown);
 
+        /*SET NAME*/
+        
         /*TIMER*/
         if(html_text_timer) setInterval(changeTimer, 1000);
         
         mqtt = require('mqtt');
         client  = mqtt.connect("ws://13.81.105.139");
 
+        if(html_text_name) setName();
+
         client.on('connect', function () {
             client.subscribe(`${prefix}quantitysteps/answer`);
             client.subscribe(`${prefix}gamestart/answer`);
             client.subscribe(`${prefix}game/answer`);
+            client.subscribe(`${prefix}getname/answer`);
+            
         });
          
         client.on('message', function (topic, message) {
@@ -167,7 +179,7 @@
             } else if(topic == `${prefix}gamestart/answer`) {
                 answer = JSON.parse(message);
                 html_game_answer.innerHTML = answer.answer;
-            } else if (topic = `${prefix}game/answer`) {
+            } else if (topic == `${prefix}game/answer`) {
                 answer = JSON.parse(message);
                 console.log(answer)
 
@@ -185,7 +197,11 @@
                     html_game.style.opacity = "1";
                     html_quantity.style.opacity = "1";
                 };
-            };
+            } else if (topic == `${prefix}getname/answer`){
+              answer = JSON.parse(message)
+              html_text_name.innerHTML = answer.name;
+            }
+            
         });
     };
 
