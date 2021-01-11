@@ -420,6 +420,10 @@ input:disabled {
     border: 0;
 }
 
+.o-hide{
+    display: none;
+}
+
 /*
     Objects: Layout
     ---
@@ -995,6 +999,34 @@ input[type=number]::-webkit-outer-spin-button {
     height: 6px;
 }
 
+
+/*
+    Components: Game
+*/
+.c-game--text{
+    /* margin-bottom: 64px; */
+    margin-bottom: 64px;
+    color: var(--global-color-neutral-light);
+    font-size: 24px;
+    text-align: center;
+}
+
+.c-game--scoor{
+    font-weight: 500;
+    color: var(--global-color-neutral-light);
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.c-game--score{
+    font-weight: 500;
+    color: var(--global-color-neutral-light);
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
 /*
     Component: SVG
 */
@@ -1008,6 +1040,14 @@ input[type=number]::-webkit-outer-spin-button {
     display: none;
 }
 
+.c-jumpingman{
+    text-align: center;
+}
+
+.c-arrow{
+    padding: 1rem;
+    cursor: pointer;
+}
 
 /*
     Component: Grid
@@ -1018,12 +1058,9 @@ input[type=number]::-webkit-outer-spin-button {
     color: rgb(202, 45, 45);
     padding-left: 8px;
 }
-
-.c-arrow{
-    padding: 1rem;
-    cursor: pointer;
-}
-
+/*
+    Mediaquery configuratie.html
+*/
 @media(min-width:760px){
 
     /*Global styling at 760px*/
@@ -1159,6 +1196,67 @@ input[type=number]::-webkit-outer-spin-button {
     
 }
 
+/*
+    Mediaquerie game.html
+*/
+@media(min-width:760px){
+
+    .c-grid--game{
+        display: grid;
+        
+
+        grid-template-areas: 
+        "head head"
+        "svg right"
+        "svg right"
+        "svg right"
+        "button button"
+        ;
+        
+        width: 43.75rem;
+        margin: 0 auto;
+        /* padding-right: 3rem;
+        padding-left: 3rem; */
+    }
+
+    .c-grid--game__head{
+        grid-area: head;
+    }
+
+    .c-grid--game__svg{
+        grid-area: svg;
+    }
+
+    .c-grid--text{
+        grid-area: right;
+        text-align: center;
+    }
+
+    .c-grid--huidigescore{
+        grid-area: right;
+        margin-top: 64px;
+    }
+
+    .c-grid--score{
+        grid-area: right;
+        margin-top: 96px;
+    }
+
+    .c-grid--button{
+        grid-area: button;
+        max-width: 244px;
+        justify-self: center;
+    }
+    .c-grid--buttonstop{
+        grid-area: button;
+        margin-top: 64px;
+
+        max-width: 500px;
+        justify-self: center;
+    }
+
+
+}
 
 /*------------------------------------*\
 #UTILITIES
