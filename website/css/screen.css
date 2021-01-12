@@ -743,7 +743,7 @@ input[type=number]::-webkit-outer-spin-button {
 .c-configuratie__text{
     margin-bottom: var(--global-whitespace);
     color: var(--global-color-neutral-light);
-    font-size: 24px;
+    font-size: 1em;
 }
 
 /*
@@ -902,6 +902,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 .c-dropdown--svg{
     fill: var(--global-color-alpha-dark);
+    padding-top: 2px;
 }
 
 .c-dropdown--hidden{
@@ -910,6 +911,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 .c-dropdown--svg__180{
     transform: rotate(180deg);
+    padding-top: 2px;
 }
 
 
@@ -1117,8 +1119,9 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .c-arrow{
-    padding: 1rem;
+    /* padding: 1rem; */
     cursor: pointer;
+    width: 2em;
 }
 
 .jumpingman{
