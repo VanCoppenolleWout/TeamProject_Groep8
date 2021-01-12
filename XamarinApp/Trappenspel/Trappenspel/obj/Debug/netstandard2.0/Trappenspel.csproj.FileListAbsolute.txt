@@ -1,0 +1,14 @@
+C:\Users\Gilian\source\repos\Trappenspel\Trappenspel\bin\Debug\netstandard2.0\Trappenspel.deps.json
+C:\Users\Gilian\source\repos\Trappenspel\Trappenspel\bin\Debug\netstandard2.0\Trappenspel.dll
+C:\Users\Gilian\source\repos\Trappenspel\Trappenspel\bin\Debug\netstandard2.0\ref\Trappenspel.dll
+C:\Users\Gilian\source\repos\Trappenspel\Trappenspel\bin\Debug\netstandard2.0\Trappenspel.pdb
+C:\Users\Gilian\source\repos\Trappenspel\Trappenspel\obj\Debug\netstandard2.0\Trappenspel.csprojAssemblyReference.cache
+C:\Users\Gilian\source\repos\Trappenspel\Trappenspel\obj\Debug\netstandard2.0\App.xaml.g.cs
+C:\Users\Gilian\source\repos\Trappenspel\Trappenspel\obj\Debug\netstandard2.0\MainPage.xaml.g.cs
+C:\Users\Gilian\source\repos\Trappenspel\Trappenspel\obj\Debug\netstandard2.0\Trappenspel.AssemblyInfoInputs.cache
+C:\Users\Gilian\source\repos\Trappenspel\Trappenspel\obj\Debug\netstandard2.0\Trappenspel.AssemblyInfo.cs
+C:\Users\Gilian\source\repos\Trappenspel\Trappenspel\obj\Debug\netstandard2.0\Trappenspel.csproj.CoreCompileInputs.cache
+C:\Users\Gilian\source\repos\Trappenspel\Trappenspel\obj\Debug\netstandard2.0\XamlC.stamp
+C:\Users\Gilian\source\repos\Trappenspel\Trappenspel\obj\Debug\netstandard2.0\Trappenspel.dll
+C:\Users\Gilian\source\repos\Trappenspel\Trappenspel\obj\Debug\netstandard2.0\ref\Trappenspel.dll
+C:\Users\Gilian\source\repos\Trappenspel\Trappenspel\obj\Debug\netstandard2.0\Trappenspel.pdb
