@@ -189,9 +189,7 @@
 
     const init = () => {     
         /*Buttons*/
-        html_button_quantity = document.querySelector(".js-button-quantity");
-        html_button_quantity = document.querySelector(".js-button-name");
-        html_button_quantity = document.querySelector(".js-button-difficulty");
+
         html_button_start = document.querySelector(".js-button-start");
         html_button_stop = document.querySelector(".js-button-stop");
         html_button_backtomenu = document.querySelector(".js-button-backtomenu");
@@ -232,8 +230,6 @@
         if(html_buttton_uitleg_gesloten) html_buttton_uitleg_gesloten.addEventListener('click', toggleState);
         if(html_buttton_uitleg_open) html_buttton_uitleg_open.addEventListener('click', toggleState);
 
-        // if(html_button_quantity) html_button_quantity.addEventListener("click", onClickQuantity);
-        // if(html_button_start) html_button_start.addEventListener("click", onClickStart);
         if(html_button_stop) html_button_stop.addEventListener("click", onClickStop);
         if(html_button_back) html_button_back.addEventListener('click', onClickBack);
         if(html_dropdown_items) html_dropdown_items.forEach(element => {
@@ -244,9 +240,9 @@
         
         /*TIMER*/
         
-        
         mqtt = require('mqtt');
         client  = mqtt.connect("ws://13.81.105.139");
+        
 
         if(html_text_name) setName();
         if(html_text_timer) checkGameStarted();
@@ -314,22 +310,6 @@
                     html_button_backtomenu.setAttribute("class", "o-button-reset c-button c-button--stop js-button-backtomenu");
 
                 }
-                
-
-                // if(answer.start) {
-                //     html_gamestart_start.innerHTML = "Spel is gestart";
-                //     html_gamestart_name.innerHTML = `Naam: ${answer.name}`;
-                //     html_gamestart_score.innerHTML = `Score: ${answer.score}`;
-                //     // TODO: maak het onmogelijk dat de speler nieuwe data kan ingeven
-                //     html_game.style.opacity = "0.4";
-                //     html_quantity.style.opacity = "0.4";
-                // } else {
-                //     html_gamestart_start.innerHTML = "Spel is gestopt";
-                //     html_gamestart_name.innerHTML = `Naam: ${answer.name}`;
-                //     html_gamestart_score.innerHTML = `Score: ${answer.score}`;
-                //     html_game.style.opacity = "1";
-                //     html_quantity.style.opacity = "1";
-                // };
             } else if (topic == `${prefix}gamestarted/answer`){
               answer = JSON.parse(message);
               game_started = answer.gamestarted;
