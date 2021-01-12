@@ -826,6 +826,23 @@ input[type=number]::-webkit-outer-spin-button {
     max-width: 144px;
 }
 
+.c-button--stop{
+    width: 100%;
+    max-width: 240px;
+    margin: 0 auto;
+}
+
+.c-button--stop__parent{
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.c-button--hoofdmenu{
+    width: 100%;
+    max-width: 240px;
+    margin: 0 auto;
+}
+
 /*
     Components: Dropdown
 */
@@ -1054,10 +1071,16 @@ input[type=number]::-webkit-outer-spin-button {
 */
 .c-game--text{
     /* margin-bottom: 64px; */
-    margin-bottom: 64px;
+    margin-top: 4rem;
+    margin-bottom: 1rem;
     color: var(--global-color-neutral-light);
     font-size: 24px;
     text-align: center;
+}
+@media(min-width:760px){
+   .c-game--text{
+       margin: 0;
+   }
 }
 
 .c-game--scoor{
@@ -1315,10 +1338,13 @@ input[type=number]::-webkit-outer-spin-button {
     }
     .c-grid--buttonstop{
         grid-area: button;
-        margin-top: 64px;
-
-        max-width: 500px;
-        justify-self: center;
+        margin-top: 4rem;
+        max-width: 100%;
+        text-align: center;
+    }
+    .c-button--stop{
+        width: 100%;
+        max-width: 31.25rem;
     }
 
 
