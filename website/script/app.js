@@ -41,12 +41,12 @@
     };
 
     const onClickStop = (event) => {
-      console.log('STOOOP');
+      console.log('Game has stopped');
         // event.preventDefault();
         
-        // payload = {"game": false};
-        // console.log(payload);
-        // client.publish(`${prefix}gamestop`, JSON.stringify(payload));
+        payload = {"game": false};
+        console.log(payload);
+        client.publish(`${prefix}gamestop`, JSON.stringify(payload));
     };
 
     const onClickQuantity = (event) => {
@@ -290,7 +290,7 @@
                     document.querySelector('.js-text-start').innerHTML = `Huidige sore`;
                     document.getElementById('jumpingman').setAttribute("class", "jumpingman");
                     html_button_stop.setAttribute("class", "o-button-reset c-button c-button--stop js-button-stop");
-                    html_button_stop.setAttribute("class", "js-button-backtomenu o-hide");
+                    html_button_backtomenu.setAttribute("class", "js-button-backtomenu o-hide");
                     console.log(answer);
                     
 
@@ -302,7 +302,7 @@
                     document.querySelector('.js-text-start').innerHTML = `Spel start in`;
                     console.log('seconds > 0');
                     html_button_stop.setAttribute("class", "js-button-stop o-hide");
-                    html_button_stop.setAttribute("class", "js-button-backtomenu o-hide");
+                    html_button_backtomenu.setAttribute("class", "js-button-backtomenu o-hide");
                   }
                 }
                 else {
@@ -310,7 +310,8 @@
                     document.querySelector('.js-text-timer').innerHTML = `${answer.score}`;
                     document.querySelector('.js-text-start').innerHTML = `Behaalde score`;
                     document.getElementById('jumpingman').setAttribute("class", "");
-                    html_button_stop.setAttribute("class", "js-button-backtomenu");
+                    html_button_stop.setAttribute("class", "js-button-stop o-hide");
+                    html_button_backtomenu.setAttribute("class", "o-button-reset c-button c-button--stop js-button-backtomenu");
 
                 }
                 
