@@ -41,11 +41,12 @@
     };
 
     const onClickStop = (event) => {
-        event.preventDefault();
+      console.log('STOOOP');
+        // event.preventDefault();
         
-        payload = {"game": false};
-        console.log(payload);
-        client.publish(`${prefix}gamestop`, JSON.stringify(payload));
+        // payload = {"game": false};
+        // console.log(payload);
+        // client.publish(`${prefix}gamestop`, JSON.stringify(payload));
     };
 
     const onClickQuantity = (event) => {
@@ -98,10 +99,6 @@
       
     };
 
-    const changeTimer = () =>{
-      
-    };
-
     const onClickDropdown = () =>{
       if(html_dropdown_hidden.className=='c-dropdown--hidden js-dropdown-hidden'){
         html_dropdown_hidden.setAttribute('class', 'js-dropdown-hidden c-dropdown--visible');
@@ -114,8 +111,6 @@
     };
 
     const setName = () =>{
-      // payload =  "name";
-      // client.publish(`${prefix}getname`, JSON.stringify(payload));
       name = getCookies('name');
       html_text_name.innerHTML = name;
     };
@@ -135,7 +130,10 @@
       }
    };
 
-   const checkDetails = async () =>{
+   const checkGameStarted = () =>{
+    // client.publish(`${prefix}gamestarted`, JSON.stringify('gamestarted'));
+    // console.log(answer);
+
     //  name = getCookies('name');
     //  steps = getCookies('steps');
     //  difficulty = getCookies('difficulty');
@@ -161,6 +159,10 @@
      
 
    };
+
+   const onClickBackToMenu = () =>{
+     window.location.href = 'http://127.0.0.1:5500/website/main.html';
+   }
 
 
    function deleteAllCookies() {
@@ -192,6 +194,7 @@
         html_button_quantity = document.querySelector(".js-button-difficulty");
         html_button_start = document.querySelector(".js-button-start");
         html_button_stop = document.querySelector(".js-button-stop");
+        html_button_backtomenu = document.querySelector(".js-button-backtomenu");
         html_button_back = document.querySelector('.js-button-back');
         html_dropdown_button = document.querySelector('.js-dropdown');
         html_buttton_uitleg_gesloten = document.querySelector(".js-uitleg__gesloten");
@@ -224,6 +227,7 @@
         // if(html_button_start) html_button_start.addEventListener("submit", onClickStart);
         if(html_form_name) html_form_name.addEventListener('submit', onClickName);
         if(html_form_difficulty) html_form_difficulty.addEventListener('submit', onClickDifficulty);
+        if(html_button_backtomenu) html_button_backtomenu.addEventListener('click', onClickBackToMenu);
 
         if(html_buttton_uitleg_gesloten) html_buttton_uitleg_gesloten.addEventListener('click', toggleState);
         if(html_buttton_uitleg_open) html_buttton_uitleg_open.addEventListener('click', toggleState);
@@ -245,7 +249,7 @@
         client  = mqtt.connect("ws://13.81.105.139");
 
         if(html_text_name) setName();
-        if(html_text_timer) checkDetails();
+        if(html_text_timer) checkGameStarted();
         
         client.publish(`${prefix}gamestarted`, JSON.stringify('gamestarted'));
 
@@ -274,26 +278,42 @@
               /*On game start*/
 
                 answer = JSON.parse(message);
-                console.log(answer)
+                console.log(answer);
                 // html_game_answer.innerHTML = answer.answer;
             } else if (topic == `${prefix}game/answer`) {
               /*On game busy*/
                 answer = JSON.parse(message);
-                console.log('riigger');
-                console.log(answer.seconds);
+                if(answer.game == true){
+                  if(answer.seconds==0){
+                    document.querySelector('.js-text-busy').innerHTML = `${answer.name} is aan het spelen...`;
+                    document.querySelector('.js-text-timer').innerHTML = `${answer.score}`;
+                    document.querySelector('.js-text-start').innerHTML = `Huidige sore`;
+                    document.getElementById('jumpingman').setAttribute("class", "jumpingman");
+                    html_button_stop.setAttribute("class", "o-button-reset c-button c-button--stop js-button-stop");
+                    html_button_stop.setAttribute("class", "js-button-backtomenu o-hide");
+                    console.log(answer);
+                    
 
-                if(answer.seconds==0){
-                  document.querySelector('.js-text-busy').innerHTML = `${answer.name} is aan het spelen...`;
-                  document.querySelector('.js-text-timer').innerHTML = `${answer.score}`;
-                  document.querySelector('.js-text-start').innerHTML = `Huidige score`;
-                  document.getElementById('jumpingman').setAttribute("class", "jumpingman");
-                  console.log('seconds == 0');
+                  }
+  
+                  if(answer.seconds>0){
+                    document.querySelector('.js-text-busy').innerHTML = `Spel wordt gestart...`;
+                    document.querySelector('.js-text-timer').innerHTML = `${answer.seconds}`;
+                    document.querySelector('.js-text-start').innerHTML = `Spel start in`;
+                    console.log('seconds > 0');
+                    html_button_stop.setAttribute("class", "js-button-stop o-hide");
+                    html_button_stop.setAttribute("class", "js-button-backtomenu o-hide");
+                  }
                 }
+                else {
+                    document.querySelector('.js-text-busy').innerHTML = `Spel is gespeeld...`;
+                    document.querySelector('.js-text-timer').innerHTML = `${answer.score}`;
+                    document.querySelector('.js-text-start').innerHTML = `Behaalde score`;
+                    document.getElementById('jumpingman').setAttribute("class", "");
+                    html_button_stop.setAttribute("class", "js-button-backtomenu");
 
-                if(answer.seconds>0){
-                  document.querySelector('.js-text-timer').innerHTML = `${answer.seconds}`;
-                  console.log('seconds > 0');
                 }
+                
 
                 // if(answer.start) {
                 //     html_gamestart_start.innerHTML = "Spel is gestart";
@@ -310,14 +330,15 @@
                 //     html_quantity.style.opacity = "1";
                 // };
             } else if (topic == `${prefix}gamestarted/answer`){
-              console.log('game started triggered');
               answer = JSON.parse(message);
               game_started = answer.gamestarted;
               if(game_started == true){
                 if(window.location.href != 'http://127.0.0.1:5500/website/game.html?') window.location.href='http://127.0.0.1:5500/website/game.html?';
               }
 
-              if(game_started == false) console.log('helaaspindakees');
+              if(game_started == false){
+                if(window.location.href == 'http://127.0.0.1:5500/website/game.html?') window.location.href='http://127.0.0.1:5500/website/login.html';
+              }
             }
             
         });
