@@ -11,17 +11,13 @@
     var cookies;
     let mqtt, client;
 
+    const url = "http://glenntroncquo.be/";
+
     const prefix = "teamproject/groep8/";
   
     const onClickDifficulty = (event) => {
-        // html_game_name = document.querySelector(".js-game-name");
-        // html_game_difficulty = document.querySelector(".js-game-difficulty");
-        // difficulty = html_difficulty.value;
-        
         event.preventDefault();
-        console.log(html_difficulty.innerText);
 
-        // payload = {"name": html_game_name.value, "difficulty": html_game_difficulty.value};
         if(html_difficulty.innerText == 'Makkelijk') payload = document.cookie = `difficulty=easy`;;
         if(html_difficulty.innerText == 'Gemiddeld') payload = document.cookie = `difficulty=normal`;
         if(html_difficulty.innerText == 'Moeilijk') payload = document.cookie = `difficulty=hard`;
@@ -29,21 +25,13 @@
         difficulty = getCookies('difficulty');
         steps = getCookies('steps');
         name = getCookies('name');
-        console.log(difficulty+name+steps);
 
         payload = {"name":name, "difficulty": difficulty, "steps": steps};
         client.publish(`${prefix}gamestart`, JSON.stringify(payload));
-        
-        
-        // console.log(payload);
-        // client.publish(`${prefix}gamestart`, JSON.stringify(payload));
         html_form_difficulty.submit();
     };
 
     const onClickStop = (event) => {
-      console.log('Game has stopped');
-        // event.preventDefault();
-        
         payload = {"game": false};
         console.log(payload);
         client.publish(`${prefix}gamestop`, JSON.stringify(payload));
@@ -51,13 +39,10 @@
 
     const onClickQuantity = (event) => {
       event.preventDefault();
-      // html_quantity_steps = document.querySelector(".js-quantity-steps");
+
       html_quantity_steps = document.querySelector('.js-quantity-input');
 
       if(html_quantity_steps.value >= 0 && html_quantity_steps.value <= 10 && html_quantity_steps.value%2 == 0){
-        // payload = {"steps": html_quantity_steps.value};
-        // console.log(payload);
-        // client.publish(`${prefix}quantitysteps`, JSON.stringify(payload));
         steps = html_quantity_steps.value
         document.cookie = `steps=${steps}`;
         html_form_quantity.submit();
@@ -81,9 +66,6 @@
       event.preventDefault();
       name = document.querySelector('.js-name-value').value;
       if (name.match(/^ *$/) == null){
-
-        // payload =  {"name": name};
-        // client.publish(`${prefix}name`, JSON.stringify(payload));
         document.cookie = `name=${name}`;
         html_form_name.submit();
       }
@@ -92,10 +74,10 @@
     };
 
     const onClickBack = () =>{
-      // window.history.back();
-      if(window.location.href == 'http://127.0.0.1:5500/website/configuratie.html?' || window.location.href =='http://127.0.0.1:5500/website/configuratie.html') window.location.href='http://127.0.0.1:5500/website/main.html';
+      
+      if(window.location.href == 'http://glenntroncquo.be/configuratie.html?' || window.location.href =='http://glenntroncquo.be/configuratie.html') window.location.href='http://glenntroncquo.be/main.html';
 
-      if(window.location.href == 'http://127.0.0.1:5500/website/configuratie-moeilijkheid.html?' || window.location.href =='http://127.0.0.1:5500/website/configuratie-moeilijkheid.html') window.location.href='http://127.0.0.1:5500/website/configuratie.html';
+      if(window.location.href == 'http://glenntroncquo.be/configuratie-moeilijkheid.html?' || window.location.href =='http://glenntroncquo.be/configuratie-moeilijkheid.html') window.location.href='http://glenntroncquo.be/configuratie.html';
       
     };
 
@@ -130,38 +112,8 @@
       }
    };
 
-   const checkGameStarted = () =>{
-    // client.publish(`${prefix}gamestarted`, JSON.stringify('gamestarted'));
-    // console.log(answer);
-
-    //  name = getCookies('name');
-    //  steps = getCookies('steps');
-    //  difficulty = getCookies('difficulty');
-
-    //  payload = "gamestarted";
-
-    //  if(game_started == true){
-    //    if(answer.score == 0){
-
-    //    }
-    //  }
-
-    //  console.log('Checking details');
-
-     
-     
-    //  if(name == undefined || steps == undefined || difficulty == undefined){
-    //    window.location.href = 'http://127.0.0.1:5500/website/login.html'
-    //  };
-
-
-
-     
-
-   };
-
    const onClickBackToMenu = () =>{
-     window.location.href = 'http://127.0.0.1:5500/website/main.html';
+     window.location.href = 'http://glenntroncquo.be/main.html';
    }
 
 
@@ -222,7 +174,6 @@
         if(html_input_quantity) html_input_quantity.addEventListener("blur", onInputQuantity);
 
         if(html_form_quantity) html_form_quantity.addEventListener('submit', onClickQuantity);
-        // if(html_button_start) html_button_start.addEventListener("submit", onClickStart);
         if(html_form_name) html_form_name.addEventListener('submit', onClickName);
         if(html_form_difficulty) html_form_difficulty.addEventListener('submit', onClickDifficulty);
         if(html_button_backtomenu) html_button_backtomenu.addEventListener('click', onClickBackToMenu);
@@ -235,17 +186,12 @@
         if(html_dropdown_items) html_dropdown_items.forEach(element => {
           element.addEventListener('click', () =>{ html_difficulty.innerText = element.innerText; })});
         if(html_dropdown_button) html_dropdown_button.addEventListener('click', onClickDropdown);
-
-        /*SET NAME*/
-        
-        /*TIMER*/
         
         mqtt = require('mqtt');
         client  = mqtt.connect("ws://13.81.105.139");
         
 
         if(html_text_name) setName();
-        if(html_text_timer) checkGameStarted();
         
         client.publish(`${prefix}gamestarted`, JSON.stringify('gamestarted'));
 
@@ -275,7 +221,6 @@
 
                 answer = JSON.parse(message);
                 console.log(answer);
-                // html_game_answer.innerHTML = answer.answer;
             } else if (topic == `${prefix}game/answer`) {
               /*On game busy*/
                 answer = JSON.parse(message);
@@ -314,11 +259,12 @@
               answer = JSON.parse(message);
               game_started = answer.gamestarted;
               if(game_started == true){
-                if(window.location.href != 'http://127.0.0.1:5500/website/game.html?') window.location.href='http://127.0.0.1:5500/website/game.html?';
+                if(window.location.href != 'http://glenntroncquo.be/game.html?' || window.location.href != 'http://glenntroncquo.be/game.html')
+                window.location.href='http://127.0.0.1:5500/game.html?';
               }
 
               if(game_started == false){
-                if(window.location.href == 'http://127.0.0.1:5500/website/game.html?') window.location.href='http://127.0.0.1:5500/website/login.html';
+                if(window.location.href == 'http://glenntroncquo.be/game.html?' || window.location.href != 'http://glenntroncquo.be/game.html')window.location.href='http://glenntroncquo.be/login.html';
               }
             }
             
@@ -17055,4 +17001,6 @@
     };
     
     },{}]},{},[1]);
+
+    /*Controle lijn*/
     
