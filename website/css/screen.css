@@ -27,6 +27,7 @@
 :root {
     /* colors */
     --global-color-alpha-dark-linear: linear-gradient(to right, #1D63DC , #2F7AE5);
+    --global-color-alpha-darker: #1D63DC;
     --global-color-alpha-dark: #2F7AE5;
     --global-color-alpha: #439CEF;
     --global-color-alpha-light: #6A00FD;
@@ -57,6 +58,9 @@
     --global-borderRadius-xl: 16px;
     --global-borderRadius-xxl: 20px;
     --global-borderWidth: 1px;
+
+    --global-borderWidth-left: 20px 0 0 20px;
+    --global-borderWidth-right: 0 20px 20px 0;
 
     /* transitions */
 
@@ -591,6 +595,67 @@ input:disabled {
 }
 
 /*
+    Component: Microinteraction filter
+    ---
+    Hier wordt het leaderboard gefilterd
+*/
+
+.c-microinteraction {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border: 1px solid var(--global-color-alpha-darker);
+    max-width: 18rem;
+    margin: 0 auto;
+    margin-bottom: var(--global-whitespace);
+    border-radius: var(--global-borderRadius-xxl);
+}
+
+.c-button__micro {
+    width: 6rem;
+    font-weight: 400;
+    font-size: 0.875em;
+    padding: var(--global-whitespace-xs) 0;
+}
+
+.c-button__makkelijk {
+    color: var(--global-color-alpha-darker);
+    border-right: 1px solid var(--global-color-alpha-darker);
+    border-radius: var(--global-borderWidth-left);
+}
+
+.c-button__makkelijk:hover, .c-button__gemiddeld:hover, .c-button__moeilijk:hover {
+    color: var(--global-color-neutral-light);
+    background-color: var(--global-color-alpha-darker);
+}
+
+.c-button__makkelijk:active, .c-button__gemiddeld:active, .c-button__moeilijk:active {
+    color: var(--global-color-neutral-light);
+    background-color: var(--global-color-alpha-darker);
+}
+
+.c-button__makkelijk:focus, .c-button__gemiddeld:focus, .c-button__moeilijk:focus {
+    color: var(--global-color-neutral-light);
+    background-color: var(--global-color-alpha-darker);
+    outline: none;
+}
+
+.c-button__gemiddeld {
+    color: var(--global-color-alpha-darker);
+}
+
+.c-button__moeilijk {
+    color: var(--global-color-alpha-darker);
+    padding-right: 1px;
+    border-left: 1px solid var(--global-color-alpha-darker);
+    border-radius: var(--global-borderWidth-right);
+}
+
+/* Button states */
+
+
+
+/*
     Component: Podium
     ---
     Hier wordt het volledige podium opgemaakt
@@ -612,6 +677,33 @@ input:disabled {
 
 }
 
+/* @keyframes expand1 {
+    0% {
+      height: 0em;
+    }
+    100% {
+        height: 7.5em;
+    }
+  }
+
+  @keyframes expand2 {
+    0% {
+      height: 0em;
+    }
+    100% {
+      height: 5.5em;
+    }
+  }
+
+  @keyframes expand3 {
+    0% {
+      height: 0em;
+    }
+    100% {
+      height: 3.5em;
+    }
+  } */
+
 .c-card__podium1 {
     border-radius: 5px 5px 0 0;
     height: 7.5em;
@@ -620,6 +712,7 @@ input:disabled {
     text-align: center;
     background-color: #FF856F;
     padding-top: var(--global-whitespace-md);
+    animation: 0.5s ease-out 0s 1 expand1;
 }
 
 .c-card__podium2 {
@@ -630,6 +723,7 @@ input:disabled {
     text-align: center;
     background-color: #97E4EE;
     padding-top: var(--global-whitespace-md);
+    animation: 0.5s ease-out 0s 1 expand2;
 }
 
 .c-card__podium3 {
@@ -640,6 +734,7 @@ input:disabled {
     text-align: center;
     background-color: #B3D3FF;
     padding-top: calc(var(--global-whitespace-sm) + 2px);
+    animation: 0.5s ease-out 0s 1 expand3;
 }
 
 .c-position {
