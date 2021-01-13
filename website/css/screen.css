@@ -1353,6 +1353,53 @@ input[type=number]::-webkit-outer-spin-button {
 
 }
 
+/*
+    Mediaquerie login.html
+*/
+@media(min-width:760px){
+    /* .c-card__title{
+        margin-bottom: 0px;
+    } */
+
+    .c-grid--login{
+        
+        display: grid;
+        grid-template-areas: 
+        "head head"
+        "svg naam"
+        "svg buttons";
+        
+         width: 43.75rem;
+         margin: 0 auto;
+         padding-right: 3rem;
+         padding-left: 3rem;
+
+    }
+
+    .c-grid--login__title{
+        grid-area: head;
+        margin-bottom: 0px;
+    }
+
+    .c-grid--login__svg{
+        grid-area: svg;
+    }
+
+    .c-grid--login__naam{
+        grid-area: naam;
+        justify-self: center;
+    }
+
+    .c-grid--login__buttons{
+        grid-area: buttons;
+        max-width: 260px;
+        justify-self: center;
+    }
+
+    
+}
+
+
 /*------------------------------------*\
 #UTILITIES
 \*------------------------------------*/
