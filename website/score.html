@@ -28,18 +28,18 @@
                     </div>
                     <div class="o-layout__top3">
                         <div class="o-layout__individueel">
-                            <p class="c-card__name">Thomas</p>
-                            <p class="c-card__score">456</p>
+                            <p class="c-card__name"></p>
+                            <p class="c-card__score"></p>
                             <div class="c-card__podium2"><p class="c-position">2</p></div>
                         </div>
                         <div class="o-layout__individueel">
-                            <p class="c-card__name">Sarah</p>
-                            <p class="c-card__score">642</p>
+                            <p class="c-card__name"></p>
+                            <p class="c-card__score"></p>
                             <div class="c-card__podium1"><p class="c-position">1</p></div>
                         </div>
                         <div class="o-layout__individueel">
-                            <p class="c-card__name">David</p>
-                            <p class="c-card__score">327</p>
+                            <p class="c-card__name"></p>
+                            <p class="c-card__score"></p>
                             <div class="c-card__podium3"><p class="c-position">3</p></div>
                         </div>
                     </div>
@@ -48,10 +48,18 @@
         </div>
     </section>
     <section class="o-section-list">
-        <div class="js-leaderboard">
+        <div class="c-microinteraction js-microinteraction" style="display: flex">
+            <button class="o-button-reset c-button__makkelijk c-button__micro js-filter__makkelijk">Makkelijk</button>
+            <button class="o-button-reset c-button__gemiddeld c-button__micro js-filter__gemiddeld">Gemiddeld</button>
+            <button class="o-button-reset c-button__moeilijk c-button__micro js-filter__moeilijk">Moeilijk</button>
+          </div>
+        <div class="js-leaderboard js-list__open" style="display: block">
+        </div>
+        <div class="js-leaderboard js-list__closed" style="display: none">
         </div>
         <div class="o-layout__btnscore footer">
-            <button class="o-button-reset c-button c-button__score" type="submit">Speel opnieuw</button>
+            <button class="o-button-reset c-button c-button__score js-button-opnieuw" type="submit" style="display: block">Speel opnieuw</button>
+            <button class="o-button-reset c-button c-button__score js-button-klassement" type="submit" style="display: none">Algemeen klassement</button>
         </div>
     </section>
 </body>
