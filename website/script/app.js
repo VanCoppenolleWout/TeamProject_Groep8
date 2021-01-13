@@ -62,12 +62,47 @@
 
     };
 
-    const onClickName = (event) =>{
+    const onClickName = async (event) =>{
       event.preventDefault();
       name = document.querySelector('.js-name-value').value;
+
       if (name.match(/^ *$/) == null){
-        document.cookie = `name=${name}`;
-        html_form_name.submit();
+
+        const data = await fetch(`https://trappenspel-api.azurewebsites.net/api/personalleaderboard/${name}`)
+        .then((r) => r.json())
+        .catch((err) => console.error('An error occured', err));
+
+        if(data.length >0){
+          console.log(data[0].playername);
+          Swal.fire({
+            title: 'Gebruiker bestaat al!',
+            text: "Bent u dit?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Nee, dit ben ik niet!',
+            confirmButtonText: 'Ja, dit ben ik!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              document.cookie = `name=${name}`;
+              html_form_name.submit();
+            }
+          })
+        }
+        else{
+          document.cookie = `name=${name}`;
+          html_form_name.submit();
+        }
+      }
+
+      else{
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Je kan geen lege naam invoeren!',
+        })
+        
       }
 
       
@@ -139,7 +174,8 @@
       if(choice == 'difficulty')return cookies.difficulty;
     };
 
-    const init = () => {     
+    const init = () => {   
+    
         /*Buttons*/
 
         html_button_start = document.querySelector(".js-button-start");
@@ -172,6 +208,8 @@
 
         /*Eventlisteners*/
         if(html_input_quantity) html_input_quantity.addEventListener("blur", onInputQuantity);
+
+        
 
         if(html_form_quantity) html_form_quantity.addEventListener('submit', onClickQuantity);
         if(html_form_name) html_form_name.addEventListener('submit', onClickName);
@@ -233,8 +271,6 @@
                     html_button_stop.setAttribute("class", "o-button-reset c-button c-button--stop js-button-stop");
                     html_button_backtomenu.setAttribute("class", "js-button-backtomenu o-hide");
                     console.log(answer);
-                    
-
                   }
   
                   if(answer.seconds>0){
@@ -259,12 +295,18 @@
               answer = JSON.parse(message);
               game_started = answer.gamestarted;
               if(game_started == true){
-                if(window.location.href != 'http://glenntroncquo.be/game.html?' || window.location.href != 'http://glenntroncquo.be/game.html')
-                window.location.href='http://127.0.0.1:5500/game.html?';
+                if(window.location.href != 'http://glenntroncquo.be/game.html?'){
+                  window.location.href='http://glenntroncquo.be/game.html?';
+                  console.log('Game started true');
+                }
+                
               }
 
               if(game_started == false){
-                if(window.location.href == 'http://glenntroncquo.be/game.html?' || window.location.href != 'http://glenntroncquo.be/game.html')window.location.href='http://glenntroncquo.be/login.html';
+                if(window.location.href == 'http://glenntroncquo.be/game.html?' || window.location.href == 'http://glenntroncquo.be/game.html'){
+                  window.location.href='http://glenntroncquo.be/login.html';
+                  console.log('Game started false');
+                }
               }
             }
             
