@@ -233,8 +233,6 @@
                     html_button_stop.setAttribute("class", "o-button-reset c-button c-button--stop js-button-stop");
                     html_button_backtomenu.setAttribute("class", "js-button-backtomenu o-hide");
                     console.log(answer);
-                    
-
                   }
   
                   if(answer.seconds>0){
@@ -259,12 +257,18 @@
               answer = JSON.parse(message);
               game_started = answer.gamestarted;
               if(game_started == true){
-                if(window.location.href != 'http://glenntroncquo.be/game.html?' || window.location.href != 'http://glenntroncquo.be/game.html')
-                window.location.href='http://127.0.0.1:5500/game.html?';
+                if(window.location.href != 'http://glenntroncquo.be/game.html?'){
+                  window.location.href='http://glenntroncquo.be/game.html?';
+                  console.log('Game started true');
+                }
+                
               }
 
               if(game_started == false){
-                if(window.location.href == 'http://glenntroncquo.be/game.html?' || window.location.href != 'http://glenntroncquo.be/game.html')window.location.href='http://glenntroncquo.be/login.html';
+                if(window.location.href == 'http://glenntroncquo.be/game.html?' || window.location.href == 'http://glenntroncquo.be/game.html'){
+                  window.location.href='http://glenntroncquo.be/login.html';
+                  console.log('Game started false');
+                }
               }
             }
             
