@@ -101,7 +101,10 @@ let showResult = (queryResponse) => {
                                 <li class="c-list__position">${html_place}</li>
                                 <li class="c-list__name">${element.playername}</li>
                             </div>
-                            <li class="c-list__score">${element.score}</li>
+                            <div class="o-layout__list-item">
+                                <li class="c-leaderboard__steps">${element.steps} steps</li>
+                                <li class="c-list__score">${element.score}</li>
+                            </div>
                         </ul>`;
     };
     
@@ -112,6 +115,47 @@ let showResult = (queryResponse) => {
             toggleState();
         });
     });      
+};
+
+let showPersonalResult = (queryResponse) => {
+    const html_list = document.querySelector(".js-personalleaderboard");
+    const html_leaderboardname = document.querySelector(".js-leaderboard__title");
+    html_list.innerHTML = ``;
+    var html_place = 0;
+
+    var top3 = queryResponse.slice(0, 3);
+    
+    for (const element of queryResponse) {
+        html_place = html_place + 1;
+        html_leaderboardname.innerHTML = `Prestaties <b>${element.playername}</b>`;
+        var fulldate = element.date.slice(0, 16).replace(/-/g, "/").replace("T", " ");
+        var actualdate = fulldate.slice(0, 10);
+        var actualtime = fulldate.slice(11);
+        html_list.innerHTML += `<ul class="o-list o-layout__list js-listitem js-name-data" data-nickname="${element.playername}" data-position="${html_place}">
+                            <div class="o-layout__list-item">
+                                <li class="c-list__position">${html_place}</li>
+                                <li class="c-list__date"><strong style="font-weight: 500">${actualdate}</strong> ${actualtime}</li>
+                            </div>
+                            <div class="o-layout__list-item">
+                                <li class="c-leaderboard__steps">${element.steps} steps</li>
+                                <li class="c-list__score">${element.score}</li>
+                            </div>
+                        </ul>`;
+    };
+        var goud = document.querySelector('[data-position="1"]');
+        if (goud) {
+            goud.setAttribute('class', 'o-list o-layout__list js-listitem js-name-data c-list-item__gold');
+        };
+
+        var zilver = document.querySelector('[data-position="2"]');
+        if (zilver) {
+            zilver.setAttribute('class', 'o-list o-layout__list js-listitem js-name-data c-list-item__silver');
+        };
+        
+        var brons = document.querySelector('[data-position="3"]');
+        if (brons) {
+            brons.setAttribute('class', 'o-list o-layout__list js-listitem js-name-data c-list-item__bronze');
+        }
 };
 
 const toggleState = function() {
@@ -134,7 +178,7 @@ const toggleState = function() {
     {
        list_closed.style.display = "block";
        list_open.style.display = "none";
-       micro.style.display = "none";
+       micro.style.visibility = "hidden";
        btn_opnieuw.style.display = "none";
        btn_klassement.style.display = "block";
     }
@@ -160,7 +204,7 @@ const getAPIpersonal = async (name) => {
     const data = await fetch(`https://trappenspel-api.azurewebsites.net/api/personalleaderboard/${name}`)
         .then((r) => r.json())
         .catch((err) => console.error('An error occured', err));
-        showResult(data);
+        showPersonalResult(data);
         console.log(data);
 };
 
