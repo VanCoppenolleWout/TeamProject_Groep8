@@ -107,8 +107,13 @@ html {
     -moz-osx-font-smoothing: grayscale;
 }
 
+.leaderboard-background {
+    background-color: var(--global-color-alpha-dark);
+}
+
 .score-page {
     background-color: var(--global-color-alpha-dark);
+    height: 100%;
 }
 
 .login-page {
@@ -340,6 +345,11 @@ input:disabled {
     Creates vertical whitespace between adjacent sections inside a row
 */
 
+.o-section-filler {
+    background-color: var(--global-color-neutral-light);
+    flex-grow: 1;
+}
+
 .o-section {
     position: relative;
 }
@@ -347,12 +357,11 @@ input:disabled {
 .o-section-list {
     background-color: var(--global-color-neutral-light);
     padding-top: var(--global-whitespace);
-    border-radius: 20px 20px 0 0;
+    border-radius: var(--global-borderRadius-xxl);
     display: flex;
     flex-direction: column;
+    height: 22em;
     justify-content: space-around;
-    height: 100%;
-    /* height: calc(100vh - 320px); */
 }
 
 .o-section + .o-section {
@@ -448,11 +457,7 @@ input:disabled {
 
 .o-layout__btnscore {
     margin: 0 var(--global-whitespace);
-    bottom: 0;
-    left: 0;
-    right: 0;
     margin-bottom: var(--global-whitespace);
-    position: fixed;
 }
 
 .o-layout__steps {
@@ -479,11 +484,18 @@ input:disabled {
 .o-layout__list-item {
     display: flex;
     flex-direction: row;
+    align-items: center;
 }
 
 .o-layout__uitleg {
     display: flex;
     flex-direction: column;
+}
+
+.o-layout-mobile__leaderboard {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 /*------------------------------------*\
@@ -613,6 +625,10 @@ input:disabled {
     margin: 0 auto;
     margin-bottom: var(--global-whitespace);
     border-radius: var(--global-borderRadius-xxl);
+}
+
+.c-button__score {
+    margin-top: var(--global-whitespace);
 }
 
 .c-button__micro {
@@ -755,12 +771,45 @@ input:disabled {
 
 .c-list__position {
     font-weight: 500;
-    margin-right: var(--global-whitespace-lg);
+    margin-right: var(--global-whitespace);
+    min-width: 18px;
+}
+
+.c-list__date {
+    font-size: 0.875em;
+    margin-right: var(--global-whitespace);
+}
+
+.c-list-item__active {
+    border-left: 0.25em solid #0836C1;
+    padding-left: 20px;
+    background: linear-gradient(90deg, rgba(172,215,255,1) 0%, rgba(172,215,255,1) 0%, rgba(255,255,255,1) 61%);
+}
+
+.c-list-item__gold {
+    border-left: 0.25em solid #FFD700;
+    padding-left: 20px;
+    background: linear-gradient(90deg, rgba(255,215,0,0.5) 0%, rgba(255,255,255,1) 50%);
+}
+
+.c-list-item__silver {
+    border-left: 0.25em solid #C0C0C0;
+    padding-left: 20px;
+    background: linear-gradient(90deg, rgba(192,192,192,0.5) 0%, rgba(255,255,255,1) 50%);
+}
+
+.c-list-item__bronze {
+    border-left: 0.25em solid #CD7F32;
+    padding-left: 20px;
+    background: linear-gradient(90deg, rgba(205,127,50,0.5) 0%, rgba(255,255,255,1) 50%);
 }
 
 .c-list__score {
     font-weight: 500;
     color: var(--global-color-text);
+    min-width: 28px;
+    text-align: right;
+    margin-left: var(--global-whitespace-sm);
 }
 /*
     Component: Empty div's
@@ -1490,16 +1539,32 @@ input[type=number]::-webkit-outer-spin-button {
     
 }
 
-/*
-    Mediaquerie main.html
-*/
-.c-grid--main__svg{
-    text-align: center;
-}
-.c-grid--main__welkom{
-    margin-bottom: 3rem;
+/* Media query leaderboard.html */
+
+.c-leaderboard__title {
+    display: none;
 }
 
+.c-leaderboard__steps {
+    border: 1px solid var(--global-color-neutral-xxx-light);
+    color: var(--global-color-neutral-xxx-light);
+    border-radius: var(--global-borderRadius);
+    padding: 2px 4px;
+    max-width: 60px;
+    width: 60px;
+    text-align: center;
+    font-size: 0.75em;
+}
+
+.c-leaderboard__scroll {
+    height: 185px;
+    overflow: scroll;
+}
+
+@media (min-width: 1024px) {
+    .o-section-list {
+        border-radius: var(--global-borderRadius-xxl);
+        width: 26em;
 .c-grid--main__buttons{
     margin-bottom: 4rem;
 }
@@ -1514,22 +1579,22 @@ input[type=number]::-webkit-outer-spin-button {
     .c-grid--main__welkom{
         font-size: 2rem;
     }
-
-    .c-grid--main__head h1{
-        font-size: 3rem;
+    .c-leaderboard__title {
+        display: block;
+        text-align: center;
+        font-size: 1.75em;
+        color: var(--global-color-neutral-light);
+        font-weight: 500;
+        margin-bottom: var(--global-whitespace-md);
     }
 
-    .c-grid--main__buttons{
-        max-width: 450px;
-        margin: 0 auto;
-        margin-bottom: 5rem;
+    .c-button__score {
+        margin-top: var(--global-whitespace);
     }
-    
-    
-}
-@media(min-width:1076px){
-    .c-main__title{
-        margin-bottom: 4rem;
+
+    .c-card__svg {
+        height: 40px;
+        width: 40px;
     }
 
     .c-grid--main{
@@ -1541,17 +1606,23 @@ input[type=number]::-webkit-outer-spin-button {
 
         grid-template-rows: 200px 100px 350px;
 
-        width: 900px;
+        width: 1076px;
         margin: 0 auto;
         padding-right: 3rem;
         padding-left: 3rem;
         /* height: 100vh; */
     }
 
-    .c-grid--main__head{
-        grid-area: head;
-        margin-bottom: 0px;
-        height: 100px;
+    .c-card__title {
+        margin-bottom: 0;
+        margin-top: 0;
+    }
+    
+    .o-layout__leaderboard {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
     }
 
     .c-grid--main__welkom{
@@ -1559,40 +1630,30 @@ input[type=number]::-webkit-outer-spin-button {
         margin-bottom: 2rem;
         text-align: start;
         /* font-size: 32px; */
-        justify-self: center;
-        margin-right: 3rem;
     }
 
-    .c-grid--main__svg{
-        grid-area: svg;
-        margin-top: 3rem;
-        /* align-self: center; */
-        /* justify-self: center; */
-        width: 236px;
-        
+    .o-layout__top3 {
+        width: 20em;
     }
 
     .c-grid--main__buttons{
         grid-area: buttons;
-        width: 373px;
         max-width: 373px;
         margin: 0;
-        justify-self: end;
     }
 
-}
-
-.c-svg-ipad{
-    display: none;
-}
-@media(min-width:760px){
-    .c-svg-ipad{
-        display: inline-block;
+    .c-card__podium2 {
+        height: 9em;
+        width: 6em;
+        border-radius: 10px 10px 5px 5px;
     }
 
-    .c-svg-mobile{
-        display: none;
+    .c-card__podium3 {
+        height: 7em;
+        width: 6em;
+        border-radius: 10px 10px 5px 5px;
     }
+    
 }
 
 
