@@ -1506,6 +1506,10 @@ input[type=number]::-webkit-outer-spin-button {
 .c-grid--main__head{
     margin-bottom: 2rem;
 }
+
+.c-grid--main__svg{
+    padding-bottom: 2rem;
+}
 @media(min-width:700px){
     .c-grid--main__welkom{
         font-size: 2rem;
@@ -1537,7 +1541,7 @@ input[type=number]::-webkit-outer-spin-button {
 
         grid-template-rows: 200px 100px 350px;
 
-        width: 1076px;
+        width: 900px;
         margin: 0 auto;
         padding-right: 3rem;
         padding-left: 3rem;
@@ -1555,6 +1559,8 @@ input[type=number]::-webkit-outer-spin-button {
         margin-bottom: 2rem;
         text-align: start;
         /* font-size: 32px; */
+        justify-self: center;
+        margin-right: 3rem;
     }
 
     .c-grid--main__svg{
@@ -1568,8 +1574,10 @@ input[type=number]::-webkit-outer-spin-button {
 
     .c-grid--main__buttons{
         grid-area: buttons;
+        width: 373px;
         max-width: 373px;
         margin: 0;
+        justify-self: end;
     }
 
 }
