@@ -103,9 +103,9 @@ namespace TeamProject_Database
             }
         }
 
-        [FunctionName("GetLeaderBoardListSinglePerson")]
-        public static async Task<IActionResult> GetLeaderBoardListSinglePerson(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "leaderboard/{playername}")] HttpRequest req, string playername, 
+        [FunctionName("GetPersonalLeaderBoard")]
+        public static async Task<IActionResult> GetPersonalLeaderBoard(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "personalleaderboard/{playername}")] HttpRequest req, string playername,
             ILogger log)
         {
             try
@@ -123,6 +123,7 @@ namespace TeamProject_Database
 
                         sqlCommand.Parameters.AddWithValue("@playername", playername);
 
+
                         SqlDataReader reader = await sqlCommand.ExecuteReaderAsync();
 
                         while (reader.Read())
@@ -136,6 +137,7 @@ namespace TeamProject_Database
                             newLeaderboard.Date = DateTime.Parse(reader["date"].ToString());
                             newLeaderboard.Steps = int.Parse(reader["steps"].ToString());
                             leaderboard.Add(newLeaderboard);
+
                         }
                     }
                 }
