@@ -122,6 +122,10 @@ html {
     box-sizing: inherit;
 }
 
+button{
+    cursor: pointer;
+}
+
 /*
 * Remove text-shadow in selection highlight:
 * https://twitter.com/miketaylr/status/12228805301
@@ -754,10 +758,6 @@ input:disabled {
     margin-right: var(--global-whitespace-lg);
 }
 
-.c-list__name {
-
-}
-
 .c-list__score {
     font-weight: 500;
     color: var(--global-color-text);
@@ -1199,9 +1199,8 @@ input[type=number]::-webkit-outer-spin-button {
 /*
     Component: SVG
 */
-.c-illustratie--sm{
-    /* display: none; */
-}
+
+
 .c-illustratie{
     display: none;
 }
@@ -1248,7 +1247,8 @@ input[type=number]::-webkit-outer-spin-button {
 /*
     Mediaquery configuratie.html
 */
-@media(min-width:760px){
+
+@media(min-width:1076px){
 
     /*Global styling at 760px*/
 
@@ -1386,7 +1386,7 @@ input[type=number]::-webkit-outer-spin-button {
 /*
     Mediaquerie game.html
 */
-@media(min-width:760px){
+@media(min-width:1076px){
 
     .c-grid--game{
         display: grid;
@@ -1451,11 +1451,7 @@ input[type=number]::-webkit-outer-spin-button {
 /*
     Mediaquerie login.html
 */
-@media(min-width:760px){
-    /* .c-card__title{
-        margin-bottom: 0px;
-    } */
-
+@media(min-width:1076px){
     .c-grid--login{
         
         display: grid;
@@ -1492,6 +1488,103 @@ input[type=number]::-webkit-outer-spin-button {
     }
 
     
+}
+
+/*
+    Mediaquerie main.html
+*/
+.c-grid--main__svg{
+    text-align: center;
+}
+.c-grid--main__welkom{
+    margin-bottom: 3rem;
+}
+
+.c-grid--main__buttons{
+    margin-bottom: 4rem;
+}
+.c-grid--main__head{
+    margin-bottom: 2rem;
+}
+@media(min-width:700px){
+    .c-grid--main__welkom{
+        font-size: 2rem;
+    }
+
+    .c-grid--main__head h1{
+        font-size: 3rem;
+    }
+
+    .c-grid--main__buttons{
+        max-width: 450px;
+        margin: 0 auto;
+        margin-bottom: 5rem;
+    }
+    
+    
+}
+@media(min-width:1076px){
+    .c-main__title{
+        margin-bottom: 4rem;
+    }
+
+    .c-grid--main{
+        display: grid;
+        grid-template-areas: 
+        "head head"
+        "svg welkom"
+        "svg buttons";
+
+        grid-template-rows: 200px 100px 350px;
+
+        width: 1076px;
+        margin: 0 auto;
+        padding-right: 3rem;
+        padding-left: 3rem;
+        /* height: 100vh; */
+    }
+
+    .c-grid--main__head{
+        grid-area: head;
+        margin-bottom: 0px;
+        height: 100px;
+    }
+
+    .c-grid--main__welkom{
+        grid-area: welkom;
+        margin-bottom: 2rem;
+        text-align: start;
+        /* font-size: 32px; */
+    }
+
+    .c-grid--main__svg{
+        grid-area: svg;
+        margin-top: 3rem;
+        /* align-self: center; */
+        /* justify-self: center; */
+        width: 236px;
+        
+    }
+
+    .c-grid--main__buttons{
+        grid-area: buttons;
+        max-width: 373px;
+        margin: 0;
+    }
+
+}
+
+.c-svg-ipad{
+    display: none;
+}
+@media(min-width:760px){
+    .c-svg-ipad{
+        display: inline-block;
+    }
+
+    .c-svg-mobile{
+        display: none;
+    }
 }
 
 
