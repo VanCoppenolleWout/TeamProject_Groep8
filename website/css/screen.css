@@ -127,6 +127,10 @@ html {
     box-sizing: inherit;
 }
 
+button{
+    cursor: pointer;
+}
+
 /*
 * Remove text-shadow in selection highlight:
 * https://twitter.com/miketaylr/status/12228805301
@@ -1244,9 +1248,8 @@ input[type=number]::-webkit-outer-spin-button {
 /*
     Component: SVG
 */
-.c-illustratie--sm{
-    /* display: none; */
-}
+
+
 .c-illustratie{
     display: none;
 }
@@ -1293,7 +1296,8 @@ input[type=number]::-webkit-outer-spin-button {
 /*
     Mediaquery configuratie.html
 */
-@media(min-width:760px){
+
+@media(min-width:1076px){
 
     /*Global styling at 760px*/
 
@@ -1431,7 +1435,7 @@ input[type=number]::-webkit-outer-spin-button {
 /*
     Mediaquerie game.html
 */
-@media(min-width:760px){
+@media(min-width:1076px){
 
     .c-grid--game{
         display: grid;
@@ -1496,11 +1500,7 @@ input[type=number]::-webkit-outer-spin-button {
 /*
     Mediaquerie login.html
 */
-@media(min-width:760px){
-    /* .c-card__title{
-        margin-bottom: 0px;
-    } */
-
+@media(min-width:1076px){
     .c-grid--login{
         
         display: grid;

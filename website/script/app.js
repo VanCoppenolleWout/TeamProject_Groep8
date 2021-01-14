@@ -11,7 +11,7 @@
     var cookies;
     let mqtt, client;
 
-    const url = "http://glenntroncquo.be/";
+    const url = "http://glenntroncquo.be";
 
     const prefix = "teamproject/groep8/";
   
@@ -28,7 +28,9 @@
 
         payload = {"name":name, "difficulty": difficulty, "steps": steps};
         client.publish(`${prefix}gamestart`, JSON.stringify(payload));
-        html_form_difficulty.submit();
+        client.publish(`${prefix}quantitysteps`, JSON.stringify(payload));
+        // html_form_difficulty.submit();
+        window.location.href = `${url}/game.html`
     };
 
     const onClickStop = (event) => {
@@ -45,7 +47,8 @@
       if(html_quantity_steps.value >= 0 && html_quantity_steps.value <= 10 && html_quantity_steps.value%2 == 0){
         steps = html_quantity_steps.value
         document.cookie = `steps=${steps}`;
-        html_form_quantity.submit();
+        // html_form_quantity.submit();
+        window.location.href = `${url}/configuratie-moeilijkheid.html`;
       }
   };
 
@@ -86,13 +89,15 @@
           }).then((result) => {
             if (result.isConfirmed) {
               document.cookie = `name=${name}`;
-              html_form_name.submit();
+              // html_form_name.submit();
+              window.location.href = `${url}/main.html`;
             }
           })
         }
         else{
           document.cookie = `name=${name}`;
-          html_form_name.submit();
+          // html_form_name.submit();
+          window.location.href =`${url}/main.html`;
         }
       }
 
@@ -109,10 +114,13 @@
     };
 
     const onClickBack = () =>{
-      
-      if(window.location.href == 'http://glenntroncquo.be/configuratie.html?' || window.location.href =='http://glenntroncquo.be/configuratie.html') window.location.href='http://glenntroncquo.be/main.html';
+      if(window.location.href == `${url}/configuratie.html`) window.location.href=`${url}/main.html`;
 
-      if(window.location.href == 'http://glenntroncquo.be/configuratie-moeilijkheid.html?' || window.location.href =='http://glenntroncquo.be/configuratie-moeilijkheid.html') window.location.href='http://glenntroncquo.be/configuratie.html';
+      if(window.location.href ==`${url}/configuratie-moeilijkheid.html`) window.location.href=`${url}/configuratie.html`;
+      
+      // if(window.location.href == 'http://glenntroncquo.be/configuratie.html?' || window.location.href =='http://glenntroncquo.be/configuratie.html') window.location.href='http://glenntroncquo.be/main.html';
+
+      // if(window.location.href == 'http://glenntroncquo.be/configuratie-moeilijkheid.html?' || window.location.href =='http://glenntroncquo.be/configuratie-moeilijkheid.html') window.location.href='http://glenntroncquo.be/configuratie.html';
       
     };
 
@@ -148,7 +156,7 @@
    };
 
    const onClickBackToMenu = () =>{
-     window.location.href = 'http://glenntroncquo.be/main.html';
+     window.location.href = `${url}/main.html`;
    }
 
 
@@ -163,7 +171,7 @@
     };
   };
 
-  const getCookies = (choice) => {
+    const getCookies = (choice) => {
     cookies = document.cookie
     .split(';')
     .map(cookie => cookie.split('='))
@@ -174,7 +182,19 @@
       if(choice == 'difficulty')return cookies.difficulty;
     };
 
-    const init = () => {   
+    const onClickMainStart = () =>{
+      window.location.href = `${url}/configuratie.html`;
+    }
+
+    const onClickLeaderboard = () =>{
+      window.location.href = `${url}/score.html`
+    }
+    const onClickMain = (event) =>{
+      event.preventDefault();
+      console.log('prevent');
+    }
+
+    const init = () => {
     
         /*Buttons*/
 
@@ -185,6 +205,8 @@
         html_dropdown_button = document.querySelector('.js-dropdown');
         html_buttton_uitleg_gesloten = document.querySelector(".js-uitleg__gesloten");
         html_buttton_uitleg_open = document.querySelector(".js-uitleg__open");
+        html_button_main_start = document.querySelector('.js-main-start');
+        html_button_main_leaderboard = document.querySelector('.js-main-leaderboard');
 
         /*Dropdown properties*/
         html_dropdown_hidden = document.querySelector('.js-dropdown-hidden');
@@ -202,6 +224,7 @@
         html_form_quantity = document.querySelector('.js-form-quantity');
         html_form_difficulty = document.querySelector('.js-form-difficulty');
         html_form_name = document.querySelector('.js-form-name');
+        html_form_main = document.querySelector('.js-form-main');
 
         /*Input values*/
         html_input_quantity = document.querySelector(".js-quantity-input");
@@ -214,7 +237,11 @@
         if(html_form_quantity) html_form_quantity.addEventListener('submit', onClickQuantity);
         if(html_form_name) html_form_name.addEventListener('submit', onClickName);
         if(html_form_difficulty) html_form_difficulty.addEventListener('submit', onClickDifficulty);
+        if(html_form_main) html_form_main.addEventListener('submit', onClickMain)
         if(html_button_backtomenu) html_button_backtomenu.addEventListener('click', onClickBackToMenu);
+
+        if(html_button_main_start) html_button_main_start.addEventListener('click', onClickMainStart);
+        if(html_button_main_leaderboard) html_button_main_leaderboard.addEventListener('click', onClickLeaderboard);
 
         if(html_buttton_uitleg_gesloten) html_buttton_uitleg_gesloten.addEventListener('click', toggleState);
         if(html_buttton_uitleg_open) html_buttton_uitleg_open.addEventListener('click', toggleState);
@@ -234,10 +261,10 @@
         client.publish(`${prefix}gamestarted`, JSON.stringify('gamestarted'));
 
         client.on('connect', function () {
-            client.subscribe(`${prefix}quantitysteps/answer`);
-            client.subscribe(`${prefix}gamestart/answer`);
+            // client.subscribe(`${prefix}quantitysteps/answer`);
+            // client.subscribe(`${prefix}gamestart/answer`);
             client.subscribe(`${prefix}game/answer`);
-            client.subscribe(`${prefix}getname/answer`);
+            // client.subscribe(`${prefix}getname/answer`);
             client.subscribe(`${prefix}gamestarted/answer`);
             
         });
@@ -289,22 +316,23 @@
                     document.getElementById('jumpingman').setAttribute("class", "");
                     html_button_stop.setAttribute("class", "js-button-stop o-hide");
                     html_button_backtomenu.setAttribute("class", "o-button-reset c-button c-button--stop js-button-backtomenu");
+                    
 
                 }
             } else if (topic == `${prefix}gamestarted/answer`){
               answer = JSON.parse(message);
               game_started = answer.gamestarted;
               if(game_started == true){
-                if(window.location.href != 'http://glenntroncquo.be/game.html?'){
-                  window.location.href='http://glenntroncquo.be/game.html?';
+                if(window.location.href !=`${url}/game.html`){
+                  window.location.href= `${url}/game.html`;
                   console.log('Game started true');
                 }
                 
               }
 
               if(game_started == false){
-                if(window.location.href == 'http://glenntroncquo.be/game.html?' || window.location.href == 'http://glenntroncquo.be/game.html'){
-                  window.location.href='http://glenntroncquo.be/login.html';
+                if(window.location.href == `${url}/game.html`){
+                  window.location.href=`${url}/login.html`;
                   console.log('Game started false');
                 }
               }
