@@ -28,6 +28,7 @@
 
         payload = {"name":name, "difficulty": difficulty, "steps": steps};
         client.publish(`${prefix}gamestart`, JSON.stringify(payload));
+        client.publish(`${prefix}quantitysteps`, JSON.stringify(payload));
         html_form_difficulty.submit();
     };
 
@@ -234,10 +235,10 @@
         client.publish(`${prefix}gamestarted`, JSON.stringify('gamestarted'));
 
         client.on('connect', function () {
-            client.subscribe(`${prefix}quantitysteps/answer`);
-            client.subscribe(`${prefix}gamestart/answer`);
+            // client.subscribe(`${prefix}quantitysteps/answer`);
+            // client.subscribe(`${prefix}gamestart/answer`);
             client.subscribe(`${prefix}game/answer`);
-            client.subscribe(`${prefix}getname/answer`);
+            // client.subscribe(`${prefix}getname/answer`);
             client.subscribe(`${prefix}gamestarted/answer`);
             
         });
@@ -289,6 +290,7 @@
                     document.getElementById('jumpingman').setAttribute("class", "");
                     html_button_stop.setAttribute("class", "js-button-stop o-hide");
                     html_button_backtomenu.setAttribute("class", "o-button-reset c-button c-button--stop js-button-backtomenu");
+                    
 
                 }
             } else if (topic == `${prefix}gamestarted/answer`){
