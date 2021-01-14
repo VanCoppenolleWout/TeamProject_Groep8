@@ -1565,6 +1565,10 @@ input[type=number]::-webkit-outer-spin-button {
     .o-section-list {
         border-radius: var(--global-borderRadius-xxl);
         width: 26em;
+@media (min-width: 1024px) {
+    .o-section-list {
+        border-radius: var(--global-borderRadius-xxl);
+        width: 26em;
 .c-grid--main__buttons{
     margin-bottom: 4rem;
 }
@@ -1597,20 +1601,9 @@ input[type=number]::-webkit-outer-spin-button {
         width: 40px;
     }
 
-    .c-grid--main{
-        display: grid;
-        grid-template-areas: 
-        "head head"
-        "svg welkom"
-        "svg buttons";
-
-        grid-template-rows: 200px 100px 350px;
-
-        width: 1076px;
-        margin: 0 auto;
-        padding-right: 3rem;
-        padding-left: 3rem;
-        /* height: 100vh; */
+    .o-layout__header {
+        margin-top: var(--global-whitespace);
+        margin-bottom: var(--global-whitespace-xxl);
     }
 
     .c-card__title {
@@ -1625,21 +1618,20 @@ input[type=number]::-webkit-outer-spin-button {
         align-items: center;
     }
 
-    .c-grid--main__welkom{
-        grid-area: welkom;
-        margin-bottom: 2rem;
-        text-align: start;
-        /* font-size: 32px; */
+    .o-layout__btnscore {
+        margin: 0 var(--global-whitespace);
+        margin-bottom: var(--global-whitespace);
+        position: relative;
     }
 
     .o-layout__top3 {
         width: 20em;
     }
 
-    .c-grid--main__buttons{
-        grid-area: buttons;
-        max-width: 373px;
-        margin: 0;
+    .c-card__podium1 {
+        height: 12em;
+        width: 6em;
+        border-radius: 10px 10px 5px 5px;
     }
 
     .c-card__podium2 {
