@@ -533,6 +533,12 @@ input:disabled {
     color: var(--global-color-neutral-light);
     text-align: center;
 }
+.c-card__title {
+    font-size: 1.5em;
+    font-weight: 500;
+    color: var(--global-color-neutral-light);
+    text-align: center;
+}
 
 .c-card__subtitle {
     font-size: 1.25em;
@@ -1264,7 +1270,7 @@ input[type=number]::-webkit-outer-spin-button {
 .c-arrow{
     /* padding: 1rem; */
     cursor: pointer;
-    width: 2em;
+    width: 3em;
 }
 
 .jumpingman{
@@ -1297,13 +1303,54 @@ input[type=number]::-webkit-outer-spin-button {
     Mediaquery configuratie.html
 */
 
+.c-input--number {
+    display: block;
+
+}
+.c-configuratie__text{
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+.c-grid--configuratie__svg{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.c-grid--configuratie{
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.c-svg-ipad{
+    display: none;
+}
+
+@media(min-width:700px){
+    .c-grid--configuratie__head{
+        font-size: 2rem;
+    }
+    .c-grid--configuratie__configuratie{
+        font-size: 1.5rem;
+    }
+    .c-grid--trappen{
+        font-size: 1.5rem;
+    }
+
+}
+
 @media(min-width:1076px){
 
-    /*Global styling at 760px*/
-
-    .c-arrow{
-        padding: 0px;
+    /*Global styling at 1076px*/
+    .c-svg-ipad{
+        display: inline-block;
     }
+    .c-svg-mobile{
+        display: none;
+    }
+
+ 
     .c-card__title{
         font-size: 3rem;
         margin-bottom: 6.125rem;
@@ -1335,13 +1382,14 @@ input[type=number]::-webkit-outer-spin-button {
     .c-arrow{
         padding-top: 0.5rem;
         margin-top: 0.25rem;
+        /* width: auto; */
     }
 
     .c-button--volgende{
         height: 2.5rem;
     }
 
-    /* Grid Styling at 760px*/
+    /* Grid Styling at 1076px*/
 
     .c-grid--configuratie{
         display: grid;
@@ -1351,8 +1399,8 @@ input[type=number]::-webkit-outer-spin-button {
         "svg content"
         "button button"
         ;
-        
-        width: 43.75rem;
+        max-width: 1000px;
+        width: 1000px;
         margin: 0 auto;
         padding-right: 3rem;
         padding-left: 3rem;
@@ -1368,7 +1416,7 @@ input[type=number]::-webkit-outer-spin-button {
 
     .c-grid--configuratie__configuratie{
         grid-area: content;
-        justify-self: end;
+        justify-self: center;
         padding-right: 0.875rem;
         
 
@@ -1378,7 +1426,7 @@ input[type=number]::-webkit-outer-spin-button {
 
     .c-grid--configuratie__configuratie2{
         grid-area: content;
-        justify-self: end;
+        justify-self: center;
 
          padding-right: 36px;
         
@@ -1387,7 +1435,7 @@ input[type=number]::-webkit-outer-spin-button {
     .c-grid--trappen{
         grid-area: content;
         margin-top: 3rem;
-        justify-self: end;
+        justify-self: center;
         padding-right: 2rem;
 
     }
@@ -1396,7 +1444,7 @@ input[type=number]::-webkit-outer-spin-button {
         grid-area: content;
         margin-top: 6.25rem;
         max-width: 236px;
-        justify-self: end;
+        justify-self: center;
     }
 
     .c-grid--error{
@@ -1414,6 +1462,9 @@ input[type=number]::-webkit-outer-spin-button {
         width: 100%;
         display: flex;
         justify-content: space-between;
+        /* max-width: 800px; */
+        margin: 0 auto;
+        max-width: 740px;
     }
 
     .c-grid--dropdown{
@@ -1421,13 +1472,13 @@ input[type=number]::-webkit-outer-spin-button {
         margin-top: 100px;
         max-width: 258px;
         width: 100%;
-        justify-self: end;
+        justify-self: center;
     }
 
     .c-grid--moeilijkheidsgraad{
         grid-area: content;
         margin-top: 3rem;
-        justify-self: end;
+        justify-self: center;
     }
     
 }
@@ -1539,6 +1590,68 @@ input[type=number]::-webkit-outer-spin-button {
     
 }
 
+/*
+    Mediaquery main.html
+*/
+
+.c-grid--main__buttons{
+    margin-bottom: 4rem;
+}
+.c-grid--main__head{
+    margin-bottom: 2rem;
+}
+
+.c-grid--main__svg{
+    padding-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    
+}
+@media(min-width:700px){
+    .c-grid--main__welkom{
+        font-size: 2rem;
+    }
+    .c-card__title{
+        font-size: 3rem;
+        /* margin-bottom: 6.125rem; */
+    }
+
+    .c-grid--main__buttons{
+        max-width: 450px;
+        margin: 0 auto;
+    }
+}
+
+@media(min-width:1076px){
+    
+    .c-grid--main{
+        display: grid;
+        grid-template-areas: 
+        "head head"
+        "svg welkom"
+        "svg menu";
+    } 
+
+    .c-grid--main__head{
+        grid-area: head;
+    }
+
+    .c-grid--main__welkom{
+        grid-area: welkom;
+        text-align: start;
+    }
+
+    .c-grid--main__buttons{
+        grid-area: menu;
+        margin: 0;
+    }
+
+    .c-grid--main__svg{
+        grid-area: svg;
+    }
+}
+
+
 /* Media query leaderboard.html */
 
 .c-leaderboard__title {
@@ -1565,24 +1678,17 @@ input[type=number]::-webkit-outer-spin-button {
     .o-section-list {
         border-radius: var(--global-borderRadius-xxl);
         width: 26em;
+    }
+}
+
 @media (min-width: 1024px) {
     .o-section-list {
         border-radius: var(--global-borderRadius-xxl);
         width: 26em;
-.c-grid--main__buttons{
-    margin-bottom: 4rem;
-}
-.c-grid--main__head{
-    margin-bottom: 2rem;
-}
-
-.c-grid--main__svg{
-    padding-bottom: 2rem;
+    }
 }
 @media(min-width:700px){
-    .c-grid--main__welkom{
-        font-size: 2rem;
-    }
+
     .c-leaderboard__title {
         display: block;
         text-align: center;
@@ -1607,8 +1713,8 @@ input[type=number]::-webkit-outer-spin-button {
     }
 
     .c-card__title {
-        margin-bottom: 0;
-        margin-top: 0;
+        /* margin-bottom: 0;
+        margin-top: 0; */
     }
     
     .o-layout__leaderboard {
@@ -1647,6 +1753,7 @@ input[type=number]::-webkit-outer-spin-button {
     }
     
 }
+    
 
 
 /*------------------------------------*\
