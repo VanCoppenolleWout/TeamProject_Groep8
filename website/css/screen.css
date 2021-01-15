@@ -1728,9 +1728,9 @@ input[type=number]::-webkit-outer-spin-button {
         margin-bottom: var(--global-whitespace-xxl);
     }
 
-    .c-card__title {
-        /* margin-bottom: 0;
-        margin-top: 0; */
+    .c-card__title--score {
+        margin-bottom: 0;
+        margin-top: 0;
     }
     
     .o-layout__leaderboard {
