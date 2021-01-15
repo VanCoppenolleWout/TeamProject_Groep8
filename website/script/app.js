@@ -29,7 +29,7 @@
         payload = {"name":name, "difficulty": difficulty, "steps": steps};
         client.publish(`${prefix}gamestart`, JSON.stringify(payload));
         client.publish(`${prefix}quantitysteps`, JSON.stringify(payload));
-        // html_form_difficulty.submit();
+        
         window.location.href = `${url}/game.html`
     };
 
