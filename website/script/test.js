@@ -5,6 +5,7 @@ let showResult = (queryResponse) => {
     //   }
 
     // Top 3 objects
+
     var nr1 = queryResponse[0];
     var nr2 = queryResponse[1];
     var nr3 = queryResponse[2];
@@ -96,7 +97,7 @@ let showResult = (queryResponse) => {
 
     for (const element of arrLeaderboard) {
         html_place = html_place + 1;
-        html_list.innerHTML += `<ul class="o-list o-layout__list js-listitem js-name-data" data-nickname="${element.playername}">
+        html_list.innerHTML += `<ul class="o-list o-layout__list js-listitem js-name-data" data-nickname="${element.playername}" data-playerid="${element.playerID}">
                             <div class="o-layout__list-item">
                                 <li class="c-list__position">${html_place}</li>
                                 <li class="c-list__name">${element.playername}</li>
@@ -158,10 +159,19 @@ let showPersonalResult = (queryResponse) => {
         }
 };
 
+let highlightItem = (queryResponse) => {    
+    var highlight = document.querySelector(`[data-playerid="${queryResponse.playerID}"]`);
+        if (highlight) {
+            highlight.setAttribute('class', 'o-list o-layout__list js-listitem js-name-data c-list-item__active');
+        };
+};
+
 const toggleState = function() {
     var list_closed = document.querySelector(".js-list__closed");
     var list_open = document.querySelector(".js-list__open");
     var micro = document.querySelector(".js-microinteraction");
+    var leaderboard__subtitle = document.querySelector(".c-leaderboard__subtitle");
+    console.log(leaderboard__subtitle);
 
     var btn_opnieuw = document.querySelector(".js-button-opnieuw");
     var btn_klassement = document.querySelector(".js-button-klassement");
@@ -173,14 +183,18 @@ const toggleState = function() {
        micro.style.display = "flex";
        btn_opnieuw.style.display = "block";
        btn_klassement.style.display = "none";
+       console.log("hide subtitle");
+       leaderboard__subtitle.style.display = "none";
     }
     else
     {
        list_closed.style.display = "block";
        list_open.style.display = "none";
-       micro.style.visibility = "hidden";
+       micro.style.display = "none";
        btn_opnieuw.style.display = "none";
        btn_klassement.style.display = "block";
+       console.log("toon subtitle");
+       leaderboard__subtitle.style.display = "block";
     }
  };
 
@@ -197,8 +211,8 @@ const getAPIdifficulty = async (difficulty) => {
         .then((r) => r.json())
         .catch((err) => console.error('An error occured', err));
         showResult(data);
+        getAPIlatestPersonal('Wout');
 };
-
 
 const getAPIpersonal = async (name) => {
     const data = await fetch(`https://trappenspel-api.azurewebsites.net/api/personalleaderboard/${name}`)
@@ -208,8 +222,17 @@ const getAPIpersonal = async (name) => {
         console.log(data);
 };
 
+const getAPIlatestPersonal = async (name) => {
+    const data = await fetch(`https://trappenspel-api.azurewebsites.net/api/getlatestscore/${name}`)
+        .then((r) => r.json())
+        .catch((err) => console.error('An error occured', err));
+        highlightItem(data);
+        console.log(data);
+};
+
 document.addEventListener('DOMContentLoaded', function() {
     getAPI();
+    getAPIlatestPersonal('Wout');
 
     const btn_makkelijk = document.querySelector(".js-filter__makkelijk");
     btn_makkelijk.addEventListener('click', event => {
@@ -229,5 +252,6 @@ document.addEventListener('DOMContentLoaded', function() {
     var btn_opnieuw = document.querySelector(".js-button-klassement");
     btn_opnieuw.addEventListener('click', event => {
         location.reload();
+        //toggleState(); 
     });
 });

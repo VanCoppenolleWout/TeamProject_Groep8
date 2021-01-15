@@ -150,6 +150,49 @@ namespace TeamProject_Database
             }
         }
 
+        [FunctionName("GetLatestScore")]
+        public static async Task<IActionResult> GetLatestScore(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "getlatestscore/{player}")] HttpRequest req, string player,
+            ILogger log)
+        {
+            try
+            {
+                Trappenspel newLeaderboard = new Trappenspel();
+
+                string connectionString = Environment.GetEnvironmentVariable("connectionString");
+                using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+                {
+                    await sqlConnection.OpenAsync();
+                    using (SqlCommand sqlCommand = new SqlCommand())
+                    {
+                        sqlCommand.Connection = sqlConnection;
+                        sqlCommand.CommandText = "SELECT * FROM tbLeaderboard WHERE playername = @playername ORDER BY date DESC OFFSET 0 ROWS FETCH FIRST 1 ROWS ONLY";
+
+                        sqlCommand.Parameters.AddWithValue("@playername", player);
+
+
+                        SqlDataReader reader = await sqlCommand.ExecuteReaderAsync();
+
+                        while (reader.Read())
+                        {
+                            newLeaderboard.PlayerID = int.Parse(reader["playerID"].ToString());
+                            newLeaderboard.Playername = reader["playername"].ToString();
+                            newLeaderboard.Score = int.Parse(reader["score"].ToString());
+                            newLeaderboard.Difficulty = reader["difficulty"].ToString();
+                            newLeaderboard.Date = DateTime.Parse(reader["date"].ToString());
+                            newLeaderboard.Steps = int.Parse(reader["steps"].ToString());
+                        }
+                    }
+                }
+                return new ObjectResult(newLeaderboard);
+            }
+            catch (Exception ex)
+            {
+                log.LogError(ex.Message);
+                return new StatusCodeResult(500);
+            }
+        }
+
         [FunctionName("PostLeaderboard")]
         public static async Task<IActionResult> PostLeaderboard(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "postleaderboard")] HttpRequest req,
