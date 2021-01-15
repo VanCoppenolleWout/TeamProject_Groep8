@@ -196,6 +196,7 @@
 
     let highlightItem = (queryResponse) => {    
       var highlight = document.querySelector(`[data-playerid="${queryResponse.playerID}"]`);
+      console.log(highlight, "highlighted");
           if (highlight) {
               highlight.setAttribute('class', 'o-list o-layout__list js-listitem js-name-data c-list-item__active');
           };
@@ -465,7 +466,8 @@
 
         /* Database callls */
         getAPI();
-        getAPIlatestPersonal('Wout');
+        getAPIlatestPersonal(getCookies('name'));
+        console.log(getCookies('name'), "database call");
 
         /*Eventlisteners*/
         const btn_makkelijk = document.querySelector(".js-filter__makkelijk");
@@ -478,6 +480,7 @@
           getAPIdifficulty("medium");
         }); };
         
+        console.log(MediaDeviceInfo.deviceId);
 
         const btn_moeilijk = document.querySelector(".js-filter__moeilijk");
         if (btn_moeilijk) { btn_moeilijk.addEventListener('click', event => {
