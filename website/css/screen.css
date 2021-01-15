@@ -1573,6 +1573,23 @@ input[type=number]::-webkit-outer-spin-button {
     .o-section-list {
         border-radius: var(--global-borderRadius-xxl);
         width: 26em;
+@media (min-width: 1024px) {
+    .o-section-list {
+        border-radius: var(--global-borderRadius-xxl);
+        width: 26em;
+.c-grid--main__buttons{
+    margin-bottom: 4rem;
+}
+.c-grid--main__head{
+    margin-bottom: 2rem;
+}
+
+.c-grid--main__svg{
+    padding-bottom: 2rem;
+}
+@media(min-width:700px){
+    .c-grid--main__welkom{
+        font-size: 2rem;
     }
     .c-leaderboard__title {
         display: block;
