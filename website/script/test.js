@@ -206,6 +206,8 @@ const getAPI = async () => {
     //console.log(data);
 };
 
+
+
 const getAPIdifficulty = async (difficulty) => {
     const data = await fetch(`https://trappenspel-api.azurewebsites.net/api/leaderboard/${difficulty}`)
         .then((r) => r.json())
@@ -249,7 +251,7 @@ document.addEventListener('DOMContentLoaded', function() {
         getAPIdifficulty("hard");
     });
 
-    var btn_opnieuw = document.querySelector(".js-button-klassement");
+    const btn_opnieuw = document.querySelector(".js-button-klassement");
     btn_opnieuw.addEventListener('click', event => {
         location.reload();
         //toggleState(); 
