@@ -12,6 +12,7 @@
     let mqtt, client;
 
     const url = "http://glenntroncquo.be";
+    // const url = "http://127.0.0.1:5500";
 
     const prefix = "teamproject/groep8/";
   
