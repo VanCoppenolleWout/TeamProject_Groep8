@@ -1551,21 +1551,40 @@ input[type=number]::-webkit-outer-spin-button {
 /*
     Mediaquerie login.html
 */
+.c-grid--login__svg{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+@media(min-width:700px){
+    .c-grid--login__naam{
+        font-size: 1.75rem;
+    }
+    .c-grid--login{
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    
+}
 @media(min-width:1076px){
     .c-grid--login{
-        
+        max-width: 1000px;
         display: grid;
         grid-template-areas: 
         "head head"
         "svg naam"
         "svg buttons";
         
-         width: 43.75rem;
+         /* width: 43.75rem; */
          margin: 0 auto;
          padding-right: 3rem;
          padding-left: 3rem;
 
+         grid-template-rows: 180px 60px 200px;
+
     }
+
+
 
     .c-grid--login__title{
         grid-area: head;
@@ -1585,6 +1604,7 @@ input[type=number]::-webkit-outer-spin-button {
         grid-area: buttons;
         max-width: 260px;
         justify-self: center;
+        /* align-self: center; */
     }
 
     
