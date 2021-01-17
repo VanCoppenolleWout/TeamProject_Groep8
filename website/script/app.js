@@ -139,6 +139,14 @@
     const setName = () =>{
       name = getCookies('name');
       html_text_name.innerHTML = name;
+
+      // if (auth2.isSignedIn.get()) { 
+      //   googleUserProfile = auth2.currentUser.get().getBasicProfile();
+      //   html_text_name.innerHTML = googleUserProfile.getName();
+      // }
+      // else {
+      //   html_text_name.innerHTML = name;
+      // }
     };
 
     const toggleState = function() {
@@ -468,7 +476,6 @@
         /* Database callls */
         getAPI();
         getAPIlatestPersonal(getCookies('name'));
-        console.log(getCookies('name'), "database call");
 
         /*Eventlisteners*/
         const btn_makkelijk = document.querySelector(".js-filter__makkelijk");
@@ -480,8 +487,6 @@
         if (btn_gemiddeld) { btn_gemiddeld.addEventListener('click', event => {
           getAPIdifficulty("medium");
         }); };
-        
-        console.log(MediaDeviceInfo.deviceId);
 
         const btn_moeilijk = document.querySelector(".js-filter__moeilijk");
         if (btn_moeilijk) { btn_moeilijk.addEventListener('click', event => {
