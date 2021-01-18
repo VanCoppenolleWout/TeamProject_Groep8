@@ -170,6 +170,7 @@
 
 
    function deleteAllCookies() {
+     //document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
     var cookies = document.cookie.split(";");
 
     for (var i = 0; i < cookies.length; i++) {
@@ -437,7 +438,21 @@
             console.log(data);
     };
 
+    const cookieCheck = () =>{
+      name = getCookies('name');
+      if(window.location.href==`${url}/` || window.location.href==`${url}/login.html`){
+        if(name != undefined){
+          window.location.href=`${url}/main.html`
+      }
+    } 
+    else{
+      if(name == undefined) window.location.href=`${url}/login.html`;
+    }
+  }
+
     const init = () => {
+        // cookieCheck();
+      
         /*Buttons*/
 
         html_button_start = document.querySelector(".js-button-start");
@@ -473,8 +488,9 @@
 
 
         /* Database callls */
-        getAPI();
-        getAPIlatestPersonal(getCookies('name'));
+        if(document.querySelector('.leaderboard-background')){getAPI(); getAPIlatestPersonal(getCookies('name'));}
+        
+        
 
         /*Eventlisteners*/
         const btn_makkelijk = document.querySelector(".js-filter__makkelijk");
@@ -557,54 +573,71 @@
             } else if (topic == `${prefix}game/answer`) {
               /*On game busy*/
                 answer = JSON.parse(message);
-                if(answer.game == true){
-                  if(answer.seconds==0){
-                    document.querySelector('.js-text-busy').innerHTML = `${answer.name} is aan het spelen...`;
-                    document.querySelector('.js-text-timer').innerHTML = `${answer.score}`;
-                    document.querySelector('.js-text-start').innerHTML = `Huidige score`;
-                    document.querySelectorAll('.jumpingman').forEach(item =>{item.setAttribute('id', 'jumpingman')});
-                    // html_button_stop.setAttribute("class", "o-button-reset c-button c-button--stop js-button-stop");
-                    document.querySelector('.js-button-stop').setAttribute('class', 'o-button-reset c-button c-button--stop js-button-stop');
-                    html_button_backtomenu.setAttribute("class", "js-button-backtomenu o-hide");
-                    console.log(answer);
+                if(window.location.href == `${url}/game.html`){
+                  if(answer.game == true){
+                    if(answer.seconds==0){
+                      document.querySelector('.js-text-busy').innerHTML = `${answer.name} is aan het spelen...`;
+                      document.querySelector('.js-text-timer').innerHTML = `${answer.score}`;
+                      document.querySelector('.js-text-start').innerHTML = `Huidige score`;
+                      document.querySelectorAll('.jumpingman').forEach(item =>{item.setAttribute('id', 'jumpingman')});
+                      document.querySelector('.js-button-stop').setAttribute('class', 'o-button-reset c-button c-button--stop js-button-stop');
+                      html_button_backtomenu.setAttribute("class", "js-button-backtomenu o-hide");
+                      console.log(answer);
+                    }
+    
+                    if(answer.seconds>0){
+                      document.querySelector('.js-text-busy').innerHTML = `Spel wordt gestart...`;
+                      document.querySelector('.js-text-timer').innerHTML = `${answer.seconds}`;
+                      document.querySelector('.js-text-start').innerHTML = `Spel start in`;
+                      console.log('seconds > 0');
+                      html_button_stop.setAttribute("class", "js-button-stop o-hide");
+                      html_button_backtomenu.setAttribute("class", "js-button-backtomenu o-hide");
+                    }
                   }
+                  else {
+                      document.querySelector('.js-text-busy').innerHTML = `Spel is gespeeld...`;
+                      document.querySelector('.js-text-timer').innerHTML = `${answer.score}`;
+                      document.querySelector('.js-text-start').innerHTML = `Behaalde score`;
+                      // document.getElementById('jumpingman').setAttribute("class", "");
+                      document.querySelectorAll('.jumpingman').forEach(item =>{item.setAttribute('id', 'jumpan')});
+                      html_button_stop.setAttribute("class", "js-button-stop o-hide");
+                      html_button_backtomenu.setAttribute("class", "o-button-reset c-button c-button--stop js-button-backtomenu");
+                      
   
-                  if(answer.seconds>0){
-                    document.querySelector('.js-text-busy').innerHTML = `Spel wordt gestart...`;
-                    document.querySelector('.js-text-timer').innerHTML = `${answer.seconds}`;
-                    document.querySelector('.js-text-start').innerHTML = `Spel start in`;
-                    console.log('seconds > 0');
-                    html_button_stop.setAttribute("class", "js-button-stop o-hide");
-                    html_button_backtomenu.setAttribute("class", "js-button-backtomenu o-hide");
                   }
-                }
-                else {
-                    document.querySelector('.js-text-busy').innerHTML = `Spel is gespeeld...`;
-                    document.querySelector('.js-text-timer').innerHTML = `${answer.score}`;
-                    document.querySelector('.js-text-start').innerHTML = `Behaalde score`;
-                    // document.getElementById('jumpingman').setAttribute("class", "");
-                    document.querySelectorAll('.jumpingman').forEach(item =>{item.setAttribute('id', 'jumpan')});
-                    html_button_stop.setAttribute("class", "js-button-stop o-hide");
-                    html_button_backtomenu.setAttribute("class", "o-button-reset c-button c-button--stop js-button-backtomenu");
-                    
 
                 }
+                
             } else if (topic == `${prefix}gamestarted/answer`){
               answer = JSON.parse(message);
               game_started = answer.gamestarted;
-              if(game_started == true){
-                if(window.location.href !=`${url}/game.html`){
-                  window.location.href= `${url}/game.html`;
-                  console.log('Game started true');
+              name = getCookies('name');
+
+              // if(window.location.href==`${url}/` || window.location.href==`${url}/login.html`){
+                if(name != undefined){
+                  // window.location.href=`${url}/main.html`
+                  if(game_started == true){
+                    if(window.location.href !=`${url}/game.html`){
+                      window.location.href= `${url}/game.html`;
+                      console.log('Game started true');
+                    }
+                    
+                  }
+    
+                  if(game_started == false){
+                    console.log('Game started flase')
+                    if(window.location.href == `${url}/game.html`){
+                      window.location.href=`${url}/main.html`;
+                      console.log('Game started false');
+                    }
+                  }
+                }
+               
+              else{
+                if(window.location != `${url}/login.html` && window.location != `${url}/`){
+                  if(name == undefined) window.location.href=`${url}/login.html`;
                 }
                 
-              }
-
-              if(game_started == false){
-                if(window.location.href == `${url}/game.html`){
-                  window.location.href=`${url}/login.html`;
-                  console.log('Game started false');
-                }
               }
             }
             
