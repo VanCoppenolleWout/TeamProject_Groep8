@@ -556,7 +556,6 @@ input:disabled {
 .c-card__trappen {
     margin-bottom: var(--global-whitespace-md);
     color: var(--global-color-neutral-light);
-    margin-left: var(--global-whitespace-md);
     font-weight: 500;
 }
 
@@ -1994,6 +1993,80 @@ No media query since this is the default in mobile first design
 
     .c-card__body {
         margin-top: var(--global-whitespace);
+    }
+}
+
+
+
+/* configtest.html */
+
+.c-backbutton {
+    display: none;
+}
+
+.c-config__arrowback {
+    border-radius: 50px;
+    background-color: var(--global-color-alpha-dark);
+    background-image: var(--global-color-alpha-dark-linear);
+    
+}
+
+.c-config__arrowforward {
+    border-radius: 50px;
+    fill: var(--global-color-neutral-light);
+    background-image: var(--global-color-alpha-dark-linear);
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: var(--global-whitespace-md);
+    padding-right: var(--global-whitespace-sm);
+    width: 9em;
+    color: var(--global-color-neutral-light);
+    font-weight: 500;
+}
+
+
+.c-config__navigation {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+@media (min-width: 1076px) {
+    .c-backbutton {
+        display: flex;
+    }
+
+    .c-backbutton__mobile {
+        display: none;
+    }
+
+    .o-layout__config {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .c-middlesection {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .c-config__arrowback {
+        margin: 0 52px;
+    }
+
+    .c-card__trappen {
+        margin-top: var(--global-whitespace);
+    }
+
+    .c-card__animation {
+        margin-bottom: var(--global-whitespace);
     }
 }
 
