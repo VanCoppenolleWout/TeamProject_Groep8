@@ -31,7 +31,7 @@ namespace TeamProject_Database
                     using (SqlCommand sqlCommand = new SqlCommand())
                     {
                         sqlCommand.Connection = sqlConnection;
-                        sqlCommand.CommandText = "SELECT * FROM tbLeaderboard ORDER BY score DESC";
+                        sqlCommand.CommandText = "SELECT t.playerID, t.playername, t.score, t.date, t.difficulty, t.steps FROM ( SELECT playername, MAX(score) AS score FROM tbLeaderboard where score != 0 GROUP BY playername ) AS m INNER JOIN tbLeaderboard AS t ON t.playername = m.playername AND t.score = m.score ORDER BY score DESC";
 
                         SqlDataReader reader = await sqlCommand.ExecuteReaderAsync();
 

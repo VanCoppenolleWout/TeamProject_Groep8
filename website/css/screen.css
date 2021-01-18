@@ -553,6 +553,13 @@ input:disabled {
     font-weight: 600;
 }
 
+.c-card__trappen {
+    margin-bottom: var(--global-whitespace-md);
+    color: var(--global-color-neutral-light);
+    margin-left: var(--global-whitespace-md);
+    font-weight: 500;
+}
+
 .c-card__question {
     font-weight: 600;
     margin-bottom: var(--global-baseline);
@@ -1366,6 +1373,11 @@ input[type=number]::-webkit-outer-spin-button {
         font-size: 1.75rem;
     }
 
+    .c-card__trappen {
+        font-size: 1.5rem;
+        margin-left: 0;
+    }
+
     .c-button--volgende{
         max-width: 13.75rem;
         cursor: pointer;
@@ -1418,7 +1430,7 @@ input[type=number]::-webkit-outer-spin-button {
         grid-area: content;
         justify-self: center;
         padding-right: 0.875rem;
-        
+        margin-top: 56px;
 
          /* padding-right: 36px; */
         
@@ -1432,18 +1444,18 @@ input[type=number]::-webkit-outer-spin-button {
         
     }
 
-    .c-grid--trappen{
+    .c-grid--congiruatiecontent {
         grid-area: content;
-        margin-top: 3rem;
         justify-self: center;
-        padding-right: 2rem;
-
+        align-self: center;
     }
+
+
 
     .c-grid--input{
         grid-area: content;
-        margin-top: 6.25rem;
-        max-width: 236px;
+        
+        width: 236px;
         justify-self: center;
     }
 
@@ -1542,7 +1554,7 @@ input[type=number]::-webkit-outer-spin-button {
 
     .c-grid--button{
         grid-area: button;
-        max-width: 244px;
+        max-width: 236px;
         justify-self: center;
     }
     .c-grid--buttonstop{
@@ -1574,7 +1586,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 @media(min-width:700px){
     .c-grid--login__naam{
-        font-size: 1.75rem;
+        font-size: 1.50rem;
     }
     .c-grid--login{
         max-width: 400px;
@@ -1588,7 +1600,6 @@ input[type=number]::-webkit-outer-spin-button {
         display: grid;
         grid-template-areas: 
         "head head"
-        "svg naam"
         "svg buttons";
         
          /* width: 43.75rem; */
@@ -1596,7 +1607,7 @@ input[type=number]::-webkit-outer-spin-button {
          padding-right: 3rem;
          padding-left: 3rem;
 
-         grid-template-rows: 180px 60px 200px;
+         grid-template-rows: 180px 300px;
 
     }
 
@@ -1609,17 +1620,27 @@ input[type=number]::-webkit-outer-spin-button {
 
     .c-grid--login__svg{
         grid-area: svg;
+        align-self: center;
     }
 
+    /*
+
     .c-grid--login__naam{
-        grid-area: naam;
-        justify-self: center;
+        grid-area: buttons;
+        justify-self: right;
+    } */
+
+    .test-grid {
+        grid-area: buttons;
+        justify-self: right;
+        margin-top: var(--global-whitespace-xl);
+        align-self: flex-start;
     }
 
     .c-grid--login__buttons{
         grid-area: buttons;
         max-width: 260px;
-        justify-self: center;
+        justify-self: right;
         /* align-self: center; */
     }
 
@@ -1757,7 +1778,7 @@ input[type=number]::-webkit-outer-spin-button {
     .o-layout__header {
         margin-top: var(--global-whitespace);
         margin-bottom: var(--global-whitespace-xxl);
-        height: 5.25em;
+        height: 5.25rem;
     }
 
     .o-header__leaderboard {
