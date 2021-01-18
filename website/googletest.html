@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <script src="https://apis.google.com/js/client:platform.js?onload=renderButton" async defer></script>
+    <!-- <script src="https://apis.google.com/js/client:platform.js?onload=renderButton" async defer></script> -->
+
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    
     <meta name="google-signin-client_id" content="638448013795-1k1csiit9uc7ikjg8h4jp76ht3g09epg.apps.googleusercontent.com">
 
     <script src="script/google.js"></script>
@@ -13,11 +16,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-    <div id="gSignIn"></div>
-
-<!-- Show the user profile details -->
-<div class="userContent" style="display: none;"></div>
-    
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
     
 </body>
 </html>

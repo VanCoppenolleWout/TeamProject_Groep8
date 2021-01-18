@@ -612,10 +612,8 @@
               answer = JSON.parse(message);
               game_started = answer.gamestarted;
               name = getCookies('name');
-
-              // if(window.location.href==`${url}/` || window.location.href==`${url}/login.html`){
+              
                 if(name != undefined){
-                  // window.location.href=`${url}/main.html`
                   if(game_started == true){
                     if(window.location.href !=`${url}/game.html`){
                       window.location.href= `${url}/game.html`;
@@ -628,7 +626,9 @@
                     console.log('Game started flase')
                     if(window.location.href == `${url}/game.html`){
                       window.location.href=`${url}/main.html`;
-                      console.log('Game started false');
+                    }
+                    if(window.location.href == `${url}/login.html` || window.location.href == `${url}/`){
+                      window.location.href=`${url}/main.html`;
                     }
                   }
                 }
