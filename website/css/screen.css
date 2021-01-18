@@ -1277,7 +1277,7 @@ input[type=number]::-webkit-outer-spin-button {
     width: 3em;
 }
 
-.jumpingman{
+#jumpingman{
     animation: jump 1s ease-in-out alternate infinite;
 }
 
@@ -1454,7 +1454,7 @@ input[type=number]::-webkit-outer-spin-button {
     .c-grid--error{
         grid-area: content;
         margin-top: 9rem;
-        justify-self: end;
+        justify-self: center;
         max-width: 13.75rem;
         color: rgb(202, 45, 45);
         font-size: 14px;
@@ -1561,6 +1561,11 @@ input[type=number]::-webkit-outer-spin-button {
 /*
     Mediaquerie login.html
 */
+.c-grid--login{
+    max-width: 400px;
+    margin: 0 auto;
+}
+
 .c-grid--login__svg{
     display: flex;
     justify-content: center;
