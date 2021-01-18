@@ -28,8 +28,8 @@
         name = getCookies('name');
 
         payload = {"name":name, "difficulty": difficulty, "steps": steps};
-        client.publish(`${prefix}gamestart`, JSON.stringify(payload));
         client.publish(`${prefix}quantitysteps`, JSON.stringify(payload));
+        client.publish(`${prefix}gamestart`, JSON.stringify(payload));
         
         window.location.href = `${url}/game.html`
     };
@@ -438,7 +438,6 @@
     };
 
     const init = () => {
-    
         /*Buttons*/
 
         html_button_start = document.querySelector(".js-button-start");
@@ -562,9 +561,10 @@
                   if(answer.seconds==0){
                     document.querySelector('.js-text-busy').innerHTML = `${answer.name} is aan het spelen...`;
                     document.querySelector('.js-text-timer').innerHTML = `${answer.score}`;
-                    document.querySelector('.js-text-start').innerHTML = `Huidige sore`;
-                    document.getElementById('jumpingman').setAttribute("class", "jumpingman");
-                    html_button_stop.setAttribute("class", "o-button-reset c-button c-button--stop js-button-stop");
+                    document.querySelector('.js-text-start').innerHTML = `Huidige score`;
+                    document.querySelectorAll('.jumpingman').forEach(item =>{item.setAttribute('id', 'jumpingman')});
+                    // html_button_stop.setAttribute("class", "o-button-reset c-button c-button--stop js-button-stop");
+                    document.querySelector('.js-button-stop').setAttribute('class', 'o-button-reset c-button c-button--stop js-button-stop');
                     html_button_backtomenu.setAttribute("class", "js-button-backtomenu o-hide");
                     console.log(answer);
                   }
@@ -582,7 +582,8 @@
                     document.querySelector('.js-text-busy').innerHTML = `Spel is gespeeld...`;
                     document.querySelector('.js-text-timer').innerHTML = `${answer.score}`;
                     document.querySelector('.js-text-start').innerHTML = `Behaalde score`;
-                    document.getElementById('jumpingman').setAttribute("class", "");
+                    // document.getElementById('jumpingman').setAttribute("class", "");
+                    document.querySelectorAll('.jumpingman').forEach(item =>{item.setAttribute('id', 'jumpan')});
                     html_button_stop.setAttribute("class", "js-button-stop o-hide");
                     html_button_backtomenu.setAttribute("class", "o-button-reset c-button c-button--stop js-button-backtomenu");
                     
