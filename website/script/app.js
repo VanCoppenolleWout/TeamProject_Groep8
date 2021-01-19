@@ -5,8 +5,7 @@
 
 
 
-    let html_button_quantity, html_button_start, html_button_stop, html_quantity_steps, html_quantity_steps_answer, html_game_name, html_game_difficulty,
-    html_game_answer, html_gamestart_start, html_gamestart_name, html_gamestart_score, html_game, html_quantity,html_form_quantity,html_form_difficulty, html_button_back, html_dropdown_button, html_dropdown_hidden, html_difficulty, html_dropdown_items, html_text_start, html_buttton_uitleg_gesloten, html_buttton_uitleg_open, html_form_name;
+    let html_button_stop, html_quantity_steps, html_quantity_steps_answer, html_form_quantity,html_form_difficulty, html_button_back, html_dropdown_button, html_dropdown_hidden, html_difficulty, html_dropdown_items, html_buttton_uitleg_gesloten, html_buttton_uitleg_open, html_form_name;
     let difficulty, name, steps,seconds, game_started;
     var cookies;
     let mqtt, client;
@@ -48,7 +47,6 @@
       if(html_quantity_steps.value >= 0 && html_quantity_steps.value <= 10 && html_quantity_steps.value%2 == 0){
         steps = html_quantity_steps.value
         document.cookie = `steps=${steps}`;
-        // html_form_quantity.submit();
         window.location.href = `${url}/configuratie-moeilijkheid.html`;
       }
   };
@@ -62,8 +60,6 @@
       if(quantityInput>=10) errormsg.innerHTML = '*Gelieve een getal kleiner dan 10 in te voeren';
 
       if(quantityInput>0 && quantityInput<=10 && quantityInput%2 == 0) errormsg.innerHTML = '';
-
-
     };
 
     const onClickName = async (event) =>{
@@ -98,7 +94,6 @@
         else{
           document.cookie = `name=${name}`;
           document.cookie = `google=false`;
-          // html_form_name.submit();
           window.location.href =`${url}/main.html`;
         }
       }
@@ -110,20 +105,13 @@
           text: 'Je kan geen lege naam invoeren!',
         })
         
-      }
-
-      
+      } 
     };
 
     const onClickBack = () =>{
       if(window.location.href == `${url}/configuratie.html`) window.location.href=`${url}/main.html`;
 
-      if(window.location.href ==`${url}/configuratie-moeilijkheid.html`) window.location.href=`${url}/configuratie.html`;
-      
-      // if(window.location.href == 'http://glenntroncquo.be/configuratie.html?' || window.location.href =='http://glenntroncquo.be/configuratie.html') window.location.href='http://glenntroncquo.be/main.html';
-
-      // if(window.location.href == 'http://glenntroncquo.be/configuratie-moeilijkheid.html?' || window.location.href =='http://glenntroncquo.be/configuratie-moeilijkheid.html') window.location.href='http://glenntroncquo.be/configuratie.html';
-      
+      if(window.location.href ==`${url}/configuratie-moeilijkheid.html`) window.location.href=`${url}/configuratie.html`;     
     };
 
     const onClickDropdown = () =>{
@@ -140,14 +128,6 @@
     const setName = () =>{
       name = getCookies('name');
       html_text_name.innerHTML = name;
-
-      // if (auth2.isSignedIn.get()) { 
-      //   googleUserProfile = auth2.currentUser.get().getBasicProfile();
-      //   html_text_name.innerHTML = googleUserProfile.getName();
-      // }
-      // else {
-      //   html_text_name.innerHTML = name;
-      // }
     };
 
     const toggleState = function() {
@@ -171,7 +151,6 @@
 
 
    function deleteAllCookies() {
-     //document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
     var cookies = document.cookie.split(";");
 
     for (var i = 0; i < cookies.length; i++) {
@@ -214,12 +193,7 @@
           };
     };
 
-    let showResult = (queryResponse) => {
-      // log all objects
-      // for (const element of queryResponse) {
-      //     console.log(element);
-      //   }
-  
+    let showResult = (queryResponse) => {  
       // Top 3 objects
   
       var nr1 = queryResponse[0];
@@ -461,8 +435,6 @@
     const init = () => {
       
         /*Buttons*/
-
-        html_button_start = document.querySelector(".js-button-start");
         html_button_stop = document.querySelector(".js-button-stop");
         html_button_backtomenu = document.querySelector(".js-button-backtomenu");
         html_button_back = document.querySelector('.js-button-back');
@@ -479,7 +451,6 @@
         html_dropdown_items = document.querySelectorAll('.js-dropdown-items');
 
         /*Text*/
-        html_text_start = document.querySelector('.js-text-start');
         html_text_timer = document.querySelector('.js-text-timer');
         html_text_busy = document.querySelector('.js-text-busy')
         html_text_name = document.querySelector('.js-name');
@@ -521,7 +492,6 @@
         if (btn_opnieuw) {
           btn_opnieuw.addEventListener('click', event => {
             location.reload();
-            //toggleState(); 
           }); };
         
         
@@ -554,22 +524,13 @@
         client.publish(`${prefix}gamestarted`, JSON.stringify('gamestarted'));
 
         client.on('connect', function () {
-            // client.subscribe(`${prefix}quantitysteps/answer`);
-            // client.subscribe(`${prefix}gamestart/answer`);
             client.subscribe(`${prefix}game/answer`);
-            // client.subscribe(`${prefix}getname/answer`);
             client.subscribe(`${prefix}gamestarted/answer`);
             
         });
          
         client.on('message', function (topic, message) {
             html_quantity_steps_answer = document.querySelector(".js-quantity-steps-answer");
-            html_game_answer = document.querySelector(".js-game-answer");
-            html_gamestart_start = document.querySelector(".js-gamestart-start");
-            html_gamestart_name = document.querySelector(".js-gamestart-name");
-            html_gamestart_score = document.querySelector(".js-gamestart-score");
-            html_game = document.querySelector(".js-game");
-            html_quantity = document.querySelector(".js-quantity");
 
             if(topic == `${prefix}quantitysteps/answer`) {
                 answer = JSON.parse(message);
@@ -608,15 +569,11 @@
                   else {
                       document.querySelector('.js-text-busy').innerHTML = `Spel is gespeeld...`;
                       document.querySelector('.js-text-timer').innerHTML = `${answer.score}`;
-                      document.querySelector('.js-text-start').innerHTML = `Behaalde score`;
-                      // document.getElementById('jumpingman').setAttribute("class", "");
+                      document.querySelector('.js-text-start').innerHTML = `Behaalde score`;;
                       document.querySelectorAll('.jumpingman').forEach(item =>{item.setAttribute('id', 'jumpan')});
                       html_button_stop.setAttribute("class", "js-button-stop o-hide");
                       html_button_backtomenu.setAttribute("class", "o-button-reset c-button c-button--stop js-button-backtomenu");
-                      
-  
                   }
-
                 }
                 
             } else if (topic == `${prefix}gamestarted/answer`){
