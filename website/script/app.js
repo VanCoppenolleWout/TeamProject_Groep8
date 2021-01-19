@@ -589,9 +589,11 @@
                       document.querySelector('.js-text-timer').innerHTML = `${answer.score}`;
                       document.querySelector('.js-text-start').innerHTML = `Huidige score`;
                       document.querySelectorAll('.jumpingman').forEach(item =>{item.setAttribute('id', 'jumpingman')});
-                      document.querySelector('.js-button-stop').setAttribute('class', 'o-button-reset c-button c-button--stop js-button-stop');
+                      
                       html_button_backtomenu.setAttribute("class", "js-button-backtomenu o-hide");
                       console.log(answer);
+                      name = getCookies('name');
+                      if(name == answer.name) document.querySelector('.js-button-stop').setAttribute('class', 'o-button-reset c-button c-button--stop js-button-stop');
                     }
     
                     if(answer.seconds>0){
