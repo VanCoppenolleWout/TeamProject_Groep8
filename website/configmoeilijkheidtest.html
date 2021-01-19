@@ -11,7 +11,7 @@
 <body class="login-page">
     <section class="o-row">
         <div class="o-container u-max-width-lg">
-          <form class="js-form-quantity" action="/website/configmoeilijkheidtest.html">
+          <form class="js-form-quantity" action="/website/configuratie-moeilijkheid.html">
             <div class="c-card__body">
                 <div class="o-layout__header o-header o-header--sm">
                     <div class="c-empty"></div>
@@ -122,9 +122,34 @@
                             <div class="c-configuratie__text c-configuratie__textdesktop">
                                 Configuratie spel
                             </div>
-                              <label for="naam" class="c-card__trappen">Geef het aantal <b>tredes</b> in die je wilt gebruiken</label>
-                              <input class="js-quantity-input c-input--number c-grid--input c-input--number__hidden" min="2" max="10" step="2" value="2"
-                                type="number" name="" id="">
+                              <label for="naam" class="c-card__trappen">Geef de <b>Moeilijkheidsgraad</b> in. Die zal bepalen hoe snel het spel gaat.</label>
+                              <div class="c-grid--dropdown c-dropdown js-dropdown js-dropdown-toggle">
+                                  <div class="c-dropdown--button">
+                                      <div class="js-difficulty">Makkelijk</div>
+          
+                                      <div>
+                                          <svg class="c-dropdown--svg js-dropdown-svg" xmlns="http://www.w3.org/2000/svg"
+                                              height="24" viewBox="0 0 24 24" width="24">
+                                              <path d="M0 0h24v24H0V0z" fill="none" />
+                                              <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" /></svg>
+                                      </div>
+                                  </div>
+                                  <div class="c-dropdown--hidden js-dropdown-hidden">
+                                      <ul class="c-dropdown--items">
+                                          <li class="c-dropdown--item js-dropdown-items">
+                                              Makkelijk
+                                          </li>
+                                          <li class="c-dropdown--item js-dropdown-items">
+                                              Gemiddeld
+                                              
+                                          </li>
+          
+                                          <li class="c-dropdown--item js-dropdown-items">
+                                              Moeilijk
+                                          </li>
+                                      </ul>
+                                  </div>
+                              </div>
                         </div>
                         <div class="c-config__navigation">
                             <button class="o-button-reset c-backbutton__mobile js-vorigestap">
@@ -135,16 +160,7 @@
                                     </g>
                                   </svg>                 
                             </button>
-                            <button class="o-button-reset c-nextbutton js-volgendestap">
-                                <div class="c-config__arrowforward">
-                                <div>Volgende</div>
-                                <svg class="" id="arrow_right_alt-24px" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
-                                    <path id="Path_4" data-name="Path 4" d="M40,0H0V40H40Z" fill="none"/>
-                                    <path id="Path_1" data-name="Path 1" d="M14,19l7-7m0,0L14,5m7,7H3" transform="translate(8 8)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-                                </svg>
-                                </div>
-                            </button>
-                            <button class="o-button-reset c-nextbutton js-startspel" style="display: none" type="submit">
+                            <button class="o-button-reset c-nextbutton js-startspel" type="submit">
                               <div class="c-config__arrowforward">
                               <div>Starten</div>
                               <svg class="" id="arrow_right_alt-24px" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">

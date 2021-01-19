@@ -1029,7 +1029,7 @@ input[type=number]::-webkit-outer-spin-button {
     margin-top: -12px;
     margin-bottom: 1rem;
     position: absolute;
-    width: 327px;
+    width: 288px;
 }
 
 .c-dropdown--item{
@@ -2034,6 +2034,11 @@ No media query since this is the default in mobile first design
     justify-content: space-between;
 }
 
+.c-configuratie__textdesktop {
+    display: none;
+}
+
+
 @media (min-width: 1076px) {
     .c-backbutton {
         display: flex;
@@ -2041,6 +2046,14 @@ No media query since this is the default in mobile first design
 
     .c-backbutton__mobile {
         display: none;
+    }
+
+    .c-configuratie__textmobile {
+        display: none;
+    }    
+
+    .c-configuratie__textdesktop {
+        display: flex;
     }
 
     .o-layout__config {
