@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Github\\Teamproject\\TeamProject_Groep8\\XamarinApp\\Trappenspel\\Trappenspel.Android\\Trappenspel.Android.csproj": {}
+    "C:\\Users\\Gilian\\source\\repos\\Trappenspel\\Trappenspel.Android\\Trappenspel.Android.csproj": {}
   },
   "projects": {
-    "C:\\Github\\Teamproject\\TeamProject_Groep8\\XamarinApp\\Trappenspel\\Trappenspel.Android\\Trappenspel.Android.csproj": {
+    "C:\\Users\\Gilian\\source\\repos\\Trappenspel\\Trappenspel.Android\\Trappenspel.Android.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Github\\Teamproject\\TeamProject_Groep8\\XamarinApp\\Trappenspel\\Trappenspel.Android\\Trappenspel.Android.csproj",
+        "projectUniqueName": "C:\\Users\\Gilian\\source\\repos\\Trappenspel\\Trappenspel.Android\\Trappenspel.Android.csproj",
         "projectName": "Trappenspel.Android",
-        "projectPath": "C:\\Github\\Teamproject\\TeamProject_Groep8\\XamarinApp\\Trappenspel\\Trappenspel.Android\\Trappenspel.Android.csproj",
+        "projectPath": "C:\\Users\\Gilian\\source\\repos\\Trappenspel\\Trappenspel.Android\\Trappenspel.Android.csproj",
         "packagesPath": "C:\\Users\\Gilian\\.nuget\\packages\\",
-        "outputPath": "C:\\Github\\Teamproject\\TeamProject_Groep8\\XamarinApp\\Trappenspel\\Trappenspel.Android\\obj\\",
+        "outputPath": "C:\\Users\\Gilian\\source\\repos\\Trappenspel\\Trappenspel.Android\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "fallbackFolders": [
@@ -32,8 +32,8 @@
         "frameworks": {
           "monoandroid90": {
             "projectReferences": {
-              "C:\\Github\\Teamproject\\TeamProject_Groep8\\XamarinApp\\Trappenspel\\Trappenspel\\Trappenspel.csproj": {
-                "projectPath": "C:\\Github\\Teamproject\\TeamProject_Groep8\\XamarinApp\\Trappenspel\\Trappenspel\\Trappenspel.csproj"
+              "C:\\Users\\Gilian\\source\\repos\\Trappenspel\\Trappenspel\\Trappenspel.csproj": {
+                "projectPath": "C:\\Users\\Gilian\\source\\repos\\Trappenspel\\Trappenspel\\Trappenspel.csproj"
               }
             }
           }
@@ -54,14 +54,14 @@
         }
       }
     },
-    "C:\\Github\\Teamproject\\TeamProject_Groep8\\XamarinApp\\Trappenspel\\Trappenspel\\Trappenspel.csproj": {
+    "C:\\Users\\Gilian\\source\\repos\\Trappenspel\\Trappenspel\\Trappenspel.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Github\\Teamproject\\TeamProject_Groep8\\XamarinApp\\Trappenspel\\Trappenspel\\Trappenspel.csproj",
+        "projectUniqueName": "C:\\Users\\Gilian\\source\\repos\\Trappenspel\\Trappenspel\\Trappenspel.csproj",
         "projectName": "Trappenspel",
-        "projectPath": "C:\\Github\\Teamproject\\TeamProject_Groep8\\XamarinApp\\Trappenspel\\Trappenspel\\Trappenspel.csproj",
+        "projectPath": "C:\\Users\\Gilian\\source\\repos\\Trappenspel\\Trappenspel\\Trappenspel.csproj",
         "packagesPath": "C:\\Users\\Gilian\\.nuget\\packages\\",
-        "outputPath": "C:\\Github\\Teamproject\\TeamProject_Groep8\\XamarinApp\\Trappenspel\\Trappenspel\\obj\\",
+        "outputPath": "C:\\Users\\Gilian\\source\\repos\\Trappenspel\\Trappenspel\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
@@ -107,6 +107,10 @@
             "OpcLabs.Mqtt": {
               "target": "Package",
               "version": "[5.59.492, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.2, )"
             },
             "System.Diagnostics.EventLog": {
               "target": "Package",

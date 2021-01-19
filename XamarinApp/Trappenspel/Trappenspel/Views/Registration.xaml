@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Trappenspel.Views.Registration"
+             NavigationPage.HasNavigationBar="False">
+    
+    <StackLayout VerticalOptions="Center">
+        <Label Text="Welcome, enter your name below to continue." x:Name="messageLabel" HorizontalTextAlignment="Center" />
+        <Entry Placeholder="Bv.KobeM" x:Name="nameEntry" />
+        <Button Text="Next" x:Name="publishButton" Clicked="publishButton_Clicked" />
+        <Button Text="LeaderBoard" x:Name="leaderboardButton" Clicked="publishButton_Clicked_1" />
+    </StackLayout>
+    
+</ContentPage>

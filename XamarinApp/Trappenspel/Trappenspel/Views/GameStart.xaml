@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Trappenspel.Views.GameStart"
+             NavigationPage.HasNavigationBar="False">
+    
+    <StackLayout VerticalOptions="Center">
+        <Label Text="Score" HorizontalTextAlignment="Center" />
+        <Label Text="_" x:Name="scoreLabel" HorizontalTextAlignment="Center" />
+        
+        <Label Text="Start Game" x:Name="messageLabel" HorizontalTextAlignment="Center" />
+        
+        <Button Text="Start" x:Name="publishButton" Clicked="Button_Clicked" />
+        <Button Text="Home" x:Name="homeButton" Clicked="homeButton_Clicked" />
+    </StackLayout>
+    
+</ContentPage>

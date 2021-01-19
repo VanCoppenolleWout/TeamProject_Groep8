@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "xB37kfDmqqu4bIcgh4vGB0NI7hVFbyAwf2jBD5vPPhZp5Iiw3DAtN2pgIzvlGyZyPL1dkbFup0kbkK4Utd6+ag==",
+  "dgSpecHash": "1XDG1iXrxLjckISxVyyvlGeWNN8E9PwSmR2MGMKBUHBX3FZbwg6pok568V1c3qWj0RsH2ogdZpQMfkK4M7V1EQ==",
   "success": true,
-  "projectFilePath": "C:\\Github\\Teamproject\\TeamProject_Groep8\\XamarinApp\\Trappenspel\\Trappenspel.iOS\\Trappenspel.iOS.csproj",
+  "projectFilePath": "C:\\Users\\Gilian\\source\\repos\\Trappenspel\\Trappenspel.iOS\\Trappenspel.iOS.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Gilian\\.nuget\\packages\\microsoft.aspnetcore.connections.abstractions\\2.2.0\\microsoft.aspnetcore.connections.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\Gilian\\.nuget\\packages\\microsoft.aspnetcore.hosting\\2.2.0\\microsoft.aspnetcore.hosting.2.2.0.nupkg.sha512",
@@ -57,6 +57,7 @@
     "C:\\Users\\Gilian\\.nuget\\packages\\system.componentmodel.annotations\\4.6.0\\system.componentmodel.annotations.4.6.0.nupkg.sha512",
     "C:\\Users\\Gilian\\.nuget\\packages\\system.configuration.configurationmanager\\4.6.0\\system.configuration.configurationmanager.4.6.0.nupkg.sha512",
     "C:\\Users\\Gilian\\.nuget\\packages\\system.data.common\\4.3.0\\system.data.common.4.3.0.nupkg.sha512",
+    "C:\\Users\\Gilian\\.nuget\\packages\\system.data.sqlclient\\4.8.2\\system.data.sqlclient.4.8.2.nupkg.sha512",
     "C:\\Users\\Gilian\\.nuget\\packages\\system.diagnostics.debug\\4.0.11\\system.diagnostics.debug.4.0.11.nupkg.sha512",
     "C:\\Users\\Gilian\\.nuget\\packages\\system.diagnostics.diagnosticsource\\4.5.0\\system.diagnostics.diagnosticsource.4.5.0.nupkg.sha512",
     "C:\\Users\\Gilian\\.nuget\\packages\\system.diagnostics.eventlog\\5.0.0\\system.diagnostics.eventlog.5.0.0.nupkg.sha512",

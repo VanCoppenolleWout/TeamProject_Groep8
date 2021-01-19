@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Trappenspel.Views.GameSettings"
+             NavigationPage.HasNavigationBar="False">
+
+    <StackLayout VerticalOptions="Center">
+        <Label Text="_____" x:Name="nameLabel" HorizontalTextAlignment="Center" />
+        <Label Text="Amount of stairs:" x:Name="messageLabel" HorizontalTextAlignment="Center" />
+        <Entry Placeholder="Bv.6" x:Name="stairEntry" />
+
+        <Picker x:Name="picker"
+        Title="Difficulty">
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>Easy</x:String>
+                    <x:String>Normal</x:String>
+                    <x:String>Hard</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+        </Picker>
+
+        <Button Text="Next" x:Name="publishButton" Clicked="publishButton_Clicked" />
+    </StackLayout>
+    
+</ContentPage>
