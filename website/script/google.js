@@ -9,6 +9,8 @@ var signinChanged = function (val) {
       var profile = auth2.currentUser.get().getBasicProfile();
       console.log('ID: ' + profile.getId());
       console.log('Full Name: ' + profile.getName());
+      document.cookie = `name=${profile.getName()}`;
+      if(window.location.href != `http://glenntroncquo.be/main.html`) window.location.href= `http://glenntroncquo.be/main.html`;
     }
   }
 };
@@ -22,6 +24,7 @@ var onSuccess = function (user) {
 function signOut() {
   auth2.signOut().then(function () {
     console.log("User signed out.");
+    
   });
 }
 
@@ -29,8 +32,13 @@ var userChanged = function (user) {
   if (user.getId()) {
     // Do something here
     console.log('user changed');
+    var profile = auth2.currentUser.get().getBasicProfile();
+    console.log('ID: ' + profile.getId());
+    console.log('Full Name: ' + profile.getName());
   }
 };
+
+
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -41,14 +49,10 @@ document.addEventListener("DOMContentLoaded", () => {
         "638448013795-1k1csiit9uc7ikjg8h4jp76ht3g09epg.apps.googleusercontent.com",
     });
   
-    // auth2.isSignedIn.listen(signinChanged);
-    auth2.currentUser.listen(userChanged); // This is what you use to listen for user changes
+    auth2.isSignedIn.listen(signinChanged);
+    // auth2.currentUser.listen(userChanged); // This is what you use to listen for user changes
 
     
 
   });
-
-
-  
-
 });
