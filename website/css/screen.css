@@ -26,6 +26,7 @@
 
 :root {
     /* colors */
+    --global-color-alpha-darker-linear: linear-gradient(to right, #0361E8, #1E7AFC);
     --global-color-alpha-dark-linear: linear-gradient(to right, #1D63DC , #2F7AE5);
     --global-color-alpha-darker: #1D63DC;
     --global-color-alpha-dark: #2F7AE5;
@@ -40,7 +41,7 @@
     
     --global-color-background: #F6F5F7;
 
-    --global-color-alpha-x-transparent: #3385ff4d;
+    --global-color-alpha-x-transparent: #3385ff99;
 
     --global-color-neutral-xxxx-dark: #17161A;
     --global-color-neutral-xxx-dark: #47454D;
@@ -79,7 +80,7 @@
     --global-input-focus-boxShadowSpread: 0px 0px 7px 0px rgba(0,0,0,0.16);
     --global-input-focus-boxShadowSpread-text: 0px 3px 6px rgba(0,0,0,0.16);
     --global-input-backgroundColor: var(--global-color-neutral-light);
-    --global-input-borderColor: var(--global-color-neutral-xxx-light);
+    --global-input-borderColor: var(--global-color-alpha-dark);
     --global-input-hover-borderColor: var(--global-color-neutral-xx-light);
     --global-input-focus-borderColor: var(--global-color-alpha);
     --global-input-focus-boxShadowColor: var(--global-color-alpha-x-transparent);
@@ -881,6 +882,23 @@ input:disabled {
 
     max-height: 2.5rem;
 }
+
+.c-input--number:hover, .c-input:hover {
+    border-color: var(--global-color-neutral-light);
+  
+    border: var(--global-borderWidth) solid var(--global-input-borderColor);
+    background-color: var(--global-input-backgroundColor);
+    /*color: var(--global-input-color); */
+  }
+  
+  .c-input--number:focus, .c-input:focus,
+  .c-input--number:active, .c-input:active {
+    border-color: var(--global-color-alpha-light);
+    box-shadow: 0 0 0 3px var(--global-color-alpha-x-transparent);
+  
+    border: var(--global-borderWidth) solid var(--global-input-borderColor);
+    background-color: var(--global-input-backgroundColor);
+  }
 
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
@@ -2002,6 +2020,26 @@ No media query since this is the default in mobile first design
 
 .c-backbutton {
     display: none;
+}
+
+.c-nextbutton {
+    outline: none;
+    cursor: pointer;
+}
+
+.c-backbutton {
+    outline: none;
+    cursor: pointer;
+}
+
+.c-config__arrowforward:hover, .c-config__arrowback:hover {
+    background-image: var(--global-color-alpha-darker-linear);
+}
+
+.c-nextbutton:focus,
+.c-nextbutton:active {
+    border-color: var(--input-focus-borderColor, var(--global-input-focus-borderColor));
+    box-shadow: var(--global-input-focus-boxShadowSpread) var(--input-focus-boxShadowColor, var(--global-input-focus-boxShadowColor));
 }
 
 .c-config__arrowback {
