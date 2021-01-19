@@ -1573,10 +1573,12 @@ input[type=number]::-webkit-outer-spin-button {
     margin-bottom: 2rem;
 }
 .c-text--google{
-    margin-top: 2rem;
+    /* margin-top: 2rem; */
     margin-bottom: 1rem;
 }
-
+.c-grid--login__button{
+    margin-bottom: 2rem;
+}
 .c-grid--googlesign{
   
     padding-bottom: 2rem;
