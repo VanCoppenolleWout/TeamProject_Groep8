@@ -8,6 +8,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js" type="text/javascript">
     </script>
     <script src="./script/app.js"></script>
+    <script src="https://apis.google.com/js/platform.js"></script>
+    <meta name="google-signin-client_id"
+        content="638448013795-1k1csiit9uc7ikjg8h4jp76ht3g09epg.apps.googleusercontent.com">
+
+    <script src="script/google.js"></script>
     <title>Trappenspel</title>
 </head>
 <body class="">
@@ -18,7 +23,7 @@
                     <div class="o-layout__header o-header c-grid--main__head">
                       <div class="c-empty"></div>
                       <h1 class="c-card__title c-card__title--score">Trappenspel</h1>
-                      <svg class="c-card__svg" id="login-24px" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                      <svg onclick="signOut();" class="c-card__svg js-log-out" id="login-24px" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                           <g id="Group_1" data-name="Group 1">
                           <rect id="Rectangle_4" data-name="Rectangle 4" width="24" height="24" fill="none"/>
                           </g>

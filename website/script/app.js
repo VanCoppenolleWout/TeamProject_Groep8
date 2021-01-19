@@ -90,13 +90,14 @@
           }).then((result) => {
             if (result.isConfirmed) {
               document.cookie = `name=${name}`;
-              // html_form_name.submit();
+              document.cookie = `google=false`;
               window.location.href = `${url}/main.html`;
             }
           })
         }
         else{
           document.cookie = `name=${name}`;
+          document.cookie = `google=false`;
           // html_form_name.submit();
           window.location.href =`${url}/main.html`;
         }
@@ -190,6 +191,7 @@
       if(choice == 'name')return cookies.name;
       if(choice == 'steps')return cookies.steps;
       if(choice == 'difficulty')return cookies.difficulty;
+      if(choice == 'google') return cookies.google;
     };
 
     const onClickMainStart = () =>{
@@ -440,18 +442,23 @@
 
     const cookieCheck = () =>{
       name = getCookies('name');
-      if(window.location.href==`${url}/` || window.location.href==`${url}/login.html`){
+      if(window.location.href==`${url}/` || window.location.href==`${url}/index.html`){
         if(name != undefined){
           window.location.href=`${url}/main.html`
       }
     } 
     else{
-      if(name == undefined) window.location.href=`${url}/login.html`;
+      if(name == undefined) window.location.href=`${url}/index.html`;
     }
   }
+  const onClickLogout = () =>{
+    deleteAllCookies();
+    window.location.href=`${url}/`;
+
+  };
+
 
     const init = () => {
-        // cookieCheck();
       
         /*Buttons*/
 
@@ -464,6 +471,7 @@
         html_buttton_uitleg_open = document.querySelector(".js-uitleg__open");
         html_button_main_start = document.querySelector('.js-main-start');
         html_button_main_leaderboard = document.querySelector('.js-main-leaderboard');
+        html_button_logout = document.querySelector('.js-log-out');
 
         /*Dropdown properties*/
         html_dropdown_hidden = document.querySelector('.js-dropdown-hidden');
@@ -493,6 +501,7 @@
         
 
         /*Eventlisteners*/
+        if(html_button_logout) html_button_logout.addEventListener('click', onClickLogout);
         const btn_makkelijk = document.querySelector(".js-filter__makkelijk");
         if (btn_makkelijk) {btn_makkelijk.addEventListener('click', event => {
           getAPIdifficulty("easy");
@@ -612,10 +621,8 @@
               answer = JSON.parse(message);
               game_started = answer.gamestarted;
               name = getCookies('name');
-
-              // if(window.location.href==`${url}/` || window.location.href==`${url}/login.html`){
+              
                 if(name != undefined){
-                  // window.location.href=`${url}/main.html`
                   if(game_started == true){
                     if(window.location.href !=`${url}/game.html`){
                       window.location.href= `${url}/game.html`;
@@ -628,14 +635,16 @@
                     console.log('Game started flase')
                     if(window.location.href == `${url}/game.html`){
                       window.location.href=`${url}/main.html`;
-                      console.log('Game started false');
+                    }
+                    if(window.location.href == `${url}/index.html` || window.location.href == `${url}/`){
+                      window.location.href=`${url}/main.html`;
                     }
                   }
                 }
                
               else{
-                if(window.location != `${url}/login.html` && window.location != `${url}/`){
-                  if(name == undefined) window.location.href=`${url}/login.html`;
+                if(window.location != `${url}/index.html` && window.location != `${url}/`){
+                  if(name == undefined) window.location.href=`${url}/index.html`;
                 }
                 
               }
