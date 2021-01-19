@@ -26,6 +26,7 @@
 
 :root {
     /* colors */
+    --global-color-alpha-darker-linear: linear-gradient(to right, #0361E8, #1E7AFC);
     --global-color-alpha-dark-linear: linear-gradient(to right, #1D63DC , #2F7AE5);
     --global-color-alpha-darker: #1D63DC;
     --global-color-alpha-dark: #2F7AE5;
@@ -40,7 +41,7 @@
     
     --global-color-background: #F6F5F7;
 
-    --global-color-alpha-x-transparent: #3385ff4d;
+    --global-color-alpha-x-transparent: #3385ff99;
 
     --global-color-neutral-xxxx-dark: #17161A;
     --global-color-neutral-xxx-dark: #47454D;
@@ -79,7 +80,7 @@
     --global-input-focus-boxShadowSpread: 0px 0px 7px 0px rgba(0,0,0,0.16);
     --global-input-focus-boxShadowSpread-text: 0px 3px 6px rgba(0,0,0,0.16);
     --global-input-backgroundColor: var(--global-color-neutral-light);
-    --global-input-borderColor: var(--global-color-neutral-xxx-light);
+    --global-input-borderColor: var(--global-color-alpha-dark);
     --global-input-hover-borderColor: var(--global-color-neutral-xx-light);
     --global-input-focus-borderColor: var(--global-color-alpha);
     --global-input-focus-boxShadowColor: var(--global-color-alpha-x-transparent);
@@ -553,6 +554,12 @@ input:disabled {
     font-weight: 600;
 }
 
+.c-card__trappen {
+    margin-bottom: var(--global-whitespace-md);
+    color: var(--global-color-neutral-light);
+    font-weight: 500;
+}
+
 .c-card__question {
     font-weight: 600;
     margin-bottom: var(--global-baseline);
@@ -876,6 +883,23 @@ input:disabled {
     max-height: 2.5rem;
 }
 
+.c-input--number:hover, .c-input:hover {
+    border-color: var(--global-color-neutral-light);
+  
+    border: var(--global-borderWidth) solid var(--global-input-borderColor);
+    background-color: var(--global-input-backgroundColor);
+    /*color: var(--global-input-color); */
+  }
+  
+  .c-input--number:focus, .c-input:focus,
+  .c-input--number:active, .c-input:active {
+    border-color: var(--global-color-alpha-light);
+    box-shadow: 0 0 0 3px var(--global-color-alpha-x-transparent);
+  
+    border: var(--global-borderWidth) solid var(--global-input-borderColor);
+    background-color: var(--global-input-backgroundColor);
+  }
+
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
    opacity: 1;
@@ -1023,7 +1047,7 @@ input[type=number]::-webkit-outer-spin-button {
     margin-top: -12px;
     margin-bottom: 1rem;
     position: absolute;
-    width: 327px;
+    width: 288px;
 }
 
 .c-dropdown--item{
@@ -1366,6 +1390,11 @@ input[type=number]::-webkit-outer-spin-button {
         font-size: 1.75rem;
     }
 
+    .c-card__trappen {
+        font-size: 1.5rem;
+        margin-left: 0;
+    }
+
     .c-button--volgende{
         max-width: 13.75rem;
         cursor: pointer;
@@ -1418,7 +1447,7 @@ input[type=number]::-webkit-outer-spin-button {
         grid-area: content;
         justify-self: center;
         padding-right: 0.875rem;
-        
+        margin-top: 56px;
 
          /* padding-right: 36px; */
         
@@ -1432,18 +1461,18 @@ input[type=number]::-webkit-outer-spin-button {
         
     }
 
-    .c-grid--trappen{
+    .c-grid--congiruatiecontent {
         grid-area: content;
-        margin-top: 3rem;
         justify-self: center;
-        padding-right: 2rem;
-
+        align-self: center;
     }
+
+
 
     .c-grid--input{
         grid-area: content;
-        margin-top: 6.25rem;
-        max-width: 236px;
+        
+        width: 236px;
         justify-self: center;
     }
 
@@ -1542,7 +1571,7 @@ input[type=number]::-webkit-outer-spin-button {
 
     .c-grid--button{
         grid-area: button;
-        max-width: 244px;
+        max-width: 236px;
         justify-self: center;
     }
     .c-grid--buttonstop{
@@ -1574,7 +1603,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 @media(min-width:700px){
     .c-grid--login__naam{
-        font-size: 1.75rem;
+        font-size: 1.50rem;
     }
     .c-grid--login{
         max-width: 400px;
@@ -1588,7 +1617,6 @@ input[type=number]::-webkit-outer-spin-button {
         display: grid;
         grid-template-areas: 
         "head head"
-        "svg naam"
         "svg buttons";
         
          /* width: 43.75rem; */
@@ -1596,7 +1624,7 @@ input[type=number]::-webkit-outer-spin-button {
          padding-right: 3rem;
          padding-left: 3rem;
 
-         grid-template-rows: 180px 60px 200px;
+         grid-template-rows: 180px 300px;
 
     }
 
@@ -1609,17 +1637,27 @@ input[type=number]::-webkit-outer-spin-button {
 
     .c-grid--login__svg{
         grid-area: svg;
+        align-self: center;
     }
 
+    /*
+
     .c-grid--login__naam{
-        grid-area: naam;
-        justify-self: center;
+        grid-area: buttons;
+        justify-self: right;
+    } */
+
+    .test-grid {
+        grid-area: buttons;
+        justify-self: right;
+        margin-top: var(--global-whitespace-xl);
+        align-self: flex-start;
     }
 
     .c-grid--login__buttons{
         grid-area: buttons;
         max-width: 260px;
-        justify-self: center;
+        justify-self: right;
         /* align-self: center; */
     }
 
@@ -1757,7 +1795,7 @@ input[type=number]::-webkit-outer-spin-button {
     .o-layout__header {
         margin-top: var(--global-whitespace);
         margin-bottom: var(--global-whitespace-xxl);
-        height: 5.25em;
+        height: 5.25rem;
     }
 
     .o-header__leaderboard {
@@ -1973,6 +2011,113 @@ No media query since this is the default in mobile first design
 
     .c-card__body {
         margin-top: var(--global-whitespace);
+    }
+}
+
+
+
+/* configtest.html */
+
+.c-backbutton {
+    display: none;
+}
+
+.c-nextbutton {
+    outline: none;
+    cursor: pointer;
+}
+
+.c-backbutton {
+    outline: none;
+    cursor: pointer;
+}
+
+.c-config__arrowforward:hover, .c-config__arrowback:hover {
+    background-image: var(--global-color-alpha-darker-linear);
+}
+
+.c-nextbutton:focus,
+.c-nextbutton:active {
+    border-color: var(--input-focus-borderColor, var(--global-input-focus-borderColor));
+    box-shadow: var(--global-input-focus-boxShadowSpread) var(--input-focus-boxShadowColor, var(--global-input-focus-boxShadowColor));
+}
+
+.c-config__arrowback {
+    border-radius: 50px;
+    background-color: var(--global-color-alpha-dark);
+    background-image: var(--global-color-alpha-dark-linear);
+    
+}
+
+.c-config__arrowforward {
+    border-radius: 50px;
+    fill: var(--global-color-neutral-light);
+    background-image: var(--global-color-alpha-dark-linear);
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: var(--global-whitespace-md);
+    padding-right: var(--global-whitespace-sm);
+    width: 9em;
+    color: var(--global-color-neutral-light);
+    font-weight: 500;
+}
+
+
+.c-config__navigation {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.c-configuratie__textdesktop {
+    display: none;
+}
+
+
+@media (min-width: 1076px) {
+    .c-backbutton {
+        display: flex;
+    }
+
+    .c-backbutton__mobile {
+        display: none;
+    }
+
+    .c-configuratie__textmobile {
+        display: none;
+    }    
+
+    .c-configuratie__textdesktop {
+        display: flex;
+    }
+
+    .o-layout__config {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .c-middlesection {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .c-config__arrowback {
+        margin: 0 52px;
+    }
+
+    .c-card__trappen {
+        margin-top: var(--global-whitespace);
+    }
+
+    .c-card__animation {
+        margin-bottom: var(--global-whitespace);
     }
 }
 
