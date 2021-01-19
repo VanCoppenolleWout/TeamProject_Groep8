@@ -688,25 +688,6 @@
           "lib/xamarinios10/_._": {}
         }
       },
-      "System.Data.SqlClient/4.8.2": {
-        "type": "package",
-        "compile": {
-          "ref/xamarinios10/_._": {}
-        },
-        "runtime": {
-          "lib/xamarinios10/_._": {}
-        },
-        "runtimeTargets": {
-          "runtimes/unix/lib/netstandard2.0/System.Data.SqlClient.dll": {
-            "assetType": "runtime",
-            "rid": "unix"
-          },
-          "runtimes/win/lib/netstandard2.0/System.Data.SqlClient.dll": {
-            "assetType": "runtime",
-            "rid": "win"
-          }
-        }
-      },
       "System.Diagnostics.Debug/4.0.11": {
         "type": "package",
         "compile": {
@@ -1376,7 +1357,6 @@
         "dependencies": {
           "Newtonsoft.Json": "12.0.3",
           "OpcLabs.Mqtt": "5.59.492",
-          "System.Data.SqlClient": "4.8.2",
           "System.Diagnostics.EventLog": "5.0.0",
           "Xamarin.Essentials": "1.5.3.2",
           "Xamarin.Forms": "4.8.0.1451"
@@ -2076,15 +2056,6 @@
           "lib/xamarinios10/_._": {}
         }
       },
-      "System.Data.SqlClient/4.8.2": {
-        "type": "package",
-        "compile": {
-          "ref/xamarinios10/_._": {}
-        },
-        "runtime": {
-          "runtimes/win/lib/netstandard2.0/System.Data.SqlClient.dll": {}
-        }
-      },
       "System.Diagnostics.Debug/4.0.11": {
         "type": "package",
         "compile": {
@@ -2706,7 +2677,6 @@
         "dependencies": {
           "Newtonsoft.Json": "12.0.3",
           "OpcLabs.Mqtt": "5.59.492",
-          "System.Data.SqlClient": "4.8.2",
           "System.Diagnostics.EventLog": "5.0.0",
           "Xamarin.Essentials": "1.5.3.2",
           "Xamarin.Forms": "4.8.0.1451"
@@ -3406,15 +3376,6 @@
           "lib/xamarinios10/_._": {}
         }
       },
-      "System.Data.SqlClient/4.8.2": {
-        "type": "package",
-        "compile": {
-          "ref/xamarinios10/_._": {}
-        },
-        "runtime": {
-          "lib/xamarinios10/_._": {}
-        }
-      },
       "System.Diagnostics.Debug/4.0.11": {
         "type": "package",
         "compile": {
@@ -4036,7 +3997,6 @@
         "dependencies": {
           "Newtonsoft.Json": "12.0.3",
           "OpcLabs.Mqtt": "5.59.492",
-          "System.Data.SqlClient": "4.8.2",
           "System.Diagnostics.EventLog": "5.0.0",
           "Xamarin.Essentials": "1.5.3.2",
           "Xamarin.Forms": "4.8.0.1451"
@@ -4736,15 +4696,6 @@
           "lib/xamarinios10/_._": {}
         }
       },
-      "System.Data.SqlClient/4.8.2": {
-        "type": "package",
-        "compile": {
-          "ref/xamarinios10/_._": {}
-        },
-        "runtime": {
-          "lib/xamarinios10/_._": {}
-        }
-      },
       "System.Diagnostics.Debug/4.0.11": {
         "type": "package",
         "compile": {
@@ -5366,7 +5317,6 @@
         "dependencies": {
           "Newtonsoft.Json": "12.0.3",
           "OpcLabs.Mqtt": "5.59.492",
-          "System.Data.SqlClient": "4.8.2",
           "System.Diagnostics.EventLog": "5.0.0",
           "Xamarin.Essentials": "1.5.3.2",
           "Xamarin.Forms": "4.8.0.1451"
@@ -6505,92 +6455,6 @@
         "ref/xamarinwatchos10/_._",
         "system.data.common.4.3.0.nupkg.sha512",
         "system.data.common.nuspec"
-      ]
-    },
-    "System.Data.SqlClient/4.8.2": {
-      "sha512": "80vGtW6uLB4AkyrdVuKTXYUyuXDPAsSKbTVfvjndZaRAYxzFzWhJbvUfeAKrN+128ycWZjLIAl61dFUwWHOOTw==",
-      "type": "package",
-      "path": "system.data.sqlclient/4.8.2",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "Icon.png",
-        "LICENSE.TXT",
-        "THIRD-PARTY-NOTICES.TXT",
-        "lib/MonoAndroid10/_._",
-        "lib/MonoTouch10/_._",
-        "lib/net451/System.Data.SqlClient.dll",
-        "lib/net46/System.Data.SqlClient.dll",
-        "lib/net461/System.Data.SqlClient.dll",
-        "lib/net461/System.Data.SqlClient.xml",
-        "lib/netcoreapp2.1/System.Data.SqlClient.dll",
-        "lib/netcoreapp2.1/System.Data.SqlClient.xml",
-        "lib/netstandard1.2/System.Data.SqlClient.dll",
-        "lib/netstandard1.2/System.Data.SqlClient.xml",
-        "lib/netstandard1.3/System.Data.SqlClient.dll",
-        "lib/netstandard1.3/System.Data.SqlClient.xml",
-        "lib/netstandard2.0/System.Data.SqlClient.dll",
-        "lib/netstandard2.0/System.Data.SqlClient.xml",
-        "lib/xamarinios10/_._",
-        "lib/xamarinmac20/_._",
-        "lib/xamarintvos10/_._",
-        "lib/xamarinwatchos10/_._",
-        "ref/MonoAndroid10/_._",
-        "ref/MonoTouch10/_._",
-        "ref/net451/System.Data.SqlClient.dll",
-        "ref/net46/System.Data.SqlClient.dll",
-        "ref/net461/System.Data.SqlClient.dll",
-        "ref/net461/System.Data.SqlClient.xml",
-        "ref/netcoreapp2.1/System.Data.SqlClient.dll",
-        "ref/netcoreapp2.1/System.Data.SqlClient.xml",
-        "ref/netstandard1.2/System.Data.SqlClient.dll",
-        "ref/netstandard1.2/System.Data.SqlClient.xml",
-        "ref/netstandard1.2/de/System.Data.SqlClient.xml",
-        "ref/netstandard1.2/es/System.Data.SqlClient.xml",
-        "ref/netstandard1.2/fr/System.Data.SqlClient.xml",
-        "ref/netstandard1.2/it/System.Data.SqlClient.xml",
-        "ref/netstandard1.2/ja/System.Data.SqlClient.xml",
-        "ref/netstandard1.2/ko/System.Data.SqlClient.xml",
-        "ref/netstandard1.2/ru/System.Data.SqlClient.xml",
-        "ref/netstandard1.2/zh-hans/System.Data.SqlClient.xml",
-        "ref/netstandard1.2/zh-hant/System.Data.SqlClient.xml",
-        "ref/netstandard1.3/System.Data.SqlClient.dll",
-        "ref/netstandard1.3/System.Data.SqlClient.xml",
-        "ref/netstandard1.3/de/System.Data.SqlClient.xml",
-        "ref/netstandard1.3/es/System.Data.SqlClient.xml",
-        "ref/netstandard1.3/fr/System.Data.SqlClient.xml",
-        "ref/netstandard1.3/it/System.Data.SqlClient.xml",
-        "ref/netstandard1.3/ja/System.Data.SqlClient.xml",
-        "ref/netstandard1.3/ko/System.Data.SqlClient.xml",
-        "ref/netstandard1.3/ru/System.Data.SqlClient.xml",
-        "ref/netstandard1.3/zh-hans/System.Data.SqlClient.xml",
-        "ref/netstandard1.3/zh-hant/System.Data.SqlClient.xml",
-        "ref/netstandard2.0/System.Data.SqlClient.dll",
-        "ref/netstandard2.0/System.Data.SqlClient.xml",
-        "ref/xamarinios10/_._",
-        "ref/xamarinmac20/_._",
-        "ref/xamarintvos10/_._",
-        "ref/xamarinwatchos10/_._",
-        "runtimes/unix/lib/netcoreapp2.1/System.Data.SqlClient.dll",
-        "runtimes/unix/lib/netcoreapp2.1/System.Data.SqlClient.xml",
-        "runtimes/unix/lib/netstandard1.3/System.Data.SqlClient.dll",
-        "runtimes/unix/lib/netstandard2.0/System.Data.SqlClient.dll",
-        "runtimes/unix/lib/netstandard2.0/System.Data.SqlClient.xml",
-        "runtimes/win/lib/net451/System.Data.SqlClient.dll",
-        "runtimes/win/lib/net46/System.Data.SqlClient.dll",
-        "runtimes/win/lib/net461/System.Data.SqlClient.dll",
-        "runtimes/win/lib/net461/System.Data.SqlClient.xml",
-        "runtimes/win/lib/netcoreapp2.1/System.Data.SqlClient.dll",
-        "runtimes/win/lib/netcoreapp2.1/System.Data.SqlClient.xml",
-        "runtimes/win/lib/netstandard1.3/System.Data.SqlClient.dll",
-        "runtimes/win/lib/netstandard2.0/System.Data.SqlClient.dll",
-        "runtimes/win/lib/netstandard2.0/System.Data.SqlClient.xml",
-        "runtimes/win/lib/uap10.0.16299/System.Data.SqlClient.dll",
-        "runtimes/win/lib/uap10.0.16299/System.Data.SqlClient.xml",
-        "system.data.sqlclient.4.8.2.nupkg.sha512",
-        "system.data.sqlclient.nuspec",
-        "useSharedDesignerContext.txt",
-        "version.txt"
       ]
     },
     "System.Diagnostics.Debug/4.0.11": {
@@ -8894,11 +8758,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Gilian\\source\\repos\\Trappenspel\\Trappenspel.iOS\\Trappenspel.iOS.csproj",
+      "projectUniqueName": "C:\\Github\\Teamproject\\TeamProject_Groep8\\XamarinApp\\Trappenspel\\Trappenspel.iOS\\Trappenspel.iOS.csproj",
       "projectName": "Trappenspel.iOS",
-      "projectPath": "C:\\Users\\Gilian\\source\\repos\\Trappenspel\\Trappenspel.iOS\\Trappenspel.iOS.csproj",
+      "projectPath": "C:\\Github\\Teamproject\\TeamProject_Groep8\\XamarinApp\\Trappenspel\\Trappenspel.iOS\\Trappenspel.iOS.csproj",
       "packagesPath": "C:\\Users\\Gilian\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Gilian\\source\\repos\\Trappenspel\\Trappenspel.iOS\\obj\\",
+      "outputPath": "C:\\Github\\Teamproject\\TeamProject_Groep8\\XamarinApp\\Trappenspel\\Trappenspel.iOS\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [
@@ -8919,8 +8783,8 @@
       "frameworks": {
         "xamarinios10": {
           "projectReferences": {
-            "C:\\Users\\Gilian\\source\\repos\\Trappenspel\\Trappenspel\\Trappenspel.csproj": {
-              "projectPath": "C:\\Users\\Gilian\\source\\repos\\Trappenspel\\Trappenspel\\Trappenspel.csproj"
+            "C:\\Github\\Teamproject\\TeamProject_Groep8\\XamarinApp\\Trappenspel\\Trappenspel\\Trappenspel.csproj": {
+              "projectPath": "C:\\Github\\Teamproject\\TeamProject_Groep8\\XamarinApp\\Trappenspel\\Trappenspel\\Trappenspel.csproj"
             }
           }
         }

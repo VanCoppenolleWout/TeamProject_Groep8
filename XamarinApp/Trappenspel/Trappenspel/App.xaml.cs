@@ -1,5 +1,4 @@
 ﻿using System;
-using Trappenspel.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -11,7 +10,7 @@ namespace Trappenspel
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new Registration());
+            MainPage = new MainPage();
         }
 
         protected override void OnStart()

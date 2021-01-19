@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trappenspel.Android", "Trap
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trappenspel.iOS", "Trappenspel.iOS\Trappenspel.iOS.csproj", "{7655B8B5-574E-4CAE-9CF3-D95E04C9094E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trappenspel", "Trappenspel\Trappenspel.csproj", "{E9545258-7BDA-4196-81A8-6C22274CFB93}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trappenspel", "Trappenspel\Trappenspel.csproj", "{E9545258-7BDA-4196-81A8-6C22274CFB93}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
