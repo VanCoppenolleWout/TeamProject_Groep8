@@ -1601,6 +1601,22 @@ input[type=number]::-webkit-outer-spin-button {
     justify-content: center;
     margin-bottom: 2rem;
 }
+.c-text--google{
+    /* margin-top: 2rem; */
+    margin-bottom: 1rem;
+}
+.c-grid--login__button{
+    margin-bottom: 2rem;
+}
+.c-grid--googlesign{
+  
+    padding-bottom: 2rem;
+    width: 100px;
+}
+
+.c-grid--login__title{
+    margin-bottom: 3rem;
+}
 @media(min-width:700px){
     .c-grid--login__naam{
         font-size: 1.50rem;
@@ -1608,6 +1624,10 @@ input[type=number]::-webkit-outer-spin-button {
     .c-grid--login{
         max-width: 400px;
         margin: 0 auto;
+    }
+
+    .c-text--google{
+        font-size: 1.75rem;
     }
     
 }

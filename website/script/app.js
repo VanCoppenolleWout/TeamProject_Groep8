@@ -5,8 +5,7 @@
 
 
 
-    let html_button_quantity, html_button_start, html_button_stop, html_quantity_steps, html_quantity_steps_answer, html_game_name, html_game_difficulty,
-    html_game_answer, html_gamestart_start, html_gamestart_name, html_gamestart_score, html_game, html_quantity,html_form_quantity,html_form_difficulty, html_button_back, html_dropdown_button, html_dropdown_hidden, html_difficulty, html_dropdown_items, html_text_start, html_buttton_uitleg_gesloten, html_buttton_uitleg_open, html_form_name;
+    let html_button_stop, html_quantity_steps, html_quantity_steps_answer, html_form_quantity,html_form_difficulty, html_button_back, html_dropdown_button, html_dropdown_hidden, html_difficulty, html_dropdown_items, html_buttton_uitleg_gesloten, html_buttton_uitleg_open, html_form_name;
     let difficulty, name, steps,seconds, game_started;
     var cookies;
     let mqtt, client;
@@ -48,7 +47,6 @@
       if(html_quantity_steps.value >= 0 && html_quantity_steps.value <= 10 && html_quantity_steps.value%2 == 0){
         steps = html_quantity_steps.value
         document.cookie = `steps=${steps}`;
-        // html_form_quantity.submit();
         window.location.href = `${url}/configuratie-moeilijkheid.html`;
       }
   };
@@ -62,8 +60,6 @@
       if(quantityInput>=10) errormsg.innerHTML = '*Gelieve een getal kleiner dan 10 in te voeren';
 
       if(quantityInput>0 && quantityInput<=10 && quantityInput%2 == 0) errormsg.innerHTML = '';
-
-
     };
 
     const onClickName = async (event) =>{
@@ -90,14 +86,14 @@
           }).then((result) => {
             if (result.isConfirmed) {
               document.cookie = `name=${name}`;
-              // html_form_name.submit();
+              document.cookie = `google=false`;
               window.location.href = `${url}/main.html`;
             }
           })
         }
         else{
           document.cookie = `name=${name}`;
-          // html_form_name.submit();
+          document.cookie = `google=false`;
           window.location.href =`${url}/main.html`;
         }
       }
@@ -109,20 +105,13 @@
           text: 'Je kan geen lege naam invoeren!',
         })
         
-      }
-
-      
+      } 
     };
 
     const onClickBack = () =>{
       if(window.location.href == `${url}/configuratie.html`) window.location.href=`${url}/main.html`;
 
-      if(window.location.href ==`${url}/configuratie-moeilijkheid.html`) window.location.href=`${url}/configuratie.html`;
-      
-      // if(window.location.href == 'http://glenntroncquo.be/configuratie.html?' || window.location.href =='http://glenntroncquo.be/configuratie.html') window.location.href='http://glenntroncquo.be/main.html';
-
-      // if(window.location.href == 'http://glenntroncquo.be/configuratie-moeilijkheid.html?' || window.location.href =='http://glenntroncquo.be/configuratie-moeilijkheid.html') window.location.href='http://glenntroncquo.be/configuratie.html';
-      
+      if(window.location.href ==`${url}/configuratie-moeilijkheid.html`) window.location.href=`${url}/configuratie.html`;     
     };
 
     const onClickDropdown = () =>{
@@ -139,14 +128,6 @@
     const setName = () =>{
       name = getCookies('name');
       html_text_name.innerHTML = name;
-
-      // if (auth2.isSignedIn.get()) { 
-      //   googleUserProfile = auth2.currentUser.get().getBasicProfile();
-      //   html_text_name.innerHTML = googleUserProfile.getName();
-      // }
-      // else {
-      //   html_text_name.innerHTML = name;
-      // }
     };
 
     const toggleState = function() {
@@ -189,6 +170,7 @@
       if(choice == 'name')return cookies.name;
       if(choice == 'steps')return cookies.steps;
       if(choice == 'difficulty')return cookies.difficulty;
+      if(choice == 'google') return cookies.google;
     };
 
     const onClickMainStart = () =>{
@@ -211,12 +193,7 @@
           };
     };
 
-    let showResult = (queryResponse) => {
-      // log all objects
-      // for (const element of queryResponse) {
-      //     console.log(element);
-      //   }
-  
+    let showResult = (queryResponse) => {  
       // Top 3 objects
   
       var nr1 = queryResponse[0];
@@ -437,10 +414,27 @@
             console.log(data);
     };
 
-    const init = () => {
-        /*Buttons*/
+    const cookieCheck = () =>{
+      name = getCookies('name');
+      if(window.location.href==`${url}/` || window.location.href==`${url}/index.html`){
+        if(name != undefined){
+          window.location.href=`${url}/main.html`
+      }
+    } 
+    else{
+      if(name == undefined) window.location.href=`${url}/index.html`;
+    }
+  }
+  const onClickLogout = () =>{
+    deleteAllCookies();
+    window.location.href=`${url}/`;
 
-        html_button_start = document.querySelector(".js-button-start");
+  };
+
+
+    const init = () => {
+      
+        /*Buttons*/
         html_button_stop = document.querySelector(".js-button-stop");
         html_button_backtomenu = document.querySelector(".js-button-backtomenu");
         html_button_back = document.querySelector('.js-button-back');
@@ -449,6 +443,7 @@
         html_buttton_uitleg_open = document.querySelector(".js-uitleg__open");
         html_button_main_start = document.querySelector('.js-main-start');
         html_button_main_leaderboard = document.querySelector('.js-main-leaderboard');
+        html_button_logout = document.querySelector('.js-log-out');
 
         /*Dropdown properties*/
         html_dropdown_hidden = document.querySelector('.js-dropdown-hidden');
@@ -456,7 +451,6 @@
         html_dropdown_items = document.querySelectorAll('.js-dropdown-items');
 
         /*Text*/
-        html_text_start = document.querySelector('.js-text-start');
         html_text_timer = document.querySelector('.js-text-timer');
         html_text_busy = document.querySelector('.js-text-busy')
         html_text_name = document.querySelector('.js-name');
@@ -473,10 +467,12 @@
 
 
         /* Database callls */
-        getAPI();
-        getAPIlatestPersonal(getCookies('name'));
+        if(document.querySelector('.leaderboard-background')){getAPI(); getAPIlatestPersonal(getCookies('name'));}
+        
+        
 
         /*Eventlisteners*/
+        if(html_button_logout) html_button_logout.addEventListener('click', onClickLogout);
         const btn_makkelijk = document.querySelector(".js-filter__makkelijk");
         if (btn_makkelijk) {btn_makkelijk.addEventListener('click', event => {
           getAPIdifficulty("easy");
@@ -496,7 +492,6 @@
         if (btn_opnieuw) {
           btn_opnieuw.addEventListener('click', event => {
             location.reload();
-            //toggleState(); 
           }); };
         
         
@@ -529,22 +524,13 @@
         client.publish(`${prefix}gamestarted`, JSON.stringify('gamestarted'));
 
         client.on('connect', function () {
-            // client.subscribe(`${prefix}quantitysteps/answer`);
-            // client.subscribe(`${prefix}gamestart/answer`);
             client.subscribe(`${prefix}game/answer`);
-            // client.subscribe(`${prefix}getname/answer`);
             client.subscribe(`${prefix}gamestarted/answer`);
             
         });
          
         client.on('message', function (topic, message) {
             html_quantity_steps_answer = document.querySelector(".js-quantity-steps-answer");
-            html_game_answer = document.querySelector(".js-game-answer");
-            html_gamestart_start = document.querySelector(".js-gamestart-start");
-            html_gamestart_name = document.querySelector(".js-gamestart-name");
-            html_gamestart_score = document.querySelector(".js-gamestart-score");
-            html_game = document.querySelector(".js-game");
-            html_quantity = document.querySelector(".js-quantity");
 
             if(topic == `${prefix}quantitysteps/answer`) {
                 answer = JSON.parse(message);
@@ -557,54 +543,69 @@
             } else if (topic == `${prefix}game/answer`) {
               /*On game busy*/
                 answer = JSON.parse(message);
-                if(answer.game == true){
-                  if(answer.seconds==0){
-                    document.querySelector('.js-text-busy').innerHTML = `${answer.name} is aan het spelen...`;
-                    document.querySelector('.js-text-timer').innerHTML = `${answer.score}`;
-                    document.querySelector('.js-text-start').innerHTML = `Huidige score`;
-                    document.querySelectorAll('.jumpingman').forEach(item =>{item.setAttribute('id', 'jumpingman')});
-                    // html_button_stop.setAttribute("class", "o-button-reset c-button c-button--stop js-button-stop");
-                    document.querySelector('.js-button-stop').setAttribute('class', 'o-button-reset c-button c-button--stop js-button-stop');
-                    html_button_backtomenu.setAttribute("class", "js-button-backtomenu o-hide");
-                    console.log(answer);
+                if(window.location.href == `${url}/game.html`){
+                  if(answer.game == true){
+                    if(answer.seconds==0){
+                      document.querySelector('.js-text-busy').innerHTML = `${answer.name} is aan het spelen...`;
+                      document.querySelector('.js-text-timer').innerHTML = `${answer.score}`;
+                      document.querySelector('.js-text-start').innerHTML = `Huidige score`;
+                      document.querySelectorAll('.jumpingman').forEach(item =>{item.setAttribute('id', 'jumpingman')});
+                      
+                      html_button_backtomenu.setAttribute("class", "js-button-backtomenu o-hide");
+                      console.log(answer);
+                      name = getCookies('name');
+                      if(name == answer.name) document.querySelector('.js-button-stop').setAttribute('class', 'o-button-reset c-button c-button--stop js-button-stop');
+                    }
+    
+                    if(answer.seconds>0){
+                      document.querySelector('.js-text-busy').innerHTML = `Spel wordt gestart...`;
+                      document.querySelector('.js-text-timer').innerHTML = `${answer.seconds}`;
+                      document.querySelector('.js-text-start').innerHTML = `Spel start in`;
+                      console.log('seconds > 0');
+                      html_button_stop.setAttribute("class", "js-button-stop o-hide");
+                      html_button_backtomenu.setAttribute("class", "js-button-backtomenu o-hide");
+                    }
                   }
-  
-                  if(answer.seconds>0){
-                    document.querySelector('.js-text-busy').innerHTML = `Spel wordt gestart...`;
-                    document.querySelector('.js-text-timer').innerHTML = `${answer.seconds}`;
-                    document.querySelector('.js-text-start').innerHTML = `Spel start in`;
-                    console.log('seconds > 0');
-                    html_button_stop.setAttribute("class", "js-button-stop o-hide");
-                    html_button_backtomenu.setAttribute("class", "js-button-backtomenu o-hide");
+                  else {
+                      document.querySelector('.js-text-busy').innerHTML = `Spel is gespeeld...`;
+                      document.querySelector('.js-text-timer').innerHTML = `${answer.score}`;
+                      document.querySelector('.js-text-start').innerHTML = `Behaalde score`;;
+                      document.querySelectorAll('.jumpingman').forEach(item =>{item.setAttribute('id', 'jumpan')});
+                      html_button_stop.setAttribute("class", "js-button-stop o-hide");
+                      html_button_backtomenu.setAttribute("class", "o-button-reset c-button c-button--stop js-button-backtomenu");
                   }
                 }
-                else {
-                    document.querySelector('.js-text-busy').innerHTML = `Spel is gespeeld...`;
-                    document.querySelector('.js-text-timer').innerHTML = `${answer.score}`;
-                    document.querySelector('.js-text-start').innerHTML = `Behaalde score`;
-                    // document.getElementById('jumpingman').setAttribute("class", "");
-                    document.querySelectorAll('.jumpingman').forEach(item =>{item.setAttribute('id', 'jumpan')});
-                    html_button_stop.setAttribute("class", "js-button-stop o-hide");
-                    html_button_backtomenu.setAttribute("class", "o-button-reset c-button c-button--stop js-button-backtomenu");
-                    
-
-                }
+                
             } else if (topic == `${prefix}gamestarted/answer`){
               answer = JSON.parse(message);
               game_started = answer.gamestarted;
-              if(game_started == true){
-                if(window.location.href !=`${url}/game.html`){
-                  window.location.href= `${url}/game.html`;
-                  console.log('Game started true');
+              name = getCookies('name');
+              
+                if(name != undefined){
+                  if(game_started == true){
+                    if(window.location.href !=`${url}/game.html`){
+                      window.location.href= `${url}/game.html`;
+                      console.log('Game started true');
+                    }
+                    
+                  }
+    
+                  if(game_started == false){
+                    console.log('Game started flase')
+                    if(window.location.href == `${url}/game.html`){
+                      window.location.href=`${url}/main.html`;
+                    }
+                    if(window.location.href == `${url}/index.html` || window.location.href == `${url}/`){
+                      window.location.href=`${url}/main.html`;
+                    }
+                  }
+                }
+               
+              else{
+                if(window.location != `${url}/index.html` && window.location != `${url}/`){
+                  if(name == undefined) window.location.href=`${url}/index.html`;
                 }
                 
-              }
-
-              if(game_started == false){
-                if(window.location.href == `${url}/game.html`){
-                  window.location.href=`${url}/login.html`;
-                  console.log('Game started false');
-                }
               }
             }
             
