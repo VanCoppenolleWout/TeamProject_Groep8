@@ -13,6 +13,8 @@
     const url = "http://glenntroncquo.be";
     // const url = "http://127.0.0.1:5500";
 
+    var adminID = 117385396614732024524; // wout vc
+
     const prefix = "teamproject/groep8/";
   
     const onClickDifficulty = (event) => {
@@ -168,6 +170,7 @@
     .reduce((accumulator, [key, value]) => ({ ...accumulator, [key.trim()]: decodeURIComponent(value) }), {});
 
       if(choice == 'name')return cookies.name;
+      if(choice == 'id')return cookies.id;
       if(choice == 'steps')return cookies.steps;
       if(choice == 'difficulty')return cookies.difficulty;
       if(choice == 'google') return cookies.google;
@@ -382,6 +385,15 @@
       }
     };
 
+    const getAdminFunctions = function(admin) {
+      if (admin == adminID) {
+        console.log("Dit is een admin");
+      }
+      else {
+        console.log("Geen admin");
+      }
+    };
+
     const getAPI = async () => {
       const data = await fetch(`https://trappenspel-api.azurewebsites.net/api/leaderboard`)
           .then((r) => r.json())
@@ -467,7 +479,11 @@
 
 
         /* Database callls */
-        if(document.querySelector('.leaderboard-background')){getAPI(); getAPIlatestPersonal(getCookies('name'));}
+        if(document.querySelector('.leaderboard-background')){
+          getAPI(); 
+          getAPIlatestPersonal(getCookies('name'));
+          getAdminFunctions(getCookies('id'));
+        };
         
         
 
