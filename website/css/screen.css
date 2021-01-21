@@ -48,6 +48,8 @@
 
     --global-input-color: #A7A7A7;
     --global-color-text: #8D7575;
+
+    --global-color-error: #FF3333;
     /* fonts */
 
     /* shadows */
@@ -554,8 +556,16 @@ input:disabled {
     font-weight: 600;
 }
 
+.c-card__decider {
+    text-align: left;
+    color: var(--global-color-neutral-light);
+    margin: var(--global-whitespace-md) 0;
+    font-size: 1.25em;
+    font-weight: 500;
+}
+
 .c-card__trappen {
-    margin-bottom: var(--global-whitespace-md);
+    margin-bottom: var(--global-whitespace-sm);
     color: var(--global-color-neutral-light);
     font-weight: 500;
 }
@@ -599,6 +609,9 @@ input:disabled {
     border-radius: calc(var(--global-borderRadius) * 2);
     background-color: var(--global-color-neutral-light);
     box-shadow: var(--global-input-focus-boxShadowSpread-text);
+    cursor: pointer;
+    position: absolute;
+    max-width: 287px;
 }
 
 .c-card__uitlegheader {
@@ -983,6 +996,7 @@ input[type=number]::-webkit-outer-spin-button {
     border-radius: calc(var(--global-borderRadius) * 2);
     background-color: var(--global-color-neutral-light);
     box-shadow: var(--global-input-focus-boxShadowSpread-text);
+    cursor: pointer;
 
     display: flex;
     flex-direction: row;
@@ -1035,6 +1049,7 @@ input[type=number]::-webkit-outer-spin-button {
     font-family: inherit;
     font-size: 0.875em;
     margin-bottom: 16px;
+    margin-top: calc(var(--global-whitespace-md) + 2px);
 
 }
 
@@ -1472,7 +1487,7 @@ input[type=number]::-webkit-outer-spin-button {
     .c-grid--input{
         grid-area: content;
         
-        width: 236px;
+        width: 264px;
         justify-self: center;
     }
 
@@ -1498,7 +1513,6 @@ input[type=number]::-webkit-outer-spin-button {
 
     .c-grid--dropdown{
         grid-area: content;
-        margin-top: 100px;
         max-width: 258px;
         width: 100%;
         justify-self: center;
@@ -1605,9 +1619,9 @@ input[type=number]::-webkit-outer-spin-button {
     /* margin-top: 2rem; */
     margin-bottom: 1rem;
 }
-.c-grid--login__button{
+/* .c-grid--login__button{
     margin-bottom: 2rem;
-}
+} */
 .c-grid--googlesign{
   
     padding-bottom: 2rem;
@@ -1627,7 +1641,7 @@ input[type=number]::-webkit-outer-spin-button {
     }
 
     .c-text--google{
-        font-size: 1.75rem;
+        font-size: 1.50rem;
     }
     
 }
@@ -1715,6 +1729,10 @@ input[type=number]::-webkit-outer-spin-button {
         max-width: 450px;
         margin: 0 auto;
     }
+
+    .c-card__navigation {
+        max-width: 450px;
+    }
 }
 
 @media(min-width:1076px){
@@ -1734,6 +1752,7 @@ input[type=number]::-webkit-outer-spin-button {
     .c-grid--main__welkom{
         grid-area: welkom;
         text-align: start;
+        height: 48px !important;
     }
 
     .c-grid--main__buttons{
@@ -1768,6 +1787,10 @@ input[type=number]::-webkit-outer-spin-button {
     height: 185px;
     overflow: scroll;
 }
+
+.c-leaderboard__scroll::-webkit-scrollbar {
+    display: none;
+  }
 
 .c-leaderboard__subtitle {
     color: var(--global-color-neutral-xxx-dark);
@@ -2096,6 +2119,19 @@ No media query since this is the default in mobile first design
     display: none;
 }
 
+
+.c-validation__error {
+    font-size: 0.75em;
+    padding-bottom: 4px;
+    margin-right: var(--global-whitespace-sm);
+    text-align: right;
+    height: 18px;
+    color: var(--global-color-error);
+}
+
+.c-backbutton__mobile {
+    padding-top: var(--global-whitespace-xs);
+}
 
 @media (min-width: 1076px) {
     .c-backbutton {
