@@ -10,7 +10,8 @@ var signinChanged = function (val) {
       console.log('ID: ' + profile.getId());
       console.log('Full Name: ' + profile.getName());
       document.cookie = `name=${profile.getName()}`;
-      document.cookie = `google=true`
+      document.cookie = `id=${profile.getId()}`;
+      //document.cookie = `google=true`
       if(window.location.href != `http://glenntroncquo.be/main.html`) window.location.href= `http://glenntroncquo.be/main.html`;
     }
   }
