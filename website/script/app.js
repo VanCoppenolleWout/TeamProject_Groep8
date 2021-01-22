@@ -5,7 +5,7 @@
 
 
 
-    let html_button_stop, html_quantity_steps, html_quantity_steps_answer, html_form_quantity,html_form_difficulty, html_button_back, html_dropdown_button, html_dropdown_hidden, html_difficulty, html_dropdown_items, html_buttton_uitleg_gesloten, html_buttton_uitleg_open, html_form_name;
+    let html_button_stop, html_quantity_steps, html_quantity_steps_answer, html_form_quantity,html_form_difficulty, html_button_back, html_dropdown_button, html_dropdown_hidden, html_difficulty, html_dropdown_items, html_buttton_uitleg_gesloten, html_buttton_uitleg_open, html_form_name, html_button_mainmenu;
     let difficulty, name, steps,seconds, game_started;
     var cookies;
     let mqtt, client;
@@ -14,6 +14,8 @@
     // const url = "http://127.0.0.1:5500";
 
     var adminID = 117385396614732024524; // wout vc
+
+    let html_svg_vuilbak = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4z"/></svg>`;
 
     const prefix = "teamproject/groep8/";
   
@@ -301,10 +303,27 @@
                                   <li class="c-list__score">${element.score}</li>
                               </div>
                           </ul>`;
+
+          // document.querySelectorAll('.c-list__options').forEach(item => {
+          //   //var id = getCookies('id');
+          //   var id = 117385396614732024524; //testen
+          //   if (id == adminID) {
+          //     item.style.display = "flex";
+              
+          //   }
+          //   else {
+          //     item.style.display = "none";
+          //   }
+
+          //   item.addEventListener('click', event => {
+          //     console.log(item.dataset.id, "click");
+          //     deleteAPIselected(item.dataset.id);
+          //   });
+          // });  
       };
       
       document.querySelectorAll('.js-listitem').forEach(item => {
-          item.addEventListener('click', event => {
+        item.addEventListener('click', event => {
               console.log(item.dataset.nickname);
               getAPIpersonal(item.dataset.nickname);
               toggleLeaderboard();
@@ -334,8 +353,25 @@
                               <div class="o-layout__list-item">
                                   <li class="c-leaderboard__steps">${element.steps} steps</li>
                                   <li class="c-list__score">${element.score}</li>
+                                  <li class="c-list__options" style="margin-left: 8px; display: flex" data-id="${element.playerID}">${html_svg_vuilbak}</li>  
                               </div>
                           </ul>`;
+          document.querySelectorAll('.c-list__options').forEach(item => {
+            var id = getCookies('id');
+            //var id = 117385396614732024524; //testen
+            if (id == adminID) {
+              item.style.display = "flex";
+              
+            }
+            else {
+              item.style.display = "none";
+            }
+
+            item.addEventListener('click', event => {
+              console.log(item.dataset.id, "click");
+              deleteAPIselected(item.dataset.id);
+            });
+          }); 
       };
           var goud = document.querySelector('[data-position="1"]');
           if (goud) {
@@ -385,15 +421,6 @@
       }
     };
 
-    const getAdminFunctions = function(admin) {
-      if (admin == adminID) {
-        console.log("Dit is een admin");
-      }
-      else {
-        console.log("Geen admin");
-      }
-    };
-
     const getAPI = async () => {
       const data = await fetch(`https://trappenspel-api.azurewebsites.net/api/leaderboard`)
           .then((r) => r.json())
@@ -426,6 +453,13 @@
             console.log(data);
     };
 
+    const deleteAPIselected = async (id) => {
+      const data = await fetch(`https://trappenspel-api.azurewebsites.net/api/deletelatestscore/${id}`, {method: 'DELETE'})
+          .then((r) => r.json())
+          .catch((err) => console.error('An error occured', err));
+          window.location.reload();
+  };
+
     const cookieCheck = () =>{
       name = getCookies('name');
       if(window.location.href==`${url}/` || window.location.href==`${url}/index.html`){
@@ -436,7 +470,8 @@
     else{
       if(name == undefined) window.location.href=`${url}/index.html`;
     }
-  }
+  };
+
   const onClickLogout = () =>{
     deleteAllCookies();
     window.location.href=`${url}/`;
@@ -456,6 +491,7 @@
         html_button_main_start = document.querySelector('.js-main-start');
         html_button_main_leaderboard = document.querySelector('.js-main-leaderboard');
         html_button_logout = document.querySelector('.js-log-out');
+        html_button_mainmenu = document.querySelector(".js-maintitle");
 
         /*Dropdown properties*/
         html_dropdown_hidden = document.querySelector('.js-dropdown-hidden');
@@ -482,7 +518,6 @@
         if(document.querySelector('.leaderboard-background')){
           getAPI(); 
           getAPIlatestPersonal(getCookies('name'));
-          getAdminFunctions(getCookies('id'));
         };
         
         
@@ -510,6 +545,11 @@
             location.reload();
           }); };
         
+        if (html_button_mainmenu) {
+          html_button_mainmenu.addEventListener('click', event => {
+            window.location.href = `${url}/main.html`;
+          });
+        };
         
         if(html_input_quantity) html_input_quantity.addEventListener("blur", onInputQuantity);
 
