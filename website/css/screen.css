@@ -1315,6 +1315,9 @@ input[type=number]::-webkit-outer-spin-button {
     animation: jump 1s ease-in-out alternate infinite;
 }
 
+#login-24px{
+    cursor: pointer;
+}
 
 /*
     Keyframes: jumpingman
