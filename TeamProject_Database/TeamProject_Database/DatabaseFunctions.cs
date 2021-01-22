@@ -74,7 +74,7 @@ namespace TeamProject_Database
                     using (SqlCommand sqlCommand = new SqlCommand())
                     {
                         sqlCommand.Connection = sqlConnection;
-                        sqlCommand.CommandText = "SELECT * FROM tbLeaderboard WHERE difficulty = @difficulty ORDER BY score DESC";
+                        sqlCommand.CommandText = "SELECT t.playerID, t.playername, t.score, t.date, t.difficulty, t.steps FROM ( SELECT playername, MAX(score) AS score FROM tbLeaderboard where score != 0 AND difficulty = @difficulty GROUP BY playername ) AS m INNER JOIN tbLeaderboard AS t ON t.playername = m.playername AND t.score = m.score ORDER BY score DESC";
 
                         sqlCommand.Parameters.AddWithValue("@difficulty", difficulty);
 
@@ -228,6 +228,43 @@ namespace TeamProject_Database
                     }
                 }
                 return new OkObjectResult(TrappenspelObj);
+            }
+            catch (Exception ex)
+            {
+                log.LogError(ex.Message);
+                return new StatusCodeResult(500);
+            }
+        }
+
+        [FunctionName("DeleteScore")]
+        public static async Task<IActionResult> DeleteScore(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = "deletelatestscore/{playerID}")] HttpRequest req, int playerID,
+            ILogger log)
+        {
+            try
+            {
+                string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+                Trappenspel scoreObj = JsonConvert.DeserializeObject<Trappenspel>(requestBody);
+
+                string connectionString = Environment.GetEnvironmentVariable("connectionString");
+
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    using (SqlCommand command = new SqlCommand())
+                    {
+                        command.Connection = connection;
+
+                        // insert statement
+                        command.CommandText = "DELETE FROM tbLeaderboard WHERE playerID = @playerID";
+
+                        command.Parameters.AddWithValue("@playerID", playerID);
+
+                        await command.ExecuteNonQueryAsync();
+                    }
+                }
+                return new OkObjectResult(scoreObj);
             }
             catch (Exception ex)
             {
