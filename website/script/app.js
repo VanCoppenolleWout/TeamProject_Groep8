@@ -187,7 +187,7 @@
     }
     const onClickMain = (event) =>{
       event.preventDefault();
-      console.log('prevent');
+      
     }
 
     let highlightItem = (queryResponse) => {    
