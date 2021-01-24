@@ -1053,16 +1053,22 @@ input[type=number]::-webkit-outer-spin-button {
 
 }
 
+.c-dropdown--visible {
+    position: relative;
+}
+
 
 .c-dropdown--items{
     list-style: none;
-    margin: 0px;
+    margin: 0 auto;
     padding: 0px;
     padding-left: 1px;
     margin-top: -12px;
     margin-bottom: 1rem;
     position: absolute;
-    width: 288px;
+    width: 100%;
+    left: 0;
+    right: 0;
 }
 
 .c-dropdown--item{
@@ -1531,6 +1537,19 @@ input[type=number]::-webkit-outer-spin-button {
         position: absolute;
         width: 258px !important;
     }
+
+    .c-dropdown--button {
+        width: 258px !important;
+    }
+
+    .c-config__navigation {
+        width: 144px !important;
+        margin: auto;
+    }
+
+    .c-middlesection {
+        width: 728px !important;
+    }
     
 }
 
@@ -1891,7 +1910,21 @@ input[type=number]::-webkit-outer-spin-button {
 
     .c-dropdown--items{
         position: absolute;
-        width: 600px;
+        width: 352px;
+    }
+
+    .c-dropdown--button {
+        width: 352px;
+    }
+
+    .c-config__navigation {
+        width: 352px;
+        margin: 0 auto;
+    }
+
+    .c-card__trappen {
+        display: block;
+        text-align: center;
     }
 }
 
