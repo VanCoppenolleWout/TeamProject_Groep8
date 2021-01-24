@@ -9,6 +9,7 @@
     let difficulty, name, steps,seconds, game_started;
     var cookies;
     let mqtt, client;
+    var dict;
 
     const url = "http://glenntroncquo.be";
     // const url = "http://127.0.0.1:5500";
@@ -212,10 +213,10 @@
     
 
     let showAdmins = (queryResponse) => {
-        return queryResponse;
+        dict = queryResponse;
     };
 
-    var dict = showAdmins();
+    
 
     let showGoogleAccounts = (queryResponse) => {    
       var admins = []; // create an empty array
@@ -620,8 +621,9 @@
           getAPIlatestPersonal(getCookies('name'));
         };
         
-        getGoogleAccounts();
         getAdmins();
+        getGoogleAccounts();
+        
 
         /*Eventlisteners*/
         if(html_button_logout) html_button_logout.addEventListener('click', onClickLogout);
