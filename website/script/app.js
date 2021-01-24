@@ -219,16 +219,43 @@
     
 
     let showGoogleAccounts = (queryResponse) => {    
-      var admins = []; // create an empty array
-
-      console.log(dict);
-
+      //var admins = []; // create an empty array
       //admins["Wout Van Coppenolle"] = 117385396614732024524;
+
+      console.log(dict, 'admins');
+      console.log(queryResponse, 'google');
+
+      // kijkt of admins in google zitten
+      // queryResponse.forEach((item) => {
+      //   dict.filter(admin => item.googleid === admin.googleid);
+      //   if (dict.filter(admin => item.googleid === admin.googleid).length === 0) {
+      //     // + tekentje
+      //     console.log(item.playername, item.googleid, "geen admin")
+      //     let state = true;
+      //   }
+      //   else {
+      //     // - tekentje
+      //     console.log(item.playername, item.googleid, "wel admin") 
+      //   }
+      // });
       
       var html_adminlist = document.querySelector(".js-adminlist");
 
       for (const element of queryResponse) {
-        if (admins[element.playername] == element.googleid)
+        let adminState = false;
+        dict.filter(admin => element.googleid === admin.googleid);
+        if (dict.filter(admin => element.googleid === admin.googleid).length === 0) {
+          // + tekentje
+          console.log(element.playername, element.googleid, "geen admin")
+          adminState = false;
+        }
+        else {
+          // - tekentje
+          console.log(element.playername, element.googleid, "wel admin") 
+          adminState = true;
+        }
+
+        if (adminState == true)
         {
           console.log(element.playername, "admin");
           var isadmin = "true";
@@ -239,6 +266,8 @@
           console.log(element.playername, "geen admin");
           var svg_adminbutton = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>`;
         }
+
+        
         
         html_adminlist.innerHTML += `<div class="c-admin--item">
                                     <div class="o-layout__admins">
