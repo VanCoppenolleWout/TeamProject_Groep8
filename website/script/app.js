@@ -14,8 +14,19 @@
     // const url = "http://127.0.0.1:5500";
 
     var adminID = 117385396614732024524; // wout vc
+    
+
+
+// repeat this last part as needed to add more key/value pairs
 
     let html_svg_vuilbak = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4z"/></svg>`;
+    let html_svg_google = `<svg id="google-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 23.52 24">
+                              <path id="Path_23" data-name="Path 23" d="M142.07,109.214a10.283,10.283,0,0,0-.253-2.453H130.55v4.453h6.613a5.864,5.864,0,0,1-2.453,3.893l-.022.149,3.562,2.76.247.025a11.733,11.733,0,0,0,3.573-8.827" transform="translate(-118.55 -96.948)" fill="#4285f4"/>
+                              <path id="Path_24" data-name="Path 24" d="M24.645,166a11.438,11.438,0,0,0,7.947-2.907l-3.787-2.933a7.1,7.1,0,0,1-4.16,1.2,7.224,7.224,0,0,1-6.827-4.987l-.141.012-3.7,2.867-.048.135A11.991,11.991,0,0,0,24.645,166" transform="translate(-12.645 -141.997)" fill="#34a853"/>
+                              <path id="Path_25" data-name="Path 25" d="M5.173,79.13a7.388,7.388,0,0,1-.4-2.373,7.763,7.763,0,0,1,.387-2.373l-.007-.159L1.4,71.312l-.123.058a11.975,11.975,0,0,0,0,10.773L5.173,79.13" transform="translate(0 -64.757)" fill="#fbbc05"/>
+                              <path id="Path_26" data-name="Path 26" d="M24.645,4.64a6.651,6.651,0,0,1,4.64,1.787L32.672,3.12A11.529,11.529,0,0,0,24.645,0a11.991,11.991,0,0,0-10.72,6.613L17.8,9.627a7.254,7.254,0,0,1,6.84-4.987" transform="translate(-12.645)" fill="#eb4335"/>
+                            </svg>
+                            `;
 
     const prefix = "teamproject/groep8/";
   
@@ -197,6 +208,66 @@
               highlight.setAttribute('class', 'o-list o-layout__list js-listitem js-name-data c-list-item__active');
           };
     };
+
+    
+
+    let showAdmins = (queryResponse) => {
+        return queryResponse;
+    };
+
+    var dict = showAdmins();
+
+    let showGoogleAccounts = (queryResponse) => {    
+      var admins = []; // create an empty array
+
+      console.log(dict);
+
+      //admins["Wout Van Coppenolle"] = 117385396614732024524;
+      
+      var html_adminlist = document.querySelector(".js-adminlist");
+
+      for (const element of queryResponse) {
+        if (admins[element.playername] == element.googleid)
+        {
+          console.log(element.playername, "admin");
+          var isadmin = "true";
+          var svg_adminbutton = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4z"/></svg>`;
+        }
+        else {
+          var isadmin = "false";
+          console.log(element.playername, "geen admin");
+          var svg_adminbutton = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>`;
+        }
+        
+        html_adminlist.innerHTML += `<div class="c-admin--item">
+                                    <div class="o-layout__admins">
+                                        <div class="c-admin__picture">${html_svg_google}</div>
+                                        <div class="c-admin__name">${element.playername}</div>
+                                    </div>
+                                    <button class="o-button-reset c-admin__svgbutton" data-isadmin="${isadmin}" data-googlename="${element.playername}" data-googleid="${element.googleid}">${svg_adminbutton}</button>
+                                </div>`;
+        
+        document.querySelectorAll('.c-admin__svgbutton').forEach(item => {
+          if (item.dataset.isadmin == "true")
+          {
+            item.addEventListener('click', event => {
+              console.log('delete');
+              console.log(item.dataset.googlename, item.dataset.googleid);
+              deleteAdmin(item.dataset.googleid);
+              //svg_adminbutton = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>`;
+            });
+          }
+          else {
+            item.addEventListener('click', event => {
+              console.log('add');
+              console.log(item.dataset.googlename, item.dataset.googleid);
+              postAdmin(item.dataset.googlename, item.dataset.googleid);
+              //svg_adminbutton = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4z"/></svg>`;
+            });
+          }
+          }); 
+      };
+  };
 
     let showResult = (queryResponse) => {  
       // Top 3 objects
@@ -453,6 +524,35 @@
             console.log(data);
     };
 
+    const getGoogleAccounts = async () => {
+      const data = await fetch(`https://trappenspel-api.azurewebsites.net/api/getgoogle`)
+          .then((r) => r.json())
+          .catch((err) => console.error('An error occured', err));
+          showGoogleAccounts(data);
+          console.log(data);
+  };
+
+    const getAdmins = async () => {
+      const data = await fetch(`https://trappenspel-api.azurewebsites.net/api/getadmins`)
+          .then((r) => r.json())
+          .catch((err) => console.error('An error occured', err));
+          showAdmins(data); 
+  };
+
+  const postAdmin = async (name, id) => {
+    const data = await fetch(`https://trappenspel-api.azurewebsites.net/api/postadmin`, {method: 'POST', body: JSON.stringify({playername: name, googleid: id})})
+        .then((r) => r.json())
+        .catch((err) => console.error('An error occured', err));
+        window.location.reload();
+};
+
+  const deleteAdmin = async (id) => {
+    const data = await fetch(`https://trappenspel-api.azurewebsites.net/api/deleteadmin/${id}`, {method: 'DELETE'})
+        .then((r) => r.json())
+        .catch((err) => console.error('An error occured', err));
+        window.location.reload();
+  };
+
     const deleteAPIselected = async (id) => {
       const data = await fetch(`https://trappenspel-api.azurewebsites.net/api/deletelatestscore/${id}`, {method: 'DELETE'})
           .then((r) => r.json())
@@ -520,7 +620,8 @@
           getAPIlatestPersonal(getCookies('name'));
         };
         
-        
+        getGoogleAccounts();
+        getAdmins();
 
         /*Eventlisteners*/
         if(html_button_logout) html_button_logout.addEventListener('click', onClickLogout);
