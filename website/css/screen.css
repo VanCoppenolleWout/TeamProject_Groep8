@@ -630,6 +630,38 @@ input:disabled {
     margin-bottom: var(--global-whitespace-sm);
 }
 
+.c-admin {
+    max-height: 12rem;
+    overflow: scroll;
+}
+
+.c-admin--item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: calc(var(--global-borderRadius) * 2);
+    background-color: #F2F2F2;
+    box-shadow: var(--global-input-focus-boxShadowSpread);
+    padding: 0.625rem var(--global-whitespace-sm) 0.625rem var(--global-whitespace-md);
+    margin-bottom: var(--global-whitespace-md);
+}
+
+.c-admin__picture {
+    margin-right: var(--global-whitespace-md);
+}
+
+.c-admin__name {
+    height: 1.2rem;
+    font-weight: 500;
+}
+
+.o-layout__admins {
+    display: inherit;
+    justify-content: space-between;
+    align-items: center;
+}
+
 /*
     Component: Microinteraction filter
     ---

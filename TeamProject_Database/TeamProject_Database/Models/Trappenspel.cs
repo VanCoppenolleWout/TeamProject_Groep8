@@ -12,5 +12,7 @@ namespace TeamProject_Database.Models
         public DateTime Date { get; set; }
         public string Difficulty { get; set; }
         public int Steps { get; set; }
+
+        public string Googleid { get; set; }
     }
 }
