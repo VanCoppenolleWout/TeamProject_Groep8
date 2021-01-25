@@ -31,7 +31,7 @@
                             </svg>v
                             `;
 
-    
+    const prefix = "teamproject/groep8/";
   
     const onClickDifficulty = (event) => {
         event.preventDefault();
@@ -628,6 +628,7 @@
         html_button_main_leaderboard = document.querySelector('.js-main-leaderboard');
         html_button_logout = document.querySelector('.js-log-out');
         html_button_mainmenu = document.querySelector(".js-maintitle");
+        html_button_mainmenu2 = document.querySelector(".js-button-opnieuw");
 
         /*Dropdown properties*/
         html_dropdown_hidden = document.querySelector('.js-dropdown-hidden');
@@ -685,6 +686,12 @@
         
         if (html_button_mainmenu) {
           html_button_mainmenu.addEventListener('click', event => {
+            window.location.href = `${url}/main.html`;
+          });
+        };
+
+        if (html_button_mainmenu2) {
+          html_button_mainmenu2.addEventListener('click', event => {
             window.location.href = `${url}/main.html`;
           });
         };

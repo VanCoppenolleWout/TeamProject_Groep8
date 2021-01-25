@@ -537,6 +537,14 @@ input:disabled {
     text-align: center;
 }
 
+.js-maintitle {
+    cursor: pointer;
+}
+
+.js-listitem {
+    cursor: pointer;
+}
+
 .c-card__subtitle {
     font-size: 1.25em;
     margin: var(--global-whitespace-sm) 0;
@@ -1454,6 +1462,8 @@ input[type=number]::-webkit-outer-spin-button {
         margin-bottom: 6.125rem;
     }
 
+    
+
     .c-configuratie__text{
         font-size: 1.75rem;
         margin-bottom: 0px;
@@ -1841,7 +1851,7 @@ input[type=number]::-webkit-outer-spin-button {
     .c-grid--main__welkom{
         grid-area: welkom;
         text-align: start;
-        height: 48px !important;
+        height: 80px !important;
     }
 
     .c-grid--main__buttons{
