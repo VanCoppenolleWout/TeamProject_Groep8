@@ -709,26 +709,36 @@
 
         if(html_text_name) setName();
         
-        client.publish(`${prefix}gamestarted`, JSON.stringify('gamestarted'));
+        // client.publish(`${prefix}gamestarted`, JSON.stringify('gamestarted'));
 
         client.on('connect', function () {
             client.subscribe(`${prefix}game/answer`);
             client.subscribe(`${prefix}gamestarted/answer`);
+            client.subscribe(`${prefix}gamestart/answer`);
             
         });
          
         client.on('message', function (topic, message) {
             html_quantity_steps_answer = document.querySelector(".js-quantity-steps-answer");
 
-            // if(topic == `${prefix}quantitysteps/answer`) {
-            //     answer = JSON.parse(message);
-            //     html_quantity_steps_answer.innerHTML = answer.answer;
-            // } else 
             if(topic == `${prefix}gamestart/answer`) {
-              /*On game start*/
-                answer = JSON.parse(message);
-                console.log(answer);
-            } else if (topic == `${prefix}game/answer`) {
+              
+              Swal.fire({
+                title: 'Er is een spel gestart',
+                text: "Naar game pagina gaan?",
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Nee!',
+                confirmButtonText: 'Ja!'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  window.location.href = `${url}/game.html`;
+                }
+              })
+            } 
+            else if (topic == `${prefix}game/answer`) {
               /*On game busy*/
                 answer = JSON.parse(message);
                 if(window.location.href == `${url}/game.html`){
@@ -739,7 +749,7 @@
                       document.querySelector('.js-text-start').innerHTML = `Huidige score`;
                       document.querySelectorAll('.jumpingman').forEach(item =>{item.setAttribute('id', 'jumpingman')});
                       
-                      html_button_backtomenu.setAttribute("class", "js-button-backtomenu o-hide gestart");
+                      // html_button_backtomenu.setAttribute("class", "js-button-backtomenu o-hide");
                       console.log(answer);
                       name = getCookies('name');
                       if(name == answer.name) document.querySelector('.js-button-stop').setAttribute('class', 'o-button-reset c-button c-button--stop js-button-stop');
@@ -751,7 +761,7 @@
                       document.querySelector('.js-text-start').innerHTML = `Spel start in`;
                       console.log('seconds > 0');
                       html_button_stop.setAttribute("class", "js-button-stop o-hide");
-                      html_button_backtomenu.setAttribute("class", "js-button-backtomenu o-hide");
+                      // html_button_backtomenu.setAttribute("class", "js-button-backtomenu o-hide");
                     }
                   }
                   else {
@@ -760,50 +770,51 @@
                       document.querySelector('.js-text-start').innerHTML = `Behaalde score`;;
                       document.querySelectorAll('.jumpingman').forEach(item =>{item.setAttribute('id', 'jumpan')});
                       html_button_stop.setAttribute("class", "js-button-stop o-hide");
-                      html_button_backtomenu.setAttribute("class", "o-button-reset c-button c-button--stop js-button-backtomenu gestart");
+                      // html_button_backtomenu.setAttribute("class", "o-button-reset c-button c-button--stop js-button-backtomenu");
                   }
                 }
                 
-            } else if (topic == `${prefix}gamestarted/answer`){
-              answer = JSON.parse(message);
-              game_started = answer.gamestarted;
-              name = getCookies('name');
+            } 
+            // else if (topic == `${prefix}gamestarted/answer`){
+            //   answer = JSON.parse(message);
+            //   game_started = answer.gamestarted;
+            //   name = getCookies('name');
               
-                if(name != undefined){
-                  if(game_started == true){
+            //     if(name != undefined){
+            //       if(game_started == true){
 
-                    if(window.location.href !=`${url}/game.html`){
-                      window.location.href= `${url}/game.html`;
-                      console.log('Game started true');
-                    }
+            //         if(window.location.href !=`${url}/game.html`){
+            //           window.location.href= `${url}/game.html`;
+            //           console.log('Game started true');
+            //         }
                     
-                  }
+            //       }
     
-                  if(game_started == false){
+            //       if(game_started == false){
 
-                    if(window.location.href == `${url}/game.html`){
+            //         if(window.location.href == `${url}/game.html`){
 
-                      if(html_button_backtomenu.className == 'js-button-backtomenu o-hide gestart' || html_button_backtomenu.className == 'o-button-reset c-button c-button--stop js-button-backtomenu gestart'){
-                        console.log();
-                      }
-                      else if(document.querySelector('.js-text-busy').innerHTML != `Spel is gespeeld...`){
-                        window.location.href=`${url}/main.html`;
-                      }
-                    }
+            //           if(html_button_backtomenu.className == 'js-button-backtomenu o-hide gestart' || html_button_backtomenu.className == 'o-button-reset c-button c-button--stop js-button-backtomenu gestart'){
+            //             console.log();
+            //           }
+            //           else if(document.querySelector('.js-text-busy').innerHTML != `Spel is gespeeld...`){
+            //             window.location.href=`${url}/main.html`;
+            //           }
+            //         }
 
-                    else if(window.location.href == `${url}/index.html` || window.location.href == `${url}/`){
-                      window.location.href=`${url}/main.html`;
-                    }
-                  }
-                }
+            //         else if(window.location.href == `${url}/index.html` || window.location.href == `${url}/`){
+            //           window.location.href=`${url}/main.html`;
+            //         }
+            //       }
+            //     }
                
-              else{
-                if(window.location != `${url}/index.html` && window.location != `${url}/`){
-                  if(name == undefined) window.location.href=`${url}/index.html`;
-                }
+            //   else{
+            //     if(window.location != `${url}/index.html` && window.location != `${url}/`){
+            //       if(name == undefined) window.location.href=`${url}/index.html`;
+            //     }
                 
-              }
-            }
+            //   }
+            // }
             
         });
     };
