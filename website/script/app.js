@@ -31,7 +31,7 @@
                             </svg>v
                             `;
 
-    const prefix = "teamproject/groep8/";
+    // const prefix = "teamproject/groep8/";
   
     const onClickDifficulty = (event) => {
         event.preventDefault();
