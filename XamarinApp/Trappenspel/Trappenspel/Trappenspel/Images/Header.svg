@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="83.532" height="99.182" viewBox="0 0 83.532 99.182">
+  <g id="Header" transform="matrix(1, 0.017, -0.017, 1, -272.429, -109.277)">
+    <g id="Trap" transform="translate(276 104)">
+      <g id="Group_17" data-name="Group 17" transform="translate(26.608 42.982)">
+        <rect id="Rectangle_19" data-name="Rectangle 19" width="26.608" height="55.263" transform="translate(28.655 0)" fill="#f1f1f1"/>
+        <rect id="Rectangle_20" data-name="Rectangle 20" width="28.655" height="26.608" transform="translate(0 28.655)" fill="#f1f1f1"/>
+      </g>
+      <path id="Path_17" data-name="Path 17" d="M8,0,35.277,43.643V70.92L8,27.277Z" transform="translate(-8 27.277)" fill="#3e88ef"/>
+      <path id="Path_18" data-name="Path 18" d="M16,0H43.277L70.554,43.643H43.277Z" transform="translate(-16 27.277)" fill="#7cadf1"/>
+      <path id="Path_19" data-name="Path 19" d="M8,0,35.277,43.643V70.92h0L8,27.277Z" transform="translate(19.277)" fill="#3e88ef"/>
+      <path id="Path_20" data-name="Path 20" d="M16,0H43.277L70.554,43.643H43.277Z" transform="translate(11.277)" fill="#7cadf1"/>
+    </g>
+  </g>
+</svg>

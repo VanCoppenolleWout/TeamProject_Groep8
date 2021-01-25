@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Trappenspel.Views.GameSettings"
+             NavigationPage.HasNavigationBar="False">
+
+    <StackLayout Spacing="0">
+        <Label Text="Prefix:" FontSize="16" TextColor="#545454" Margin="19,16,0,-8"/>
+        <Entry Placeholder="Vb: teamproject/groep8/" Text="gilianledoux/groep8/" x:Name="prefixEntry" TextColor="#545454" HorizontalOptions="FillAndExpand" Margin="16,0,16,16" />
+
+        <Button BackgroundColor="#439CEF" TextColor="#FFF" Text="Save" x:Name="publishButton" Clicked="publishButton_Clicked" HorizontalOptions="FillAndExpand" CornerRadius="32" Margin="16,0,16,0"/>
+    </StackLayout>
+
+</ContentPage>
