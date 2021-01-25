@@ -614,6 +614,24 @@ input:disabled {
     max-width: 287px;
 }
 
+.c-card__navigation--admin {
+    font-weight: 500;
+    font-size: 1.375em;
+    width: 100%;
+    font-size: 0.875em;
+    text-align: left;
+    padding-top: calc(var(--global-whitespace-sm) + 1px);
+    padding-bottom: calc(var(--global-whitespace-sm) + 3px);
+    padding-left: var(--global-whitespace-md);
+    padding-right: var(--global-whitespace-md);
+    margin-bottom: var(--global-whitespace-lg);
+    color: var(--global-color-neutral-xxx-light);
+    border-radius: calc(var(--global-borderRadius) * 2);
+    background-color: var(--global-color-neutral-light);
+    box-shadow: var(--global-input-focus-boxShadowSpread-text);
+    cursor: pointer;
+}
+
 .c-card__uitlegheader {
     font-size: 1.25rem;
     margin-bottom: var(--global-whitespace-sm);
