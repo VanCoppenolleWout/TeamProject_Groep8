@@ -610,6 +610,17 @@
 
 
     const init = () => {
+
+        if(window.location.href != `${url}/` && window.location.href != `${url}/index.html`){
+          console.log('namecheck')
+          name = getCookies('name');
+          
+          if(name == undefined){
+            window.location.href = `${url}/`;
+            console.log(name);
+          }
+        }
+
       
         /*Buttons*/
         html_button_stop = document.querySelector(".js-button-stop");
