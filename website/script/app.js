@@ -14,7 +14,7 @@
     const url = "http://glenntroncquo.be";
     // const url = "http://127.0.0.1:5500";
 
-    var adminID = 117385396614732024524; // wout vc
+    var adminID = "117385396614732024524"; // wout vc
     
 
 
@@ -29,7 +29,7 @@
                             </svg>
                             `;
 
-    const prefix = "teamproject/groep8/";
+    const prefix = "lol/groep8/";
   
     const onClickDifficulty = (event) => {
         event.preventDefault();
@@ -210,34 +210,24 @@
           };
     };
 
-    
-
     let showAdmins = (queryResponse) => {
         dict = queryResponse;
     };
 
-    
-
     let showGoogleAccounts = (queryResponse) => {    
-      //var admins = []; // create an empty array
-      //admins["Wout Van Coppenolle"] = 117385396614732024524;
+      // console.log(dict, 'admins');
+      // console.log(queryResponse, 'google');
 
-      console.log(dict, 'admins');
-      console.log(queryResponse, 'google');
-
-      // kijkt of admins in google zitten
-      // queryResponse.forEach((item) => {
-      //   dict.filter(admin => item.googleid === admin.googleid);
-      //   if (dict.filter(admin => item.googleid === admin.googleid).length === 0) {
-      //     // + tekentje
-      //     console.log(item.playername, item.googleid, "geen admin")
-      //     let state = true;
-      //   }
-      //   else {
-      //     // - tekentje
-      //     console.log(item.playername, item.googleid, "wel admin") 
-      //   }
-      // });
+      // Toggled de zichtbaarheid van het adminbeheer: admin -> zichtbaar, geen admin -> niet zichtbaar
+      let adminVisability = document.querySelector(".js-admin-beheer");
+        if (dict.filter(i => getCookies('id') === i.googleid).length === 1)
+        {
+          adminVisability.style.display = "flex";
+        }
+        else
+        {
+          adminVisability.style.display = "none";
+        }
       
       var html_adminlist = document.querySelector(".js-adminlist");
 
@@ -460,7 +450,7 @@
           document.querySelectorAll('.c-list__options').forEach(item => {
             var id = getCookies('id');
             //var id = 117385396614732024524; //testen
-            if (id == adminID) {
+            if (dict.filter(i => getCookies('id') === i.googleid).length === 1) {
               item.style.display = "flex";
               
             }
