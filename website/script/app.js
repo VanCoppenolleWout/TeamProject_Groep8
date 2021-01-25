@@ -17,7 +17,7 @@
     const prefix = "teamproject/groep8/";
 
     var adminID = "117385396614732024524"; // wout vc
-    
+
 
 
 // repeat this last part as needed to add more key/value pairs
@@ -294,10 +294,24 @@
 
     let showResult = (queryResponse) => {  
       // Top 3 objects
-  
       var nr1 = queryResponse[0];
       var nr2 = queryResponse[1];
       var nr3 = queryResponse[2];
+
+      let splittedName = '';
+
+        splittedName = nr1.playername.split(' '),
+        firstName1 = splittedName[0];
+        console.log(firstName1)
+
+        splittedName = nr2.playername.split(' '),
+        firstName2 = splittedName[0];
+        console.log(firstName2)
+
+        splittedName = nr3.playername.split(' '),
+        firstName3 = splittedName[0];
+        console.log(firstName3)
+
       const top3 = document.querySelector(".o-layout__top3");
   
       if (queryResponse.length < 3) {        
@@ -308,7 +322,7 @@
                           <div class="c-card__podium2"><p class="c-position">2</p></div>
                       </div>
                       <div class="o-layout__individueel js-listitem" data-nickname="${nr1.playername}">
-                          <p class="c-card__name">${nr1.playername}</p>
+                          <p class="c-card__name">${firstName1}</p>
                           <p class="c-card__score">${nr1.score}</p>
                           <div class="c-card__podium1"><p class="c-position">1</p></div>
                       </div>
@@ -321,12 +335,12 @@
   
           else if (queryResponse[2] == null && queryResponse[0] != null && queryResponse[0] != null) {
               top3.innerHTML = `<div class="o-layout__individueel js-listitem" data-nickname="${nr2.playername}">
-                          <p class="c-card__name">${nr2.playername}</p>
+                          <p class="c-card__name">${firstName2}</p>
                           <p class="c-card__score">${nr2.score}</p>
                           <div class="c-card__podium2"><p class="c-position">2</p></div>
                       </div>
                       <div class="o-layout__individueel js-listitem" data-nickname="${nr1.playername}">
-                          <p class="c-card__name">${nr1.playername}</p>
+                          <p class="c-card__name">${firstName1}</p>
                           <p class="c-card__score">${nr1.score}</p>
                           <div class="c-card__podium1"><p class="c-position">1</p></div>
                       </div>
@@ -359,17 +373,17 @@
       else {
 
           top3.innerHTML = `<div class="o-layout__individueel js-listitem" data-nickname="${nr2.playername}">
-                          <p class="c-card__name">${nr2.playername}</p>
+                          <p class="c-card__name">${firstName2}</p>
                           <p class="c-card__score">${nr2.score}</p>
                           <div class="c-card__podium2"><p class="c-position">2</p></div>
                       </div>
                       <div class="o-layout__individueel js-listitem" data-nickname="${nr1.playername}">
-                          <p class="c-card__name">${nr1.playername}</p>
+                          <p class="c-card__name">${firstName1}</p>
                           <p class="c-card__score">${nr1.score}</p>
                           <div class="c-card__podium1"><p class="c-position">1</p></div>
                       </div>
                       <div class="o-layout__individueel js-listitem" data-nickname="${nr3.playername}">
-                          <p class="c-card__name">${nr3.playername}</p>
+                          <p class="c-card__name">${firstName3}</p>
                           <p class="c-card__score">${nr3.score}</p>
                           <div class="c-card__podium3"><p class="c-position">3</p></div>
                       </div>`;
