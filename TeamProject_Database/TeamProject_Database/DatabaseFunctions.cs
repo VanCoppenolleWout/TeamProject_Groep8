@@ -253,7 +253,7 @@ namespace TeamProject_Database
 
                         // insert statement
                         //command.CommandText = "INSERT INTO tbLeaderboard (playerid, playername, score, date, difficulty, steps) SELECT @playerid, @playername, @score, @date, @difficulty, @steps WHERE NOT EXISTS (SELECT playerid, playername, score, date, difficulty, steps FROM tblTrappenspel WHERE playerid = @playerid)";
-                        command.CommandText = "INSERT INTO tbLeaderboard VALUES (@playername, @score, @date, @difficulty, @steps)";
+                        command.CommandText = "INSERT INTO tbLeaderboard VALUES (@playername, @score, @date, @difficulty, @steps, @googleid)";
 
                         command.Parameters.AddWithValue("@playerid", TrappenspelObj.PlayerID);
                         command.Parameters.AddWithValue("@playername", TrappenspelObj.Playername);
@@ -261,6 +261,7 @@ namespace TeamProject_Database
                         command.Parameters.AddWithValue("@date", DateTime.Now);
                         command.Parameters.AddWithValue("@difficulty", TrappenspelObj.Difficulty);
                         command.Parameters.AddWithValue("@steps", TrappenspelObj.Steps);
+                        command.Parameters.AddWithValue("@googleid", TrappenspelObj.Googleid);
 
                         await command.ExecuteNonQueryAsync();
                     }
