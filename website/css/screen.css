@@ -1602,10 +1602,10 @@ input[type=number]::-webkit-outer-spin-button {
         "svg right"
         "svg right"
         "svg right"
-        "button button"
+        "menu stop"
         ;
         
-        width: 43.75rem;
+        width: 900px;
         margin: 0 auto;
         /* padding-right: 3rem;
         padding-left: 3rem; */
@@ -1629,29 +1629,45 @@ input[type=number]::-webkit-outer-spin-button {
 
     .c-grid--huidigescore{
         grid-area: right;
-        margin-top: 64px;
+        margin-top: 4rem;
     }
 
     .c-grid--score{
         grid-area: right;
-        margin-top: 96px;
+        margin-top: 6rem;
     }
 
-    .c-grid--button{
+    /* .c-grid--button{
         grid-area: button;
         max-width: 236px;
         justify-self: center;
+    } */
+    .c-button-stop{
+        grid-area: right;
+        /* max-width: 250px; */
+        width: 340px;
+        justify-self: center;
+        margin-top: 224px;
     }
-    .c-grid--buttonstop{
+    .c-button-hoofdmenu{
+        grid-area: right;
+        /* max-width: 250px; */
+        margin-top: 160px;
+        width: 340px;
+        justify-self: center;
+        
+    }
+    /* .c-grid--buttonstop{
         grid-area: button;
         margin-top: 4rem;
         max-width: 100%;
         text-align: center;
-    }
+    } */
     .c-button--stop{
         width: 100%;
         max-width: 31.25rem;
     }
+    
 
 
 }
