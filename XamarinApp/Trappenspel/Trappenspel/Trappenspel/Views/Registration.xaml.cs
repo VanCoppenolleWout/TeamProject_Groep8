@@ -59,11 +59,10 @@ namespace Trappenspel.Views {
         }
 
         private void ToolbarItem_Clicked(object sender, EventArgs e) {
-            //Application.Current.Properties.Clear();
 
             Application.Current.Properties["name"] = null;
             Application.Current.Properties["difficulty"] = null;
-            Application.Current.Properties["steps"] = null;
+            //Application.Current.Properties["steps"] = null;
 
             Navigation.PushAsync(new LoginPage());
         }

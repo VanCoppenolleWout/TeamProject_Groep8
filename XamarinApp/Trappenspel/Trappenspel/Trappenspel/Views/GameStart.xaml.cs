@@ -23,7 +23,7 @@ namespace Trappenspel.Views {
 
         string name = Application.Current.Properties["name"].ToString();
         string difficulty = Application.Current.Properties["difficulty"].ToString();
-        string steps = Application.Current.Properties["steps"].ToString();
+        //string steps = Application.Current.Properties["steps"].ToString();
 
         public GameStart() {
             InitializeComponent();
@@ -90,9 +90,9 @@ namespace Trappenspel.Views {
 
         private async void buttonStart_Clicked(object sender, EventArgs e) {
             if (buttonStart.Text == "Start") {
-                var payload_1 = Encoding.UTF8.GetBytes("{\"steps\":" + steps + "}");
-                var stairs = new MqttApplicationMessage(prefix + "quantitysteps", payload_1);
-                await client.PublishAsync(stairs, MqttQualityOfService.AtMostOnce);
+                //var payload_1 = Encoding.UTF8.GetBytes("{\"steps\":" + steps + "}");
+                //var stairs = new MqttApplicationMessage(prefix + "quantitysteps", payload_1);
+                //await client.PublishAsync(stairs, MqttQualityOfService.AtMostOnce);
 
                 var payload_2 = Encoding.UTF8.GetBytes("{\"name\":\"" + name + "\",\"difficulty\":\"" + difficulty + "\"}");
                 var message = new MqttApplicationMessage(prefix + "gamestart", payload_2);

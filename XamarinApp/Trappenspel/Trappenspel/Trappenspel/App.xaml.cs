@@ -25,7 +25,7 @@ namespace Trappenspel {
                 checkCache();
             } else {
 
-                App.Current.Properties.Add("prefix", "gilianledoux/groep8/");
+                App.Current.Properties.Add("prefix", "kobemarchal/groep8/");
                 App.Current.SavePropertiesAsync();
 
                 InitializeComponent();
