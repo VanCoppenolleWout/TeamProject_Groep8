@@ -5,18 +5,17 @@
 
 
 
-    let html_button_stop, html_quantity_steps, html_quantity_steps_answer, html_form_quantity,html_form_difficulty, html_button_back, html_dropdown_button, html_dropdown_hidden, html_difficulty, html_dropdown_items, html_buttton_uitleg_gesloten, html_buttton_uitleg_open, html_form_name, html_button_mainmenu;
-    let difficulty, name, steps,seconds, game_started;
+    let html_button_stop, html_quantity_steps, html_form_quantity,html_form_difficulty, html_button_back, html_dropdown_button, html_dropdown_hidden, html_difficulty, html_dropdown_items, html_buttton_uitleg_gesloten, html_buttton_uitleg_open, html_form_name, html_button_mainmenu;
+    let difficulty, name, steps;
     var cookies;
     let mqtt, client;
     var dict;
 
     const url = "http://glenntroncquo.be";
-    // const url = "http://127.0.0.1:5500";
 
     const prefix = "kobemarchal/groep8/";
 
-    var adminID = "117385396614732024524"; // wout vc
+    var adminID = "117385396614732024524"; 
 
 
 
@@ -222,10 +221,6 @@
     };
 
     let showGoogleAccounts = (queryResponse) => {    
-      // console.log(dict, 'admins');
-      // console.log(queryResponse, 'google');
-
-      // Toggled de zichtbaarheid van het adminbeheer: admin -> zichtbaar, geen admin -> niet zichtbaar
       let adminVisability = document.querySelector(".js-admin-beheer");
         if (dict.filter(i => getCookies('id') === i.googleid).length === 1)
         {
@@ -242,12 +237,10 @@
         let adminState = false;
         dict.filter(admin => element.googleid === admin.googleid);
         if (dict.filter(admin => element.googleid === admin.googleid).length === 0) {
-          // + tekentje
           console.log(element.playername, element.googleid, "geen admin")
           adminState = false;
         }
         else {
-          // - tekentje
           console.log(element.playername, element.googleid, "wel admin") 
           adminState = true;
         }
@@ -281,7 +274,6 @@
               console.log('delete');
               console.log(item.dataset.googlename, item.dataset.googleid);
               deleteAdmin(item.dataset.googleid);
-              //svg_adminbutton = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>`;
             });
           }
           else {
@@ -289,7 +281,6 @@
               console.log('add');
               console.log(item.dataset.googlename, item.dataset.googleid);
               postAdmin(item.dataset.googlename, item.dataset.googleid);
-              //svg_adminbutton = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4z"/></svg>`;
             });
           }
           }); 
@@ -415,23 +406,6 @@
                                   <li class="c-list__score">${element.score}</li>
                               </div>
                           </ul>`;
-
-          // document.querySelectorAll('.c-list__options').forEach(item => {
-          //   //var id = getCookies('id');
-          //   var id = 117385396614732024524; //testen
-          //   if (id == adminID) {
-          //     item.style.display = "flex";
-              
-          //   }
-          //   else {
-          //     item.style.display = "none";
-          //   }
-
-          //   item.addEventListener('click', event => {
-          //     console.log(item.dataset.id, "click");
-          //     deleteAPIselected(item.dataset.id);
-          //   });
-          // });  
       };
       
       document.querySelectorAll('.js-listitem').forEach(item => {
@@ -470,7 +444,6 @@
                           </ul>`;
           document.querySelectorAll('.c-list__options').forEach(item => {
             var id = getCookies('id');
-            //var id = 117385396614732024524; //testen
             if (dict.filter(i => getCookies('id') === i.googleid).length === 1) {
               item.style.display = "flex";
               
@@ -538,7 +511,6 @@
           .then((r) => r.json())
           .catch((err) => console.error('An error occured', err));
           showResult(data);
-      //console.log(data);
     };
   
     const getAPIdifficulty = async (difficulty) => {
@@ -676,11 +648,6 @@
           getAPI(); 
           getAPIlatestPersonal(getCookies('name'));
         };
-        
-        // if(window.location.href == `${url}/main.html`){
-        //   getAdmins();
-        //   getGoogleAccounts();
-        // }
 
           getAdmins();
           getGoogleAccounts();
@@ -739,7 +706,6 @@
         if(html_button_back) html_button_back.forEach(element => {
           element.addEventListener('click', onClickBack);
         });
-        // html_button_back.addEventListener('click', onClickBack);
         if(html_dropdown_items) html_dropdown_items.forEach(element => {
           element.addEventListener('click', () =>{ html_difficulty.innerText = element.innerText; })});
         if(html_dropdown_button) html_dropdown_button.addEventListener('click', onClickDropdown);
@@ -749,8 +715,6 @@
         
 
         if(html_text_name) setName();
-        
-        // client.publish(`${prefix}gamestarted`, JSON.stringify('gamestarted'));
 
         client.on('connect', function () {
             client.subscribe(`${prefix}game/answer`);
@@ -780,7 +744,6 @@
               })
             } 
             else if (topic == `${prefix}game/answer`) {
-              /*On game busy*/
                 answer = JSON.parse(message);
                 if(window.location.href == `${url}/game.html`){
                   if(answer.game == true){
@@ -789,8 +752,6 @@
                       document.querySelector('.js-text-timer').innerHTML = `${answer.score}`;
                       document.querySelector('.js-text-start').innerHTML = `Huidige score`;
                       document.querySelectorAll('.jumpingman').forEach(item =>{item.setAttribute('id', 'jumpingman')});
-                      
-                      // html_button_backtomenu.setAttribute("class", "js-button-backtomenu o-hide");
                       console.log(answer);
                       name = getCookies('name');
                       if(name == answer.name) document.querySelector('.js-button-stop').setAttribute('class', 'o-button-reset c-button c-button--stop js-button-stop');
@@ -802,7 +763,6 @@
                       document.querySelector('.js-text-start').innerHTML = `Spel start in`;
                       console.log('seconds > 0');
                       html_button_stop.setAttribute("class", "js-button-stop o-hide");
-                      // html_button_backtomenu.setAttribute("class", "js-button-backtomenu o-hide");
                     }
                   }
                   else {
@@ -811,51 +771,10 @@
                       document.querySelector('.js-text-start').innerHTML = `Behaalde score`;;
                       document.querySelectorAll('.jumpingman').forEach(item =>{item.setAttribute('id', 'jumpan')});
                       html_button_stop.setAttribute("class", "js-button-stop o-hide");
-                      // html_button_backtomenu.setAttribute("class", "o-button-reset c-button c-button--stop js-button-backtomenu");
                   }
                 }
                 
             } 
-            // else if (topic == `${prefix}gamestarted/answer`){
-            //   answer = JSON.parse(message);
-            //   game_started = answer.gamestarted;
-            //   name = getCookies('name');
-              
-            //     if(name != undefined){
-            //       if(game_started == true){
-
-            //         if(window.location.href !=`${url}/game.html`){
-            //           window.location.href= `${url}/game.html`;
-            //           console.log('Game started true');
-            //         }
-                    
-            //       }
-    
-            //       if(game_started == false){
-
-            //         if(window.location.href == `${url}/game.html`){
-
-            //           if(html_button_backtomenu.className == 'js-button-backtomenu o-hide gestart' || html_button_backtomenu.className == 'o-button-reset c-button c-button--stop js-button-backtomenu gestart'){
-            //             console.log();
-            //           }
-            //           else if(document.querySelector('.js-text-busy').innerHTML != `Spel is gespeeld...`){
-            //             window.location.href=`${url}/main.html`;
-            //           }
-            //         }
-
-            //         else if(window.location.href == `${url}/index.html` || window.location.href == `${url}/`){
-            //           window.location.href=`${url}/main.html`;
-            //         }
-            //       }
-            //     }
-               
-            //   else{
-            //     if(window.location != `${url}/index.html` && window.location != `${url}/`){
-            //       if(name == undefined) window.location.href=`${url}/index.html`;
-            //     }
-                
-            //   }
-            // }
             
         });
     };
