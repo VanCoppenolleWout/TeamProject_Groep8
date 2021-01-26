@@ -636,7 +636,7 @@ input:disabled {
 .c-card__navigation {
     font-weight: 500;
     font-size: 1.375em;
-    width: 100%;
+    width: calc(100% - 88px);
     font-size: 0.875em;
     text-align: left;
     padding-top: calc(var(--global-whitespace-sm) + 1px);
@@ -650,7 +650,7 @@ input:disabled {
     box-shadow: var(--global-input-focus-boxShadowSpread-text);
     cursor: pointer;
     position: absolute;
-    max-width: 287px;
+    /* max-width: 287px; */
 }
 
 .c-card__navigation--admin {
@@ -690,6 +690,10 @@ input:disabled {
 .c-admin {
     max-height: 12rem;
     overflow: scroll;
+}
+
+.c-admin::-webkit-scrollbar {
+    display: none;
 }
 
 .c-admin--item {
@@ -1102,6 +1106,7 @@ input[type=number]::-webkit-outer-spin-button {
     background-color: var(--global-color-neutral-light);
     box-shadow: var(--global-input-focus-boxShadowSpread-text);
     cursor: pointer;
+    outline: none;
 
     display: flex;
     flex-direction: row;
@@ -2321,6 +2326,7 @@ No media query since this is the default in mobile first design
 
 .c-backbutton__mobile {
     padding-top: var(--global-whitespace-xs);
+    outline: none;
 }
 
 @media (min-width: 1076px) {
