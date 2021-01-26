@@ -17,10 +17,9 @@
     const prefix = "kobemarchal/groep8/";
 
     var adminID = "117385396614732024524"; // wout vc
-    
 
 
-// repeat this last part as needed to add more key/value pairs
+
 
     let html_svg_vuilbak = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4z"/></svg>`;
     let html_svg_google = `<svg id="google-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 23.52 24">
@@ -28,10 +27,7 @@
                               <path id="Path_24" data-name="Path 24" d="M24.645,166a11.438,11.438,0,0,0,7.947-2.907l-3.787-2.933a7.1,7.1,0,0,1-4.16,1.2,7.224,7.224,0,0,1-6.827-4.987l-.141.012-3.7,2.867-.048.135A11.991,11.991,0,0,0,24.645,166" transform="translate(-12.645 -141.997)" fill="#34a853"/>
                               <path id="Path_25" data-name="Path 25" d="M5.173,79.13a7.388,7.388,0,0,1-.4-2.373,7.763,7.763,0,0,1,.387-2.373l-.007-.159L1.4,71.312l-.123.058a11.975,11.975,0,0,0,0,10.773L5.173,79.13" transform="translate(0 -64.757)" fill="#fbbc05"/>
                               <path id="Path_26" data-name="Path 26" d="M24.645,4.64a6.651,6.651,0,0,1,4.64,1.787L32.672,3.12A11.529,11.529,0,0,0,24.645,0a11.991,11.991,0,0,0-10.72,6.613L17.8,9.627a7.254,7.254,0,0,1,6.84-4.987" transform="translate(-12.645)" fill="#eb4335"/>
-                            </svg>v
-                            `;
-
-    // const prefix = "teamproject/groep8/";
+                            </svg>`;
   
     const onClickDifficulty = (event) => {
         event.preventDefault();
@@ -302,10 +298,24 @@
 
     let showResult = (queryResponse) => {  
       // Top 3 objects
-  
       var nr1 = queryResponse[0];
       var nr2 = queryResponse[1];
       var nr3 = queryResponse[2];
+
+      let splittedName = '';
+
+        splittedName = nr1.playername.split(' '),
+        firstName1 = splittedName[0];
+        console.log(firstName1)
+
+        splittedName = nr2.playername.split(' '),
+        firstName2 = splittedName[0];
+        console.log(firstName2)
+
+        splittedName = nr3.playername.split(' '),
+        firstName3 = splittedName[0];
+        console.log(firstName3)
+
       const top3 = document.querySelector(".o-layout__top3");
   
       if (queryResponse.length < 3) {        
@@ -316,7 +326,7 @@
                           <div class="c-card__podium2"><p class="c-position">2</p></div>
                       </div>
                       <div class="o-layout__individueel js-listitem" data-nickname="${nr1.playername}">
-                          <p class="c-card__name">${nr1.playername}</p>
+                          <p class="c-card__name">${firstName1}</p>
                           <p class="c-card__score">${nr1.score}</p>
                           <div class="c-card__podium1"><p class="c-position">1</p></div>
                       </div>
@@ -329,12 +339,12 @@
   
           else if (queryResponse[2] == null && queryResponse[0] != null && queryResponse[0] != null) {
               top3.innerHTML = `<div class="o-layout__individueel js-listitem" data-nickname="${nr2.playername}">
-                          <p class="c-card__name">${nr2.playername}</p>
+                          <p class="c-card__name">${firstName2}</p>
                           <p class="c-card__score">${nr2.score}</p>
                           <div class="c-card__podium2"><p class="c-position">2</p></div>
                       </div>
                       <div class="o-layout__individueel js-listitem" data-nickname="${nr1.playername}">
-                          <p class="c-card__name">${nr1.playername}</p>
+                          <p class="c-card__name">${firstName1}</p>
                           <p class="c-card__score">${nr1.score}</p>
                           <div class="c-card__podium1"><p class="c-position">1</p></div>
                       </div>
@@ -367,17 +377,17 @@
       else {
 
           top3.innerHTML = `<div class="o-layout__individueel js-listitem" data-nickname="${nr2.playername}">
-                          <p class="c-card__name">${nr2.playername}</p>
+                          <p class="c-card__name">${firstName2}</p>
                           <p class="c-card__score">${nr2.score}</p>
                           <div class="c-card__podium2"><p class="c-position">2</p></div>
                       </div>
                       <div class="o-layout__individueel js-listitem" data-nickname="${nr1.playername}">
-                          <p class="c-card__name">${nr1.playername}</p>
+                          <p class="c-card__name">${firstName1}</p>
                           <p class="c-card__score">${nr1.score}</p>
                           <div class="c-card__podium1"><p class="c-position">1</p></div>
                       </div>
                       <div class="o-layout__individueel js-listitem" data-nickname="${nr3.playername}">
-                          <p class="c-card__name">${nr3.playername}</p>
+                          <p class="c-card__name">${firstName3}</p>
                           <p class="c-card__score">${nr3.score}</p>
                           <div class="c-card__podium3"><p class="c-position">3</p></div>
                       </div>`;
