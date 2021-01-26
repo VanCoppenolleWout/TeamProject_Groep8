@@ -148,7 +148,7 @@ button{
 }
 
 ::selection {
-    background: orange;
+    background: #B4D5FE;
     color: white;
     text-shadow: none;
 }
@@ -389,7 +389,7 @@ input:disabled {
 }
 
 .o-footer {
-    position: fixed;
+    
     left: 0;
     right: 0;
     bottom: 0;
@@ -1056,11 +1056,25 @@ input[type=number]::-webkit-outer-spin-button {
     border-radius: var(--global-borderRadius-xxl);
     background-image: var(--global-color-alpha-dark-linear);
     box-shadow: var(--global-input-focus-boxShadowSpread);
+    outline: none;
 }
 
 .c-button:hover {
     background-color: var(--global-color-alpha-light);
 }
+
+.c-button__score:hover, .c-button--stop:hover {
+    background-image: var(--global-color-alpha-darker-linear);
+}
+  
+  .c-button__score:focus,
+  .c-button__score:active {
+    border-color: var(--global-color-alpha-light);
+    box-shadow: 0 0 0 3px var(--global-color-alpha-x-transparent);
+  
+    border: var(--global-borderWidth) solid var(--global-input-borderColor);
+    background-color: var(--global-input-backgroundColor);
+  }
 
 .c-button:active {
     background-color: var(--global-color-alpha-dark);
@@ -1867,7 +1881,6 @@ input[type=number]::-webkit-outer-spin-button {
     }
 
     .o-footer {
-        position: fixed;
         left: 0;
         right: 0;
         bottom: 24px;
@@ -1918,6 +1931,10 @@ input[type=number]::-webkit-outer-spin-button {
     .c-grid--main__svg{
         grid-area: svg;
     }
+
+    .o-footer {
+        position: fixed;
+      }
 }
 
 
@@ -1952,7 +1969,7 @@ input[type=number]::-webkit-outer-spin-button {
     max-height: 24px;
     font-weight: 500;
     margin-left: var(--global-whitespace);
-    font-size: 1.25em;
+    font-size: 1rem;
 }
 
 @media (min-width: 1024px) {
@@ -1978,7 +1995,7 @@ input[type=number]::-webkit-outer-spin-button {
         max-height: 30px;
         font-weight: 500;
         margin-left: var(--global-whitespace);
-        font-size: 1.25em;
+        font-size: 1em;
     }
 
     .c-button__score {
