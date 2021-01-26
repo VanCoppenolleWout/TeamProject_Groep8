@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:abstractions="clr-namespace:SVG.Forms.Plugin.Abstractions;assembly=SVG.Forms.Plugin.Abstractions"
+             x:Class="Trappenspel.Views.GameStart"
+             NavigationPage.HasNavigationBar="True"
+             Title="Game"
+             Background="#FFF">
+
+    <StackLayout>
+
+
+        <abstractions:SvgImage SvgAssembly="{Binding SvgAssembly}" SvgPath="{Binding LogoSvg}" HeightRequest="64" WidthRequest="64" BackgroundColor="White" HorizontalOptions="Center" Margin="0,48,0,0"/>
+        <Label Text="Trappenspel" FontSize="32" TextColor="Black" FontAttributes="Bold" HorizontalOptions="Center"/>
+        <!--<Label Text="Trappenspel, de nieuwe manier van opwarmen!" HorizontalOptions="Center" FontAttributes="Bold" TextColor="#707070" Margin="16,0,16,32"/>-->
+
+
+        <!--<Image Source="stair.png"/>-->
+        <!--
+        <Label Text="Name:" FontSize="16" TextColor="#545454" Margin="19,16,0,-8"/>
+        <Entry Placeholder="Vb: John Doe" x:Name="nameEntry" TextColor="#545454" HorizontalOptions="FillAndExpand" Margin="16,0,16,16" />-->
+        <!--<Button BackgroundColor="#439CEF" TextColor="#FFF" Text="Login met naam" x:Name="publishButton" HorizontalOptions="FillAndExpand" CornerRadius="32" Margin="16,0,16,32"/>-->
+
+
+
+        <Label x:Name="startGame" Text="Druk op start om een spel te starten!" HorizontalOptions="Center" Margin="0,56,0,0" FontSize="16"/>
+        <Label x:Name="scoreGame" Text="" HorizontalOptions="Center" Margin="0,0,0,56" FontSize="16"/>
+        <!--<Label Text="15" FontSize="92" HorizontalOptions="Center"/>-->
+
+
+        <!--<Button Text="Start" x:Name="publishButton" Clicked="Button_Clicked" />-->
+        <StackLayout VerticalOptions="EndAndExpand" Margin="0,0,0,56">
+            <Button BackgroundColor="#439CEF" TextColor="#FFF" Text="Start" x:Name="buttonStart" Clicked="buttonStart_Clicked" HorizontalOptions="FillAndExpand" CornerRadius="32" Margin="16,0,16,16"/>
+
+
+            <Button BackgroundColor="LightGray" TextColor="#FFF" Text="Home" x:Name="homeButton" Clicked="homeButton_Clicked" HorizontalOptions="FillAndExpand" CornerRadius="32" Margin="16,0,16,0"/>
+        </StackLayout>
+
+
+
+
+
+    </StackLayout>
+
+</ContentPage>
