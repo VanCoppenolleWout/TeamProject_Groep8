@@ -14,7 +14,7 @@
     const url = "http://glenntroncquo.be";
     // const url = "http://127.0.0.1:5500";
 
-    const prefix = "teamproject/groep8/";
+    const prefix = "kobemarchal/groep8/";
 
     var adminID = "117385396614732024524"; // wout vc
     
@@ -43,10 +43,15 @@
         difficulty = getCookies('difficulty');
         steps = getCookies('steps');
         name = getCookies('name');
+        let googleidd = getCookies('googleid');
 
-        payload = {"name":name, "difficulty": difficulty, "steps": steps};
+        if(googleidd == undefined){
+          googleidd = "";
+        }
+
+
+        payload = {"name":name, "difficulty": difficulty, "steps": steps, "googleid": googleidd};
         client.publish(`${prefix}quantitysteps`, JSON.stringify(payload));
-        
         
         setTimeout(function(){
           client.publish(`${prefix}gamestart`, JSON.stringify(payload));
@@ -616,6 +621,11 @@
           }
         }
 
+        if(window.location.href == `${url}/` || window.location.href == `${url}/index.html`){
+          name = getCookies('name');
+          if(name) window.location.href = `${url}/main.html`;
+        }
+
       
         /*Buttons*/
         html_button_stop = document.querySelector(".js-button-stop");
@@ -657,8 +667,11 @@
           getAPIlatestPersonal(getCookies('name'));
         };
         
-        getAdmins();
-        getGoogleAccounts();
+        if(window.location.href == `${url}/main.html`){
+          getAdmins();
+          getGoogleAccounts();
+        }
+        
         
 
         /*Eventlisteners*/
