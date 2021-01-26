@@ -26,6 +26,7 @@
 
 :root {
     /* colors */
+    --global-color-alpha-darker-linear: linear-gradient(to right, #0361E8, #1E7AFC);
     --global-color-alpha-dark-linear: linear-gradient(to right, #1D63DC , #2F7AE5);
     --global-color-alpha-darker: #1D63DC;
     --global-color-alpha-dark: #2F7AE5;
@@ -40,13 +41,15 @@
     
     --global-color-background: #F6F5F7;
 
-    --global-color-alpha-x-transparent: #3385ff4d;
+    --global-color-alpha-x-transparent: #3385ff99;
 
     --global-color-neutral-xxxx-dark: #17161A;
     --global-color-neutral-xxx-dark: #47454D;
 
     --global-input-color: #A7A7A7;
     --global-color-text: #8D7575;
+
+    --global-color-error: #FF3333;
     /* fonts */
 
     /* shadows */
@@ -79,7 +82,7 @@
     --global-input-focus-boxShadowSpread: 0px 0px 7px 0px rgba(0,0,0,0.16);
     --global-input-focus-boxShadowSpread-text: 0px 3px 6px rgba(0,0,0,0.16);
     --global-input-backgroundColor: var(--global-color-neutral-light);
-    --global-input-borderColor: var(--global-color-neutral-xxx-light);
+    --global-input-borderColor: var(--global-color-alpha-dark);
     --global-input-hover-borderColor: var(--global-color-neutral-xx-light);
     --global-input-focus-borderColor: var(--global-color-alpha);
     --global-input-focus-boxShadowColor: var(--global-color-alpha-x-transparent);
@@ -534,6 +537,14 @@ input:disabled {
     text-align: center;
 }
 
+.js-maintitle {
+    cursor: pointer;
+}
+
+.js-listitem {
+    cursor: pointer;
+}
+
 .c-card__subtitle {
     font-size: 1.25em;
     margin: var(--global-whitespace-sm) 0;
@@ -551,6 +562,20 @@ input:disabled {
     color: var(--global-color-neutral-light);
     font-size: 1.25em;
     font-weight: 600;
+}
+
+.c-card__decider {
+    text-align: left;
+    color: var(--global-color-neutral-light);
+    margin: var(--global-whitespace-md) 0;
+    font-size: 1.25em;
+    font-weight: 500;
+}
+
+.c-card__trappen {
+    margin-bottom: var(--global-whitespace-sm);
+    color: var(--global-color-neutral-light);
+    font-weight: 500;
 }
 
 .c-card__question {
@@ -592,6 +617,27 @@ input:disabled {
     border-radius: calc(var(--global-borderRadius) * 2);
     background-color: var(--global-color-neutral-light);
     box-shadow: var(--global-input-focus-boxShadowSpread-text);
+    cursor: pointer;
+    position: absolute;
+    max-width: 287px;
+}
+
+.c-card__navigation--admin {
+    font-weight: 500;
+    font-size: 1.375em;
+    width: 100%;
+    font-size: 0.875em;
+    text-align: left;
+    padding-top: calc(var(--global-whitespace-sm) + 1px);
+    padding-bottom: calc(var(--global-whitespace-sm) + 3px);
+    padding-left: var(--global-whitespace-md);
+    padding-right: var(--global-whitespace-md);
+    margin-bottom: var(--global-whitespace-lg);
+    color: var(--global-color-neutral-xxx-light);
+    border-radius: calc(var(--global-borderRadius) * 2);
+    background-color: var(--global-color-neutral-light);
+    box-shadow: var(--global-input-focus-boxShadowSpread-text);
+    cursor: pointer;
 }
 
 .c-card__uitlegheader {
@@ -608,6 +654,38 @@ input:disabled {
     font-size: 1em;
     font-weight: 400;
     margin-bottom: var(--global-whitespace-sm);
+}
+
+.c-admin {
+    max-height: 12rem;
+    overflow: scroll;
+}
+
+.c-admin--item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: calc(var(--global-borderRadius) * 2);
+    background-color: #F2F2F2;
+    box-shadow: var(--global-input-focus-boxShadowSpread);
+    padding: 0.625rem var(--global-whitespace-sm) 0.625rem var(--global-whitespace-md);
+    margin-bottom: var(--global-whitespace-md);
+}
+
+.c-admin__picture {
+    margin-right: var(--global-whitespace-md);
+}
+
+.c-admin__name {
+    height: 1.2rem;
+    font-weight: 500;
+}
+
+.o-layout__admins {
+    display: inherit;
+    justify-content: space-between;
+    align-items: center;
 }
 
 /*
@@ -876,6 +954,23 @@ input:disabled {
     max-height: 2.5rem;
 }
 
+.c-input--number:hover, .c-input:hover {
+    border-color: var(--global-color-neutral-light);
+  
+    border: var(--global-borderWidth) solid var(--global-input-borderColor);
+    background-color: var(--global-input-backgroundColor);
+    /*color: var(--global-input-color); */
+  }
+  
+  .c-input--number:focus, .c-input:focus,
+  .c-input--number:active, .c-input:active {
+    border-color: var(--global-color-alpha-light);
+    box-shadow: 0 0 0 3px var(--global-color-alpha-x-transparent);
+  
+    border: var(--global-borderWidth) solid var(--global-input-borderColor);
+    background-color: var(--global-input-backgroundColor);
+  }
+
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
    opacity: 1;
@@ -959,6 +1054,7 @@ input[type=number]::-webkit-outer-spin-button {
     border-radius: calc(var(--global-borderRadius) * 2);
     background-color: var(--global-color-neutral-light);
     box-shadow: var(--global-input-focus-boxShadowSpread-text);
+    cursor: pointer;
 
     display: flex;
     flex-direction: row;
@@ -1011,19 +1107,26 @@ input[type=number]::-webkit-outer-spin-button {
     font-family: inherit;
     font-size: 0.875em;
     margin-bottom: 16px;
+    margin-top: var(--global-whitespace-sm);
 
+}
+
+.c-dropdown--visible {
+    position: relative;
 }
 
 
 .c-dropdown--items{
     list-style: none;
-    margin: 0px;
+    margin: 0 auto;
     padding: 0px;
     padding-left: 1px;
     margin-top: -12px;
     margin-bottom: 1rem;
     position: absolute;
-    width: 327px;
+    width: 100%;
+    left: 0;
+    right: 0;
 }
 
 .c-dropdown--item{
@@ -1276,6 +1379,9 @@ input[type=number]::-webkit-outer-spin-button {
     animation: jump 1s ease-in-out alternate infinite;
 }
 
+#login-24px{
+    cursor: pointer;
+}
 
 /*
     Keyframes: jumpingman
@@ -1356,6 +1462,8 @@ input[type=number]::-webkit-outer-spin-button {
         margin-bottom: 6.125rem;
     }
 
+    
+
     .c-configuratie__text{
         font-size: 1.75rem;
         margin-bottom: 0px;
@@ -1364,6 +1472,11 @@ input[type=number]::-webkit-outer-spin-button {
 
     .c-card__text{
         font-size: 1.75rem;
+    }
+
+    .c-card__trappen {
+        font-size: 1.5rem;
+        margin-left: 0;
     }
 
     .c-button--volgende{
@@ -1418,7 +1531,7 @@ input[type=number]::-webkit-outer-spin-button {
         grid-area: content;
         justify-self: center;
         padding-right: 0.875rem;
-        
+        margin-top: 56px;
 
          /* padding-right: 36px; */
         
@@ -1432,18 +1545,18 @@ input[type=number]::-webkit-outer-spin-button {
         
     }
 
-    .c-grid--trappen{
+    .c-grid--congiruatiecontent {
         grid-area: content;
-        margin-top: 3rem;
         justify-self: center;
-        padding-right: 2rem;
-
+        align-self: center;
     }
+
+
 
     .c-grid--input{
         grid-area: content;
-        margin-top: 6.25rem;
-        max-width: 236px;
+        
+        width: 264px;
         justify-self: center;
     }
 
@@ -1469,7 +1582,6 @@ input[type=number]::-webkit-outer-spin-button {
 
     .c-grid--dropdown{
         grid-area: content;
-        margin-top: 100px;
         max-width: 258px;
         width: 100%;
         justify-self: center;
@@ -1484,6 +1596,19 @@ input[type=number]::-webkit-outer-spin-button {
     .c-dropdown--items{
         position: absolute;
         width: 258px !important;
+    }
+
+    .c-dropdown--button {
+        width: 258px !important;
+    }
+
+    .c-config__navigation {
+        width: 144px !important;
+        margin: auto;
+    }
+
+    .c-middlesection {
+        width: 728px !important;
     }
     
 }
@@ -1505,10 +1630,10 @@ input[type=number]::-webkit-outer-spin-button {
         "svg right"
         "svg right"
         "svg right"
-        "button button"
+        "menu stop"
         ;
         
-        width: 43.75rem;
+        width: 900px;
         margin: 0 auto;
         /* padding-right: 3rem;
         padding-left: 3rem; */
@@ -1532,29 +1657,45 @@ input[type=number]::-webkit-outer-spin-button {
 
     .c-grid--huidigescore{
         grid-area: right;
-        margin-top: 64px;
+        margin-top: 4rem;
     }
 
     .c-grid--score{
         grid-area: right;
-        margin-top: 96px;
+        margin-top: 6rem;
     }
 
-    .c-grid--button{
+    /* .c-grid--button{
         grid-area: button;
-        max-width: 244px;
+        max-width: 236px;
         justify-self: center;
+    } */
+    .c-button-stop{
+        grid-area: right;
+        /* max-width: 250px; */
+        width: 340px;
+        justify-self: center;
+        margin-top: 224px;
     }
-    .c-grid--buttonstop{
+    .c-button-hoofdmenu{
+        grid-area: right;
+        /* max-width: 250px; */
+        margin-top: 160px;
+        width: 340px;
+        justify-self: center;
+        
+    }
+    /* .c-grid--buttonstop{
         grid-area: button;
         margin-top: 4rem;
         max-width: 100%;
         text-align: center;
-    }
+    } */
     .c-button--stop{
         width: 100%;
         max-width: 31.25rem;
     }
+    
 
 
 }
@@ -1576,9 +1717,9 @@ input[type=number]::-webkit-outer-spin-button {
     /* margin-top: 2rem; */
     margin-bottom: 1rem;
 }
-.c-grid--login__button{
+/* .c-grid--login__button{
     margin-bottom: 2rem;
-}
+} */
 .c-grid--googlesign{
   
     padding-bottom: 2rem;
@@ -1590,7 +1731,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 @media(min-width:700px){
     .c-grid--login__naam{
-        font-size: 1.75rem;
+        font-size: 1.50rem;
     }
     .c-grid--login{
         max-width: 400px;
@@ -1598,7 +1739,7 @@ input[type=number]::-webkit-outer-spin-button {
     }
 
     .c-text--google{
-        font-size: 1.75rem;
+        font-size: 1.50rem;
     }
     
 }
@@ -1608,7 +1749,6 @@ input[type=number]::-webkit-outer-spin-button {
         display: grid;
         grid-template-areas: 
         "head head"
-        "svg naam"
         "svg buttons";
         
          /* width: 43.75rem; */
@@ -1616,7 +1756,7 @@ input[type=number]::-webkit-outer-spin-button {
          padding-right: 3rem;
          padding-left: 3rem;
 
-         grid-template-rows: 180px 60px 200px;
+         grid-template-rows: 180px 300px;
 
     }
 
@@ -1629,17 +1769,27 @@ input[type=number]::-webkit-outer-spin-button {
 
     .c-grid--login__svg{
         grid-area: svg;
+        align-self: center;
     }
 
+    /*
+
     .c-grid--login__naam{
-        grid-area: naam;
-        justify-self: center;
+        grid-area: buttons;
+        justify-self: right;
+    } */
+
+    .test-grid {
+        grid-area: buttons;
+        justify-self: right;
+        margin-top: var(--global-whitespace-xl);
+        align-self: flex-start;
     }
 
     .c-grid--login__buttons{
         grid-area: buttons;
         max-width: 260px;
-        justify-self: center;
+        justify-self: right;
         /* align-self: center; */
     }
 
@@ -1658,9 +1808,10 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .c-grid--main__svg{
-    padding-bottom: 2rem;
+    /* padding-bottom: 2rem; */
     display: flex;
     justify-content: center;
+    margin-top: 2rem;
     
 }
 @media(min-width:700px){
@@ -1676,6 +1827,10 @@ input[type=number]::-webkit-outer-spin-button {
     .c-grid--main__buttons{
         max-width: 450px;
         margin: 0 auto;
+    }
+
+    .c-card__navigation {
+        max-width: 450px;
     }
 }
 
@@ -1696,6 +1851,7 @@ input[type=number]::-webkit-outer-spin-button {
     .c-grid--main__welkom{
         grid-area: welkom;
         text-align: start;
+        height: 80px !important;
     }
 
     .c-grid--main__buttons{
@@ -1730,6 +1886,10 @@ input[type=number]::-webkit-outer-spin-button {
     height: 185px;
     overflow: scroll;
 }
+
+.c-leaderboard__scroll::-webkit-scrollbar {
+    display: none;
+  }
 
 .c-leaderboard__subtitle {
     color: var(--global-color-neutral-xxx-dark);
@@ -1776,8 +1936,8 @@ input[type=number]::-webkit-outer-spin-button {
 
     .o-layout__header {
         margin-top: var(--global-whitespace);
-        margin-bottom: var(--global-whitespace-xxl);
-        height: 5.25em;
+        margin-bottom: var(--global-whitespace-lg);
+        height: 5.25rem;
     }
 
     .o-header__leaderboard {
@@ -1794,6 +1954,10 @@ input[type=number]::-webkit-outer-spin-button {
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+
+        background-color: rgb(255, 255, 255, 0.1);
+        padding: 64px 32px;
+        border-radius: var(--global-borderRadius-xxl);
     }
 
     .o-layout__btnscore {
@@ -1826,7 +1990,21 @@ input[type=number]::-webkit-outer-spin-button {
 
     .c-dropdown--items{
         position: absolute;
-        width: 600px;
+        width: 352px;
+    }
+
+    .c-dropdown--button {
+        width: 352px;
+    }
+
+    .c-config__navigation {
+        width: 352px;
+        margin: 0 auto;
+    }
+
+    .c-card__trappen {
+        display: block;
+        text-align: center;
     }
 }
 
@@ -1993,6 +2171,126 @@ No media query since this is the default in mobile first design
 
     .c-card__body {
         margin-top: var(--global-whitespace);
+    }
+}
+
+
+
+/* configtest.html */
+
+.c-backbutton {
+    display: none;
+}
+
+.c-nextbutton {
+    outline: none;
+    cursor: pointer;
+}
+
+.c-backbutton {
+    outline: none;
+    cursor: pointer;
+}
+
+.c-config__arrowforward:hover, .c-config__arrowback:hover {
+    background-image: var(--global-color-alpha-darker-linear);
+}
+
+.c-nextbutton:focus,
+.c-nextbutton:active {
+    border-color: var(--input-focus-borderColor, var(--global-input-focus-borderColor));
+    box-shadow: var(--global-input-focus-boxShadowSpread) var(--input-focus-boxShadowColor, var(--global-input-focus-boxShadowColor));
+}
+
+.c-config__arrowback {
+    border-radius: 50px;
+    background-color: var(--global-color-alpha-dark);
+    background-image: var(--global-color-alpha-dark-linear);
+    
+}
+
+.c-config__arrowforward {
+    border-radius: 50px;
+    fill: var(--global-color-neutral-light);
+    background-image: var(--global-color-alpha-dark-linear);
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: var(--global-whitespace-md);
+    padding-right: var(--global-whitespace-sm);
+    width: 9em;
+    color: var(--global-color-neutral-light);
+    font-weight: 500;
+}
+
+
+.c-config__navigation {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.c-configuratie__textdesktop {
+    display: none;
+}
+
+
+.c-validation__error {
+    font-size: 0.75em;
+    padding-bottom: 4px;
+    margin-right: var(--global-whitespace-sm);
+    text-align: right;
+    height: 18px;
+    color: var(--global-color-error);
+}
+
+.c-backbutton__mobile {
+    padding-top: var(--global-whitespace-xs);
+}
+
+@media (min-width: 1076px) {
+    .c-backbutton {
+        display: flex;
+    }
+
+    .c-backbutton__mobile {
+        display: none;
+    }
+
+    .c-configuratie__textmobile {
+        display: none;
+    }    
+
+    .c-configuratie__textdesktop {
+        display: flex;
+    }
+
+    .o-layout__config {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .c-middlesection {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .c-config__arrowback {
+        margin: 0 52px;
+    }
+
+    .c-card__trappen {
+        margin-top: var(--global-whitespace);
+    }
+
+    .c-card__animation {
+        margin-bottom: var(--global-whitespace);
     }
 }
 

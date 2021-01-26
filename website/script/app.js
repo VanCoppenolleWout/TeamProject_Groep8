@@ -5,16 +5,30 @@
 
 
 
-    let html_button_quantity, html_button_start, html_button_stop, html_quantity_steps, html_quantity_steps_answer, html_game_name, html_game_difficulty,
-    html_game_answer, html_gamestart_start, html_gamestart_name, html_gamestart_score, html_game, html_quantity,html_form_quantity,html_form_difficulty, html_button_back, html_dropdown_button, html_dropdown_hidden, html_difficulty, html_dropdown_items, html_text_start, html_buttton_uitleg_gesloten, html_buttton_uitleg_open, html_form_name;
+    let html_button_stop, html_quantity_steps, html_quantity_steps_answer, html_form_quantity,html_form_difficulty, html_button_back, html_dropdown_button, html_dropdown_hidden, html_difficulty, html_dropdown_items, html_buttton_uitleg_gesloten, html_buttton_uitleg_open, html_form_name, html_button_mainmenu;
     let difficulty, name, steps,seconds, game_started;
     var cookies;
     let mqtt, client;
+    var dict;
 
     const url = "http://glenntroncquo.be";
     // const url = "http://127.0.0.1:5500";
 
     const prefix = "teamproject/groep8/";
+
+    var adminID = "117385396614732024524"; // wout vc
+
+
+
+// repeat this last part as needed to add more key/value pairs
+
+    let html_svg_vuilbak = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4z"/></svg>`;
+    let html_svg_google = `<svg id="google-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 23.52 24">
+                              <path id="Path_23" data-name="Path 23" d="M142.07,109.214a10.283,10.283,0,0,0-.253-2.453H130.55v4.453h6.613a5.864,5.864,0,0,1-2.453,3.893l-.022.149,3.562,2.76.247.025a11.733,11.733,0,0,0,3.573-8.827" transform="translate(-118.55 -96.948)" fill="#4285f4"/>
+                              <path id="Path_24" data-name="Path 24" d="M24.645,166a11.438,11.438,0,0,0,7.947-2.907l-3.787-2.933a7.1,7.1,0,0,1-4.16,1.2,7.224,7.224,0,0,1-6.827-4.987l-.141.012-3.7,2.867-.048.135A11.991,11.991,0,0,0,24.645,166" transform="translate(-12.645 -141.997)" fill="#34a853"/>
+                              <path id="Path_25" data-name="Path 25" d="M5.173,79.13a7.388,7.388,0,0,1-.4-2.373,7.763,7.763,0,0,1,.387-2.373l-.007-.159L1.4,71.312l-.123.058a11.975,11.975,0,0,0,0,10.773L5.173,79.13" transform="translate(0 -64.757)" fill="#fbbc05"/>
+                              <path id="Path_26" data-name="Path 26" d="M24.645,4.64a6.651,6.651,0,0,1,4.64,1.787L32.672,3.12A11.529,11.529,0,0,0,24.645,0a11.991,11.991,0,0,0-10.72,6.613L17.8,9.627a7.254,7.254,0,0,1,6.84-4.987" transform="translate(-12.645)" fill="#eb4335"/>
+                            </svg>`;
   
     const onClickDifficulty = (event) => {
         event.preventDefault();
@@ -29,9 +43,13 @@
 
         payload = {"name":name, "difficulty": difficulty, "steps": steps};
         client.publish(`${prefix}quantitysteps`, JSON.stringify(payload));
-        client.publish(`${prefix}gamestart`, JSON.stringify(payload));
         
-        window.location.href = `${url}/game.html`
+        
+        setTimeout(function(){
+          client.publish(`${prefix}gamestart`, JSON.stringify(payload));
+          window.location.href = `${url}/game.html`;
+        }, 2000);
+        
     };
 
     const onClickStop = (event) => {
@@ -48,7 +66,6 @@
       if(html_quantity_steps.value >= 0 && html_quantity_steps.value <= 10 && html_quantity_steps.value%2 == 0){
         steps = html_quantity_steps.value
         document.cookie = `steps=${steps}`;
-        // html_form_quantity.submit();
         window.location.href = `${url}/configuratie-moeilijkheid.html`;
       }
   };
@@ -62,8 +79,6 @@
       if(quantityInput>=10) errormsg.innerHTML = '*Gelieve een getal kleiner dan 10 in te voeren';
 
       if(quantityInput>0 && quantityInput<=10 && quantityInput%2 == 0) errormsg.innerHTML = '';
-
-
     };
 
     const onClickName = async (event) =>{
@@ -98,7 +113,6 @@
         else{
           document.cookie = `name=${name}`;
           document.cookie = `google=false`;
-          // html_form_name.submit();
           window.location.href =`${url}/main.html`;
         }
       }
@@ -110,20 +124,13 @@
           text: 'Je kan geen lege naam invoeren!',
         })
         
-      }
-
-      
+      } 
     };
 
     const onClickBack = () =>{
       if(window.location.href == `${url}/configuratie.html`) window.location.href=`${url}/main.html`;
 
-      if(window.location.href ==`${url}/configuratie-moeilijkheid.html`) window.location.href=`${url}/configuratie.html`;
-      
-      // if(window.location.href == 'http://glenntroncquo.be/configuratie.html?' || window.location.href =='http://glenntroncquo.be/configuratie.html') window.location.href='http://glenntroncquo.be/main.html';
-
-      // if(window.location.href == 'http://glenntroncquo.be/configuratie-moeilijkheid.html?' || window.location.href =='http://glenntroncquo.be/configuratie-moeilijkheid.html') window.location.href='http://glenntroncquo.be/configuratie.html';
-      
+      if(window.location.href ==`${url}/configuratie-moeilijkheid.html`) window.location.href=`${url}/configuratie.html`;     
     };
 
     const onClickDropdown = () =>{
@@ -140,14 +147,6 @@
     const setName = () =>{
       name = getCookies('name');
       html_text_name.innerHTML = name;
-
-      // if (auth2.isSignedIn.get()) { 
-      //   googleUserProfile = auth2.currentUser.get().getBasicProfile();
-      //   html_text_name.innerHTML = googleUserProfile.getName();
-      // }
-      // else {
-      //   html_text_name.innerHTML = name;
-      // }
     };
 
     const toggleState = function() {
@@ -171,7 +170,6 @@
 
 
    function deleteAllCookies() {
-     //document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
     var cookies = document.cookie.split(";");
 
     for (var i = 0; i < cookies.length; i++) {
@@ -189,6 +187,7 @@
     .reduce((accumulator, [key, value]) => ({ ...accumulator, [key.trim()]: decodeURIComponent(value) }), {});
 
       if(choice == 'name')return cookies.name;
+      if(choice == 'id')return cookies.id;
       if(choice == 'steps')return cookies.steps;
       if(choice == 'difficulty')return cookies.difficulty;
       if(choice == 'google') return cookies.google;
@@ -203,7 +202,7 @@
     }
     const onClickMain = (event) =>{
       event.preventDefault();
-      console.log('prevent');
+      
     }
 
     let highlightItem = (queryResponse) => {    
@@ -214,17 +213,105 @@
           };
     };
 
-    let showResult = (queryResponse) => {
-      // log all objects
-      // for (const element of queryResponse) {
-      //     console.log(element);
-      //   }
-  
+    let showAdmins = (queryResponse) => {
+        dict = queryResponse;
+    };
+
+    let showGoogleAccounts = (queryResponse) => {    
+      // console.log(dict, 'admins');
+      // console.log(queryResponse, 'google');
+
+      // Toggled de zichtbaarheid van het adminbeheer: admin -> zichtbaar, geen admin -> niet zichtbaar
+      let adminVisability = document.querySelector(".js-admin-beheer");
+        if (dict.filter(i => getCookies('id') === i.googleid).length === 1)
+        {
+          adminVisability.style.display = "flex";
+        }
+        else
+        {
+          adminVisability.style.display = "none";
+        }
+      
+      var html_adminlist = document.querySelector(".js-adminlist");
+
+      for (const element of queryResponse) {
+        let adminState = false;
+        dict.filter(admin => element.googleid === admin.googleid);
+        if (dict.filter(admin => element.googleid === admin.googleid).length === 0) {
+          // + tekentje
+          console.log(element.playername, element.googleid, "geen admin")
+          adminState = false;
+        }
+        else {
+          // - tekentje
+          console.log(element.playername, element.googleid, "wel admin") 
+          adminState = true;
+        }
+
+        if (adminState == true)
+        {
+          console.log(element.playername, "admin");
+          var isadmin = "true";
+          var svg_adminbutton = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4z"/></svg>`;
+        }
+        else {
+          var isadmin = "false";
+          console.log(element.playername, "geen admin");
+          var svg_adminbutton = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>`;
+        }
+
+        
+        
+        html_adminlist.innerHTML += `<div class="c-admin--item">
+                                    <div class="o-layout__admins">
+                                        <div class="c-admin__picture">${html_svg_google}</div>
+                                        <div class="c-admin__name">${element.playername}</div>
+                                    </div>
+                                    <button class="o-button-reset c-admin__svgbutton" data-isadmin="${isadmin}" data-googlename="${element.playername}" data-googleid="${element.googleid}">${svg_adminbutton}</button>
+                                </div>`;
+        
+        document.querySelectorAll('.c-admin__svgbutton').forEach(item => {
+          if (item.dataset.isadmin == "true")
+          {
+            item.addEventListener('click', event => {
+              console.log('delete');
+              console.log(item.dataset.googlename, item.dataset.googleid);
+              deleteAdmin(item.dataset.googleid);
+              //svg_adminbutton = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>`;
+            });
+          }
+          else {
+            item.addEventListener('click', event => {
+              console.log('add');
+              console.log(item.dataset.googlename, item.dataset.googleid);
+              postAdmin(item.dataset.googlename, item.dataset.googleid);
+              //svg_adminbutton = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4z"/></svg>`;
+            });
+          }
+          }); 
+      };
+  };
+
+    let showResult = (queryResponse) => {  
       // Top 3 objects
-  
       var nr1 = queryResponse[0];
       var nr2 = queryResponse[1];
       var nr3 = queryResponse[2];
+
+      let splittedName = '';
+
+        splittedName = nr1.playername.split(' '),
+        firstName1 = splittedName[0];
+        console.log(firstName1)
+
+        splittedName = nr2.playername.split(' '),
+        firstName2 = splittedName[0];
+        console.log(firstName2)
+
+        splittedName = nr3.playername.split(' '),
+        firstName3 = splittedName[0];
+        console.log(firstName3)
+
       const top3 = document.querySelector(".o-layout__top3");
   
       if (queryResponse.length < 3) {        
@@ -235,7 +322,7 @@
                           <div class="c-card__podium2"><p class="c-position">2</p></div>
                       </div>
                       <div class="o-layout__individueel js-listitem" data-nickname="${nr1.playername}">
-                          <p class="c-card__name">${nr1.playername}</p>
+                          <p class="c-card__name">${firstName1}</p>
                           <p class="c-card__score">${nr1.score}</p>
                           <div class="c-card__podium1"><p class="c-position">1</p></div>
                       </div>
@@ -248,12 +335,12 @@
   
           else if (queryResponse[2] == null && queryResponse[0] != null && queryResponse[0] != null) {
               top3.innerHTML = `<div class="o-layout__individueel js-listitem" data-nickname="${nr2.playername}">
-                          <p class="c-card__name">${nr2.playername}</p>
+                          <p class="c-card__name">${firstName2}</p>
                           <p class="c-card__score">${nr2.score}</p>
                           <div class="c-card__podium2"><p class="c-position">2</p></div>
                       </div>
                       <div class="o-layout__individueel js-listitem" data-nickname="${nr1.playername}">
-                          <p class="c-card__name">${nr1.playername}</p>
+                          <p class="c-card__name">${firstName1}</p>
                           <p class="c-card__score">${nr1.score}</p>
                           <div class="c-card__podium1"><p class="c-position">1</p></div>
                       </div>
@@ -286,17 +373,17 @@
       else {
 
           top3.innerHTML = `<div class="o-layout__individueel js-listitem" data-nickname="${nr2.playername}">
-                          <p class="c-card__name">${nr2.playername}</p>
+                          <p class="c-card__name">${firstName2}</p>
                           <p class="c-card__score">${nr2.score}</p>
                           <div class="c-card__podium2"><p class="c-position">2</p></div>
                       </div>
                       <div class="o-layout__individueel js-listitem" data-nickname="${nr1.playername}">
-                          <p class="c-card__name">${nr1.playername}</p>
+                          <p class="c-card__name">${firstName1}</p>
                           <p class="c-card__score">${nr1.score}</p>
                           <div class="c-card__podium1"><p class="c-position">1</p></div>
                       </div>
                       <div class="o-layout__individueel js-listitem" data-nickname="${nr3.playername}">
-                          <p class="c-card__name">${nr3.playername}</p>
+                          <p class="c-card__name">${firstName3}</p>
                           <p class="c-card__score">${nr3.score}</p>
                           <div class="c-card__podium3"><p class="c-position">3</p></div>
                       </div>`;
@@ -324,10 +411,27 @@
                                   <li class="c-list__score">${element.score}</li>
                               </div>
                           </ul>`;
+
+          // document.querySelectorAll('.c-list__options').forEach(item => {
+          //   //var id = getCookies('id');
+          //   var id = 117385396614732024524; //testen
+          //   if (id == adminID) {
+          //     item.style.display = "flex";
+              
+          //   }
+          //   else {
+          //     item.style.display = "none";
+          //   }
+
+          //   item.addEventListener('click', event => {
+          //     console.log(item.dataset.id, "click");
+          //     deleteAPIselected(item.dataset.id);
+          //   });
+          // });  
       };
       
       document.querySelectorAll('.js-listitem').forEach(item => {
-          item.addEventListener('click', event => {
+        item.addEventListener('click', event => {
               console.log(item.dataset.nickname);
               getAPIpersonal(item.dataset.nickname);
               toggleLeaderboard();
@@ -357,8 +461,25 @@
                               <div class="o-layout__list-item">
                                   <li class="c-leaderboard__steps">${element.steps} steps</li>
                                   <li class="c-list__score">${element.score}</li>
+                                  <li class="c-list__options" style="margin-left: 8px; display: flex" data-id="${element.playerID}">${html_svg_vuilbak}</li>  
                               </div>
                           </ul>`;
+          document.querySelectorAll('.c-list__options').forEach(item => {
+            var id = getCookies('id');
+            //var id = 117385396614732024524; //testen
+            if (dict.filter(i => getCookies('id') === i.googleid).length === 1) {
+              item.style.display = "flex";
+              
+            }
+            else {
+              item.style.display = "none";
+            }
+
+            item.addEventListener('click', event => {
+              console.log(item.dataset.id, "click");
+              deleteAPIselected(item.dataset.id);
+            });
+          }); 
       };
           var goud = document.querySelector('[data-position="1"]');
           if (goud) {
@@ -440,6 +561,42 @@
             console.log(data);
     };
 
+    const getGoogleAccounts = async () => {
+      const data = await fetch(`https://trappenspel-api.azurewebsites.net/api/getgoogle`)
+          .then((r) => r.json())
+          .catch((err) => console.error('An error occured', err));
+          showGoogleAccounts(data);
+          console.log(data);
+  };
+
+    const getAdmins = async () => {
+      const data = await fetch(`https://trappenspel-api.azurewebsites.net/api/getadmins`)
+          .then((r) => r.json())
+          .catch((err) => console.error('An error occured', err));
+          showAdmins(data); 
+  };
+
+  const postAdmin = async (name, id) => {
+    const data = await fetch(`https://trappenspel-api.azurewebsites.net/api/postadmin`, {method: 'POST', body: JSON.stringify({playername: name, googleid: id})})
+        .then((r) => r.json())
+        .catch((err) => console.error('An error occured', err));
+        window.location.reload();
+};
+
+  const deleteAdmin = async (id) => {
+    const data = await fetch(`https://trappenspel-api.azurewebsites.net/api/deleteadmin/${id}`, {method: 'DELETE'})
+        .then((r) => r.json())
+        .catch((err) => console.error('An error occured', err));
+        window.location.reload();
+  };
+
+    const deleteAPIselected = async (id) => {
+      const data = await fetch(`https://trappenspel-api.azurewebsites.net/api/deletelatestscore/${id}`, {method: 'DELETE'})
+          .then((r) => r.json())
+          .catch((err) => console.error('An error occured', err));
+          window.location.reload();
+  };
+
     const cookieCheck = () =>{
       name = getCookies('name');
       if(window.location.href==`${url}/` || window.location.href==`${url}/index.html`){
@@ -450,7 +607,8 @@
     else{
       if(name == undefined) window.location.href=`${url}/index.html`;
     }
-  }
+  };
+
   const onClickLogout = () =>{
     deleteAllCookies();
     window.location.href=`${url}/`;
@@ -459,10 +617,18 @@
 
 
     const init = () => {
+
+        if(window.location.href != `${url}/` && window.location.href != `${url}/index.html`){
+          name = getCookies('name');
+          
+          if(name == undefined){
+            window.location.href = `${url}/`;
+            console.log(name);
+          }
+        }
+
       
         /*Buttons*/
-
-        html_button_start = document.querySelector(".js-button-start");
         html_button_stop = document.querySelector(".js-button-stop");
         html_button_backtomenu = document.querySelector(".js-button-backtomenu");
         html_button_back = document.querySelector('.js-button-back');
@@ -472,6 +638,8 @@
         html_button_main_start = document.querySelector('.js-main-start');
         html_button_main_leaderboard = document.querySelector('.js-main-leaderboard');
         html_button_logout = document.querySelector('.js-log-out');
+        html_button_mainmenu = document.querySelector(".js-maintitle");
+        html_button_mainmenu2 = document.querySelector(".js-button-opnieuw");
 
         /*Dropdown properties*/
         html_dropdown_hidden = document.querySelector('.js-dropdown-hidden');
@@ -479,7 +647,6 @@
         html_dropdown_items = document.querySelectorAll('.js-dropdown-items');
 
         /*Text*/
-        html_text_start = document.querySelector('.js-text-start');
         html_text_timer = document.querySelector('.js-text-timer');
         html_text_busy = document.querySelector('.js-text-busy')
         html_text_name = document.querySelector('.js-name');
@@ -496,8 +663,13 @@
 
 
         /* Database callls */
-        if(document.querySelector('.leaderboard-background')){getAPI(); getAPIlatestPersonal(getCookies('name'));}
+        if(document.querySelector('.leaderboard-background')){
+          getAPI(); 
+          getAPIlatestPersonal(getCookies('name'));
+        };
         
+        getAdmins();
+        getGoogleAccounts();
         
 
         /*Eventlisteners*/
@@ -521,9 +693,19 @@
         if (btn_opnieuw) {
           btn_opnieuw.addEventListener('click', event => {
             location.reload();
-            //toggleState(); 
           }); };
         
+        if (html_button_mainmenu) {
+          html_button_mainmenu.addEventListener('click', event => {
+            window.location.href = `${url}/main.html`;
+          });
+        };
+
+        if (html_button_mainmenu2) {
+          html_button_mainmenu2.addEventListener('click', event => {
+            window.location.href = `${url}/main.html`;
+          });
+        };
         
         if(html_input_quantity) html_input_quantity.addEventListener("blur", onInputQuantity);
 
@@ -551,35 +733,36 @@
 
         if(html_text_name) setName();
         
-        client.publish(`${prefix}gamestarted`, JSON.stringify('gamestarted'));
+        // client.publish(`${prefix}gamestarted`, JSON.stringify('gamestarted'));
 
         client.on('connect', function () {
-            // client.subscribe(`${prefix}quantitysteps/answer`);
-            // client.subscribe(`${prefix}gamestart/answer`);
             client.subscribe(`${prefix}game/answer`);
-            // client.subscribe(`${prefix}getname/answer`);
             client.subscribe(`${prefix}gamestarted/answer`);
+            client.subscribe(`${prefix}gamestart/answer`);
             
         });
          
         client.on('message', function (topic, message) {
             html_quantity_steps_answer = document.querySelector(".js-quantity-steps-answer");
-            html_game_answer = document.querySelector(".js-game-answer");
-            html_gamestart_start = document.querySelector(".js-gamestart-start");
-            html_gamestart_name = document.querySelector(".js-gamestart-name");
-            html_gamestart_score = document.querySelector(".js-gamestart-score");
-            html_game = document.querySelector(".js-game");
-            html_quantity = document.querySelector(".js-quantity");
 
-            if(topic == `${prefix}quantitysteps/answer`) {
-                answer = JSON.parse(message);
-                html_quantity_steps_answer.innerHTML = answer.answer;
-            } else if(topic == `${prefix}gamestart/answer`) {
-              /*On game start*/
-
-                answer = JSON.parse(message);
-                console.log(answer);
-            } else if (topic == `${prefix}game/answer`) {
+            if(topic == `${prefix}gamestart/answer`) {
+              
+              Swal.fire({
+                title: 'Er is een spel gestart',
+                text: "Naar game pagina gaan?",
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Nee!',
+                confirmButtonText: 'Ja!'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  window.location.href = `${url}/game.html`;
+                }
+              })
+            } 
+            else if (topic == `${prefix}game/answer`) {
               /*On game busy*/
                 answer = JSON.parse(message);
                 if(window.location.href == `${url}/game.html`){
@@ -590,7 +773,7 @@
                       document.querySelector('.js-text-start').innerHTML = `Huidige score`;
                       document.querySelectorAll('.jumpingman').forEach(item =>{item.setAttribute('id', 'jumpingman')});
                       
-                      html_button_backtomenu.setAttribute("class", "js-button-backtomenu o-hide");
+                      // html_button_backtomenu.setAttribute("class", "js-button-backtomenu o-hide");
                       console.log(answer);
                       name = getCookies('name');
                       if(name == answer.name) document.querySelector('.js-button-stop').setAttribute('class', 'o-button-reset c-button c-button--stop js-button-stop');
@@ -602,55 +785,60 @@
                       document.querySelector('.js-text-start').innerHTML = `Spel start in`;
                       console.log('seconds > 0');
                       html_button_stop.setAttribute("class", "js-button-stop o-hide");
-                      html_button_backtomenu.setAttribute("class", "js-button-backtomenu o-hide");
+                      // html_button_backtomenu.setAttribute("class", "js-button-backtomenu o-hide");
                     }
                   }
                   else {
                       document.querySelector('.js-text-busy').innerHTML = `Spel is gespeeld...`;
                       document.querySelector('.js-text-timer').innerHTML = `${answer.score}`;
-                      document.querySelector('.js-text-start').innerHTML = `Behaalde score`;
-                      // document.getElementById('jumpingman').setAttribute("class", "");
+                      document.querySelector('.js-text-start').innerHTML = `Behaalde score`;;
                       document.querySelectorAll('.jumpingman').forEach(item =>{item.setAttribute('id', 'jumpan')});
                       html_button_stop.setAttribute("class", "js-button-stop o-hide");
-                      html_button_backtomenu.setAttribute("class", "o-button-reset c-button c-button--stop js-button-backtomenu");
-                      
-  
+                      // html_button_backtomenu.setAttribute("class", "o-button-reset c-button c-button--stop js-button-backtomenu");
                   }
-
                 }
                 
-            } else if (topic == `${prefix}gamestarted/answer`){
-              answer = JSON.parse(message);
-              game_started = answer.gamestarted;
-              name = getCookies('name');
+            } 
+            // else if (topic == `${prefix}gamestarted/answer`){
+            //   answer = JSON.parse(message);
+            //   game_started = answer.gamestarted;
+            //   name = getCookies('name');
               
-                if(name != undefined){
-                  if(game_started == true){
-                    if(window.location.href !=`${url}/game.html`){
-                      window.location.href= `${url}/game.html`;
-                      console.log('Game started true');
-                    }
+            //     if(name != undefined){
+            //       if(game_started == true){
+
+            //         if(window.location.href !=`${url}/game.html`){
+            //           window.location.href= `${url}/game.html`;
+            //           console.log('Game started true');
+            //         }
                     
-                  }
+            //       }
     
-                  if(game_started == false){
-                    console.log('Game started flase')
-                    if(window.location.href == `${url}/game.html`){
-                      window.location.href=`${url}/main.html`;
-                    }
-                    if(window.location.href == `${url}/index.html` || window.location.href == `${url}/`){
-                      window.location.href=`${url}/main.html`;
-                    }
-                  }
-                }
+            //       if(game_started == false){
+
+            //         if(window.location.href == `${url}/game.html`){
+
+            //           if(html_button_backtomenu.className == 'js-button-backtomenu o-hide gestart' || html_button_backtomenu.className == 'o-button-reset c-button c-button--stop js-button-backtomenu gestart'){
+            //             console.log();
+            //           }
+            //           else if(document.querySelector('.js-text-busy').innerHTML != `Spel is gespeeld...`){
+            //             window.location.href=`${url}/main.html`;
+            //           }
+            //         }
+
+            //         else if(window.location.href == `${url}/index.html` || window.location.href == `${url}/`){
+            //           window.location.href=`${url}/main.html`;
+            //         }
+            //       }
+            //     }
                
-              else{
-                if(window.location != `${url}/index.html` && window.location != `${url}/`){
-                  if(name == undefined) window.location.href=`${url}/index.html`;
-                }
+            //   else{
+            //     if(window.location != `${url}/index.html` && window.location != `${url}/`){
+            //       if(name == undefined) window.location.href=`${url}/index.html`;
+            //     }
                 
-              }
-            }
+            //   }
+            // }
             
         });
     };
