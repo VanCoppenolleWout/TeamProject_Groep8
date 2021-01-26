@@ -677,13 +677,15 @@
           getAPIlatestPersonal(getCookies('name'));
         };
         
-        if(window.location.href == `${url}/main.html`){
+        // if(window.location.href == `${url}/main.html`){
+        //   getAdmins();
+        //   getGoogleAccounts();
+        // }
+
           getAdmins();
           getGoogleAccounts();
-        }
         
-        
-
+      
         /*Eventlisteners*/
         if(html_button_logout) html_button_logout.addEventListener('click', onClickLogout);
         const btn_makkelijk = document.querySelector(".js-filter__makkelijk");
