@@ -3,8 +3,8 @@
 #include <FastLED.h>
 #include <pt.h>
 
-const char* ssid = "telenet-65213"; // "Trappenspel"
-const char* password = "0CuyNfV9fJ4c"; // "EaFjnaefiJAE"
+const char* ssid = "Trappenspel";
+const char* password = "EaFjnaefiJAE";
 const char* mqttServer = "13.81.105.139";
 const char* mqttUsername = "";
 const char* mqttPassword = "";
@@ -12,12 +12,13 @@ const char* mqttPassword = "";
 WiFiClient wifiClient;
 PubSubClient client(wifiClient);
 
-char subTopicStep1[] = "kobemarchal/groep8/step9";
-char subTopicStep2[] = "kobemarchal/groep8/step10";
-char subTopicSensor1[] = "kobemarchal/groep8/step9/sensor";
-char subTopicSensor2[] = "kobemarchal/groep8/step10/sensor";
-char pubTopicStep1[] = "kobemarchal/groep8/step9/answer";
-char pubTopicStep2[] = "kobemarchal/groep8/step10/answer";
+// Hier alle step[getal] veranderen naar welke treden waarover het gaat
+char subTopicStep1[] = "kobemarchal/groep8/step1";
+char subTopicStep2[] = "kobemarchal/groep8/step2";
+char subTopicSensor1[] = "kobemarchal/groep8/step1/sensor";
+char subTopicSensor2[] = "kobemarchal/groep8/step2/sensor";
+char pubTopicStep1[] = "kobemarchal/groep8/step1/answer";
+char pubTopicStep2[] = "kobemarchal/groep8/step2/answer";
 char pubTopicStop[] = "kobemarchal/groep8/gamestop";
 
 #define NUM_LEDS      50

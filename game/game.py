@@ -57,7 +57,9 @@ def on_message(client, userdata, msg):
                 doOnce = True
                 name = payload["name"]
                 difficulty = payload["difficulty"]
-                googleid = payload["googleid"]
+
+                if "googleid" in payload:
+                    googleid = payload["googleid"]
 
                 ledsorder[:] = []
                 ledsorder.append(1)
