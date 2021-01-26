@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html class="login-page" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+    <link rel="manifest" href="./site.webmanifest">
+    <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="css/screen.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <script src="./script/app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <title>Trappenspel</title>
+</head>
+<body class="">
+    <section class="o-row">
+        <div class="o-container u-max-width-lg">
+          <form class="js-form-difficulty" action="/website/configuratie-moeilijkheid.html">
+            <div class="c-card__body">
+                <div class="o-layout__header o-header o-header--sm">
+                    <div class="c-empty"></div>
+                    <h1 class="c-card__title c-card__title--score">Trappenspel</h1>
+                    <div class="c-empty"></div>                     
+                  </div>
+                  <div class="o-layout__config">
+                        <button type="button" class="o-button-reset c-backbutton js-button-back">
+                            <svg class="c-config__arrowback" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+                                <g id="arrow_right_alt-24px" transform="translate(243 -58)">
+                                  <path id="Path_4" data-name="Path 4" d="M0,0H40V40H0Z" transform="translate(-243 58)" fill="none"/>
+                                  <path id="Path_1" data-name="Path 1" d="M10,19,3,12m0,0,7-7M3,12H21" transform="translate(-235 66)" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                                </g>
+                              </svg>                 
+                        </button>
+                        <div class="c-middlesection">
+                            <div class="c-configuratie__text c-configuratie__textmobile">
+                              Configuratie spel
+                          </div>
+                            <div class="c-card__animation c-grid--configuratie__svg">
+                                <svg class="c-svg-mobile" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="260" height="206" viewBox="0 0 143.602 114.106">
+                                    <defs>
+                                      <clipPath id="clip-path">
+                                        <rect id="Rectangle_17" data-name="Rectangle 17" width="143.602" height="114.106" fill="#fff"/>
+                                      </clipPath>
+                                    </defs>
+                                    <g id="jumping-man" clip-path="url(#clip-path)">
+                                      <g id="rectangle1" transform="translate(22.399 87.582)">
+                                        <path id="Vector" d="M114.048,422.535H102.775a1.438,1.438,0,0,1-1.437-1.437v-23.43a1.438,1.438,0,0,1,1.437-1.437h11.273a1.438,1.438,0,0,1,1.437,1.437V421.1a1.438,1.438,0,0,1-1.437,1.437Z" transform="translate(-101.338 -396.232)" fill="#2fe56c"/>
+                                      </g>
+                                      <g id="rectangle4" transform="translate(102.885 6.13)">
+                                        <path id="Vector_3" d="M478.177,135.6H466.9a1.438,1.438,0,0,1-1.437-1.437V29.168a1.438,1.438,0,0,1,1.437-1.437h11.273a1.438,1.438,0,0,1,1.437,1.437V134.161a1.438,1.438,0,0,1-1.437,1.437Z" transform="translate(-465.467 -27.732)" fill="#e52f48"/>
+                                      </g>
+                                      <g id="right-leg" transform="translate(25.203 42.37)">
+                                        <path id="Vector_4" d="M121.2,352.541h2.71l1.289-10.452h-4Z" transform="translate(-119.612 -308.844)" fill="#a0616a"/>
+                                        <path id="Vector_5" d="M127.091,389.163h-8.517v-3.291H123.8a3.29,3.29,0,0,1,3.291,3.29Z" transform="translate(-117.568 -342.95)" fill="#2f2e41"/>
+                                        <path id="Vector_6" d="M123.747,194.615s1.326,12.82-1.989,21.662l-2.431,16.8h-4.2l.442-19.894L114.021,195.5S117.116,187.542,123.747,194.615Z" transform="translate(-114.021 -191.686)" fill="#2f2e41"/>
+                                      </g>
+                                      <g id="left-leg" transform="translate(13.258 44.636)">
+                                        <path id="Vector_7" d="M68.816,321.362,71,322.96l7.2-7.682-3.23-2.358Z" transform="translate(-66.863 -288.389)" fill="#a0616a"/>
+                                        <path id="Vector_8" d="M66.86,354.414l-6.879-5.022,1.94-2.658,4.221,3.081a3.291,3.291,0,0,1,.717,4.6Z" transform="translate(-59.981 -314.73)" fill="#2f2e41"/>
+                                        <path id="Vector_9" d="M78.221,203.487l4.421,15.251-8.62,13.7,4.31,3.647,9.836-15.362L85.294,201.94Z" transform="translate(-70.918 -201.94)" fill="#2f2e41"/>
+                                      </g>
+                                      <g id="right-arm" transform="translate(30.03 16.592)">
+                                        <path id="Vector_10" d="M180.651,188.147a2.223,2.223,0,0,0-2.317-2.5l-3.929-7.208-.884,3.095,2.692,6.606a2.235,2.235,0,0,0,4.438.007Z" transform="translate(-165.197 -155.591)" fill="#a0616a"/>
+                                        <path id="Vector_11" d="M139.938,75.071a3.87,3.87,0,0,1,3.655,3.66l.7,13.326,4.642,12.6-2.652,2.21-8.62-15.031L135.9,79.482a3.869,3.869,0,0,1,4.039-4.411Z" transform="translate(-135.86 -75.066)" fill="#ccc"/>
+                                      </g>
+                                      <g id="head-body" transform="translate(18.541 0)">
+                                        <path id="Vector_12" d="M124.893,15.95a5.429,5.429,0,1,0-5.429-5.429A5.429,5.429,0,0,0,124.893,15.95Z" transform="translate(-111.599 -3.967)" fill="#a0616a"/>
+                                        <path id="Vector_13" d="M92.644,61.674s3.316-2.21,7.073,2.652l.995,30.613s-2.873-3.979-8.841-.221-7.294-.442-7.294-.442S80.377,62.669,92.644,61.674Z" transform="translate(-83.883 -47.651)" fill="#ccc"/>
+                                        <path id="Vector_14" d="M117.969,10.627a1.537,1.537,0,0,0,2.651-.854,1.559,1.559,0,0,0,0-.3,6.988,6.988,0,0,1-.311-1.7.891.891,0,0,1,.163-.416c.707-.947,2.368.424,3.035-.434.409-.526-.072-1.353.242-1.941.414-.775,1.642-.393,2.412-.818.857-.473.805-1.787.242-2.586a4.069,4.069,0,0,0-3.084-1.57,8.273,8.273,0,0,0-3.485.68,6.965,6.965,0,0,0-3.293,2.283,5.574,5.574,0,0,0-.564,4.746A8.95,8.95,0,0,0,117.969,10.627Z" transform="translate(-108.664 0)" fill="#2f2e41"/>
+                                      </g>
+                                      <g id="bottom-line" transform="translate(0.001 113.486)">
+                                        <path id="Vector_15" d="M143.342,513.952H.266a.263.263,0,0,1,0-.526H143.342a.263.263,0,0,1,0,.526Z" transform="translate(-0.003 -513.426)" fill="#3f3d56"/>
+                                      </g>
+                                      <g id="rectangle2" transform="translate(75.65 36.301)">
+                                        <path id="Vector_3-2" data-name="Vector_3" d="M478.177,104.839H466.9a1.77,1.77,0,0,1-1.015-.3.91.91,0,0,1-.421-.726V28.759a.91.91,0,0,1,.421-.726,1.77,1.77,0,0,1,1.015-.3h11.273a1.769,1.769,0,0,1,1.015.3.91.91,0,0,1,.421.726v75.053a.91.91,0,0,1-.421.726A1.77,1.77,0,0,1,478.177,104.839Z" transform="translate(-465.467 -27.732)" fill="#fff"/>
+                                      </g>
+                                      <g id="rectangle3" transform="translate(49.3 65.476)">
+                                        <path id="Vector_3-3" data-name="Vector_3" d="M478.177,75.664H466.9a2.6,2.6,0,0,1-1.015-.187c-.269-.12-.421-.282-.421-.451V28.37c0-.169.152-.332.421-.451a2.6,2.6,0,0,1,1.015-.187h11.273a2.6,2.6,0,0,1,1.015.187c.269.12.421.282.421.451V75.026c0,.169-.152.332-.421.451A2.6,2.6,0,0,1,478.177,75.664Z" transform="translate(-465.467 -27.732)" fill="#fff"/>
+                                      </g>
+                                    </g>
+                                  </svg>
+                                  <svg class="c-svg-ipad" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="327.885" height="260.538" viewBox="0 0 327.885 260.538">
+                                    <defs>
+                                      <clipPath id="clip-path">
+                                        <rect id="Rectangle_15" data-name="Rectangle 15" width="327.885" height="260.538" fill="#fff"/>
+                                      </clipPath>
+                                    </defs>
+                                    <g id="jumping-man" clip-path="url(#clip-path)">
+                                      <g id="rectangle1" transform="translate(51.144 199.975)">
+                                        <path id="Vector" d="M130.358,456.29H104.618a3.284,3.284,0,0,1-3.28-3.28v-53.5a3.284,3.284,0,0,1,3.28-3.281h25.739a3.284,3.284,0,0,1,3.28,3.281v53.5a3.284,3.284,0,0,1-3.28,3.28Z" transform="translate(-101.338 -396.232)" fill="#2fe56c"/>
+                                      </g>
+                                      <g id="rectangle4" transform="translate(234.917 13.996)">
+                                        <path id="Vector_3" d="M494.487,274.021H468.747a3.284,3.284,0,0,1-3.28-3.28V31.012a3.284,3.284,0,0,1,3.28-3.28h25.739a3.284,3.284,0,0,1,3.281,3.28V270.74a3.284,3.284,0,0,1-3.281,3.28Z" transform="translate(-465.467 -27.732)" fill="#e52f48"/>
+                                      </g>
+                                      <g id="right-leg" transform="translate(57.545 96.742)">
+                                        <path id="Vector_4" d="M121.2,365.954h6.188l2.943-23.866H121.2Z" transform="translate(-117.576 -266.181)" fill="#a0616a"/>
+                                        <path id="Vector_5" d="M138.02,393.386H118.574v-7.513h11.933a7.513,7.513,0,0,1,7.513,7.513Z" transform="translate(-116.276 -287.868)" fill="#2f2e41"/>
+                                        <path id="Vector_6" d="M136.227,198.375s3.028,29.272-4.542,49.46l-5.552,38.357h-9.589l1.009-45.423-3.533-40.375S121.087,182.225,136.227,198.375Z" transform="translate(-114.021 -191.686)" fill="#2f2e41"/>
+                                      </g>
+                                      <g id="left-leg" transform="translate(30.272 101.917)">
+                                        <path id="Vector_7" d="M68.816,332.2l5,3.648,16.45-17.54-7.376-5.385Z" transform="translate(-64.357 -256.909)" fill="#a0616a"/>
+                                        <path id="Vector_8" d="M75.687,364.27,59.981,352.8l4.43-6.068,9.638,7.036a7.514,7.514,0,0,1,1.638,10.5Z" transform="translate(-59.981 -273.658)" fill="#2f2e41"/>
+                                        <path id="Vector_9" d="M83.61,205.473,93.7,240.3,74.021,271.587l9.841,8.327,22.459-35.076-6.561-42.9Z" transform="translate(-66.935 -201.94)" fill="#2f2e41"/>
+                                      </g>
+                                      <g id="right-arm" transform="translate(68.567 37.885)">
+                                        <path id="Vector_10" d="M189.8,200.605a5.075,5.075,0,0,0-5.29-5.707L175.54,178.44l-2.019,7.066,6.147,15.083a5.1,5.1,0,0,0,10.134.016Z" transform="translate(-154.514 -126.268)" fill="#a0616a"/>
+                                        <path id="Vector_11" d="M145.172,75.079a8.836,8.836,0,0,1,8.346,8.358l1.6,30.427,10.6,28.768-6.056,5.047-19.683-34.319-4.03-28.208a8.835,8.835,0,0,1,9.223-10.072Z" transform="translate(-135.86 -75.066)" fill="#ccc"/>
+                                      </g>
+                                      <g id="head-body" transform="translate(42.335 0)">
+                                        <path id="Vector_12" d="M131.86,29.883a12.4,12.4,0,1,0-12.4-12.4A12.4,12.4,0,0,0,131.86,29.883Z" transform="translate(-101.506 -2.522)" fill="#a0616a"/>
+                                        <path id="Vector_13" d="M103.888,62.317s7.57-5.047,16.15,6.056l2.271,69.9s-6.561-9.084-20.188-.5-16.655-1.009-16.655-1.009S75.877,64.588,103.888,62.317Z" transform="translate(-83.883 -30.299)" fill="#ccc"/>
+                                        <path id="Vector_14" d="M120.885,24.264a3.509,3.509,0,0,0,6.054-1.949,3.559,3.559,0,0,0,0-.688c-.136-1.306-.891-2.492-.71-3.871a2.033,2.033,0,0,1,.371-.95c1.615-2.162,5.406.967,6.93-.99.934-1.2-.164-3.09.553-4.432.946-1.771,3.75-.9,5.508-1.867,1.956-1.079,1.839-4.08.552-5.906A9.29,9.29,0,0,0,133.1.025a18.89,18.89,0,0,0-7.957,1.553c-2.884,1.124-5.744,2.677-7.519,5.213-2.159,3.084-2.366,7.23-1.287,10.836C116.99,19.821,119.23,22.5,120.885,24.264Z" transform="translate(-99.64 0)" fill="#2f2e41"/>
+                                      </g>
+                                      <g id="bottom-line" transform="translate(0.002 259.121)">
+                                        <path id="Vector_15" d="M327.286,514.628H.6a.6.6,0,0,1,0-1.2H327.286a.6.6,0,0,1,0,1.2Z" transform="translate(-0.003 -513.426)" fill="#3f3d56"/>
+                                      </g>
+                                      <g id="rectangle2" transform="translate(172.732 82.886)">
+                                        <path id="Vector_3-2" data-name="Vector_3" d="M494.487,203.791H468.747a4.042,4.042,0,0,1-2.319-.688,2.078,2.078,0,0,1-.962-1.657V30.077a2.078,2.078,0,0,1,.962-1.657,4.041,4.041,0,0,1,2.319-.688h25.739a4.04,4.04,0,0,1,2.319.688,2.077,2.077,0,0,1,.962,1.657V201.446a2.077,2.077,0,0,1-.962,1.657A4.041,4.041,0,0,1,494.487,203.791Z" transform="translate(-465.467 -27.732)" fill="#fff"/>
+                                      </g>
+                                      <g id="rectangle3" transform="translate(112.566 149.501)">
+                                        <path id="Vector_3-3" data-name="Vector_3" d="M494.487,137.176H468.747a5.93,5.93,0,0,1-2.319-.427c-.615-.273-.961-.644-.962-1.03V29.189c0-.386.347-.757.962-1.03a5.928,5.928,0,0,1,2.319-.427h25.739a5.926,5.926,0,0,1,2.319.427c.615.273.961.644.962,1.03V135.718c0,.386-.347.757-.962,1.03A5.928,5.928,0,0,1,494.487,137.176Z" transform="translate(-465.467 -27.732)" fill="#fff"/>
+                                      </g>
+                                    </g>
+                                  </svg>
+                            </div>
+                            <div class="c-configuratie__text c-configuratie__textdesktop">
+                                Configuratie spel
+                            </div>
+                              <label for="naam" class="c-card__trappen">Geef de <b>Moeilijkheidsgraad</b> in. Dit bepaalt de snelheid.</label>
+                              <div class="c-grid--dropdown c-dropdown js-dropdown js-dropdown-toggle">
+                                  <div class="c-dropdown--button">
+                                      <div class="js-difficulty">Makkelijk</div>
+          
+                                      <div>
+                                          <svg class="c-dropdown--svg js-dropdown-svg" xmlns="http://www.w3.org/2000/svg"
+                                              height="24" viewBox="0 0 24 24" width="24">
+                                              <path d="M0 0h24v24H0V0z" fill="none" />
+                                              <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" /></svg>
+                                      </div>
+                                  </div>
+                                  <div class="c-dropdown--hidden js-dropdown-hidden">
+                                      <ul class="c-dropdown--items">
+                                          <li class="c-dropdown--item js-dropdown-items">
+                                              Makkelijk
+                                          </li>
+                                          <li class="c-dropdown--item js-dropdown-items">
+                                              Gemiddeld
+                                              
+                                          </li>
+          
+                                          <li class="c-dropdown--item js-dropdown-items">
+                                              Moeilijk
+                                          </li>
+                                      </ul>
+                                  </div>
+                              </div>
+                        </div>
+                        <div class="c-config__navigation">
+                            <button type="button" class="o-button-reset c-backbutton__mobile js-button-back">
+                                <svg class="c-config__arrowback" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+                                    <g id="arrow_right_alt-24px" transform="translate(243 -58)">
+                                      <path id="Path_4" data-name="Path 4" d="M0,0H40V40H0Z" transform="translate(-243 58)" fill="none"/>
+                                      <path id="Path_1" data-name="Path 1" d="M10,19,3,12m0,0,7-7M3,12H21" transform="translate(-235 66)" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                                    </g>
+                                  </svg>                 
+                            </button>
+                            <button class="o-button-reset c-nextbutton" type="submit">
+                              <div class="c-config__arrowforward">
+                              <div>Starten</div>
+                              <svg class="" id="arrow_right_alt-24px" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+                                  <path id="Path_4" data-name="Path 4" d="M40,0H0V40H40Z" fill="none"/>
+                                  <path id="Path_1" data-name="Path 1" d="M14,19l7-7m0,0L14,5m7,7H3" transform="translate(8 8)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                              </svg>
+                              </div>
+                          </button>
+                        </div>
+                  </div>
+            </div>
+          </form>
+        </div>
+    </section>
+</body>
+</html>

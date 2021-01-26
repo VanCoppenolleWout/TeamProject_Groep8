@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:abstractions="clr-namespace:SVG.Forms.Plugin.Abstractions;assembly=SVG.Forms.Plugin.Abstractions"
+             x:Class="Trappenspel.Views.Registration"
+             NavigationPage.HasNavigationBar="True"
+             Background="#FFF"
+             >
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="logout.png" Clicked="ToolbarItem_Clicked"/>
+    </ContentPage.ToolbarItems>
+
+    <StackLayout Spacing="0">
+
+        <abstractions:SvgImage SvgAssembly="{Binding SvgAssembly}" SvgPath="{Binding LogoSvg}" HeightRequest="64" WidthRequest="64" BackgroundColor="White" HorizontalOptions="Center" Margin="0,56,0,0"/>
+        <Label Text="Trappenspel" FontSize="32" TextColor="Black" FontAttributes="Bold" HorizontalOptions="Center"/>
+        <Label Text="Configuratie" HorizontalOptions="Center" FontAttributes="Bold" TextColor="#707070" Margin="16,0,16,32"/>
+
+        <Label Text="Aantal trappen:" FontSize="16" TextColor="#545454" Margin="19,16,0,-8"/>
+        <Entry Keyboard="Numeric" Placeholder="Vb: 6" x:Name="stairEntry" HorizontalOptions="FillAndExpand" Margin="16,0,16,16"/>
+
+        <Label Text="Moeilijkheidsgraad:" FontSize="16" TextColor="#545454" Margin="19,16,0,-8"/>
+        <Picker x:Name="picker"
+        Title="Moeilijkheidsgraad" HorizontalOptions="FillAndExpand" Margin="16,0,16,64">
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>Makkelijk</x:String>
+                    <x:String>Gemiddeld</x:String>
+                    <x:String>Moeilijk</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+        </Picker>
+        <Button BackgroundColor="#439CEF" TextColor="#FFF" Text="Next" x:Name="publishButton" Clicked="publishButton_Clicked" HorizontalOptions="FillAndExpand" CornerRadius="32" Margin="16,0,16,0"/>
+        
+    </StackLayout>
+</ContentPage>

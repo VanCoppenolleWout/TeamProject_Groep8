@@ -5,93 +5,777 @@
 
 
 
-    let html_button_quantity, html_button_start, html_button_stop, html_quantity_steps, html_quantity_steps_answer, html_game_name, html_game_difficulty,
-    html_game_answer, html_gamestart_start, html_gamestart_name, html_gamestart_score, html_game, html_quantity;
+    let html_button_stop, html_quantity_steps, html_form_quantity,html_form_difficulty, html_button_back, html_dropdown_button, html_dropdown_hidden, html_difficulty, html_dropdown_items, html_buttton_uitleg_gesloten, html_buttton_uitleg_open, html_form_name, html_button_mainmenu;
+    let difficulty, name, steps;
+    var cookies;
     let mqtt, client;
+    var dict;
 
-    const prefix = "teamproject/groep8/";
+    const url = "http://glenntroncquo.be";
 
-    const onClickQuantity = (event) => {
-        html_quantity_steps = document.querySelector(".js-quantity-steps");
-        
+    const prefix = "kobemarchal/groep8/";
+
+    var adminID = "117385396614732024524"; 
+
+
+
+
+    let html_svg_vuilbak = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4z"/></svg>`;
+    let html_svg_google = `<svg id="google-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 23.52 24">
+                              <path id="Path_23" data-name="Path 23" d="M142.07,109.214a10.283,10.283,0,0,0-.253-2.453H130.55v4.453h6.613a5.864,5.864,0,0,1-2.453,3.893l-.022.149,3.562,2.76.247.025a11.733,11.733,0,0,0,3.573-8.827" transform="translate(-118.55 -96.948)" fill="#4285f4"/>
+                              <path id="Path_24" data-name="Path 24" d="M24.645,166a11.438,11.438,0,0,0,7.947-2.907l-3.787-2.933a7.1,7.1,0,0,1-4.16,1.2,7.224,7.224,0,0,1-6.827-4.987l-.141.012-3.7,2.867-.048.135A11.991,11.991,0,0,0,24.645,166" transform="translate(-12.645 -141.997)" fill="#34a853"/>
+                              <path id="Path_25" data-name="Path 25" d="M5.173,79.13a7.388,7.388,0,0,1-.4-2.373,7.763,7.763,0,0,1,.387-2.373l-.007-.159L1.4,71.312l-.123.058a11.975,11.975,0,0,0,0,10.773L5.173,79.13" transform="translate(0 -64.757)" fill="#fbbc05"/>
+                              <path id="Path_26" data-name="Path 26" d="M24.645,4.64a6.651,6.651,0,0,1,4.64,1.787L32.672,3.12A11.529,11.529,0,0,0,24.645,0a11.991,11.991,0,0,0-10.72,6.613L17.8,9.627a7.254,7.254,0,0,1,6.84-4.987" transform="translate(-12.645)" fill="#eb4335"/>
+                            </svg>`;
+  
+    const onClickDifficulty = (event) => {
         event.preventDefault();
-        
-        payload = {"steps": html_quantity_steps.value};
-        console.log(payload);
+
+        if(html_difficulty.innerText == 'Makkelijk') payload = document.cookie = `difficulty=easy`;;
+        if(html_difficulty.innerText == 'Gemiddeld') payload = document.cookie = `difficulty=normal`;
+        if(html_difficulty.innerText == 'Moeilijk') payload = document.cookie = `difficulty=hard`;
+
+        difficulty = getCookies('difficulty');
+        steps = getCookies('steps');
+        name = getCookies('name');
+        let googleidd = getCookies('googleid');
+
+        if(googleidd == undefined){
+          googleidd = "";
+        }
+
+
+        payload = {"name":name, "difficulty": difficulty, "steps": steps, "googleid": googleidd};
         client.publish(`${prefix}quantitysteps`, JSON.stringify(payload));
-    };
-
-    const onClickStart = (event) => {
-        html_game_name = document.querySelector(".js-game-name");
-        html_game_difficulty = document.querySelector(".js-game-difficulty");
         
-        event.preventDefault();
-
-        payload = {"name": html_game_name.value, "difficulty": html_game_difficulty.value};
-        console.log(payload);
-        client.publish(`${prefix}gamestart`, JSON.stringify(payload));
+        setTimeout(function(){
+          client.publish(`${prefix}gamestart`, JSON.stringify(payload));
+          window.location.href = `${url}/game.html`;
+        }, 1000);
+        
     };
 
     const onClickStop = (event) => {
-        event.preventDefault();
-        
         payload = {"game": false};
         console.log(payload);
         client.publish(`${prefix}gamestop`, JSON.stringify(payload));
     };
 
+    const onClickQuantity = (event) => {
+      event.preventDefault();
+
+      html_quantity_steps = document.querySelector('.js-quantity-input');
+
+      if(html_quantity_steps.value >= 0 && html_quantity_steps.value <= 10 && html_quantity_steps.value%2 == 0){
+        steps = html_quantity_steps.value
+        document.cookie = `steps=${steps}`;
+        window.location.href = `${url}/configuratie-moeilijkheid.html`;
+      }
+  };
+
+    const onInputQuantity = (event) =>{
+      let quantityInput = document.querySelector('.js-quantity-input').value;
+      let errormsg = document.querySelector('.js-input-error');
+      
+      if(quantityInput%2 != 0) errormsg.innerHTML = '*Gelieve een veelvoud van 2 in te voeren';
+      if(quantityInput==0) errormsg.innerHTML = '*Gelieve een getal groter dan 0 in te voeren';
+      if(quantityInput>=10) errormsg.innerHTML = '*Gelieve een getal kleiner dan 10 in te voeren';
+
+      if(quantityInput>0 && quantityInput<=10 && quantityInput%2 == 0) errormsg.innerHTML = '';
+    };
+
+    const onClickName = async (event) =>{
+      event.preventDefault();
+      name = document.querySelector('.js-name-value').value;
+
+      if (name.match(/^ *$/) == null){
+
+        const data = await fetch(`https://trappenspel-api.azurewebsites.net/api/personalleaderboard/${name}`)
+        .then((r) => r.json())
+        .catch((err) => console.error('An error occured', err));
+
+        if(data.length >0){
+          console.log(data[0].playername);
+          Swal.fire({
+            title: 'Gebruiker bestaat al!',
+            text: "Bent u dit?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Nee, dit ben ik niet!',
+            confirmButtonText: 'Ja, dit ben ik!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              document.cookie = `name=${name}`;
+              document.cookie = `google=false`;
+              window.location.href = `${url}/main.html`;
+            }
+          })
+        }
+        else{
+          document.cookie = `name=${name}`;
+          document.cookie = `google=false`;
+          window.location.href =`${url}/main.html`;
+        }
+      }
+
+      else{
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Je kan geen lege naam invoeren!',
+        })
+        
+      } 
+    };
+
+    const onClickBack = () =>{
+      if(window.location.href == `${url}/configuratie.html`) window.location.href=`${url}/main.html`;
+
+      if(window.location.href ==`${url}/configuratie-moeilijkheid.html`) window.location.href=`${url}/configuratie.html`;     
+    };
+
+    const onClickDropdown = () =>{
+      if(html_dropdown_hidden.className=='c-dropdown--hidden js-dropdown-hidden'){
+        html_dropdown_hidden.setAttribute('class', 'js-dropdown-hidden c-dropdown--visible');
+        document.querySelector('.js-dropdown-svg').setAttribute('class', 'c-dropdown--svg c-dropdown--svg__180 js-dropdown-svg');
+        }
+      else{
+        html_dropdown_hidden.setAttribute('class', "c-dropdown--hidden js-dropdown-hidden");
+        document.querySelector('.js-dropdown-svg').setAttribute('class', 'c-dropdown--svg js-dropdown-svg');
+        }
+    };
+
+    const setName = () =>{
+      name = getCookies('name');
+      html_text_name.innerHTML = name;
+    };
+
+    const toggleState = function() {
+      var d1 = document.getElementById("js-geslotendiv");
+      var d2 = document.getElementById("js-opendiv");
+      if( d2.style.display == "none" )
+      {
+         d1.style.display = "none";
+         d2.style.display = "flex";
+      }
+      else
+      {
+         d1.style.display = "flex";
+         d2.style.display = "none";
+      }
+   };
+
+   const onClickBackToMenu = () =>{
+     window.location.href = `${url}/main.html`;
+   }
+
+
+   function deleteAllCookies() {
+    var cookies = document.cookie.split(";");
+
+    for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i];
+        var eqPos = cookie.indexOf("=");
+        var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    };
+  };
+
+    const getCookies = (choice) => {
+    cookies = document.cookie
+    .split(';')
+    .map(cookie => cookie.split('='))
+    .reduce((accumulator, [key, value]) => ({ ...accumulator, [key.trim()]: decodeURIComponent(value) }), {});
+
+      if(choice == 'name')return cookies.name;
+      if(choice == 'id')return cookies.id;
+      if(choice == 'steps')return cookies.steps;
+      if(choice == 'difficulty')return cookies.difficulty;
+      if(choice == 'google') return cookies.google;
+    };
+
+    const onClickMainStart = () =>{
+      window.location.href = `${url}/configuratie.html`;
+    }
+
+    const onClickLeaderboard = () =>{
+      window.location.href = `${url}/leaderboard.html`;
+    }
+    const onClickMain = (event) =>{
+      event.preventDefault();
+      
+    }
+
+    let highlightItem = (queryResponse) => {    
+      var highlight = document.querySelector(`[data-playerid="${queryResponse.playerID}"]`);
+      console.log(highlight, "highlighted");
+          if (highlight) {
+              highlight.setAttribute('class', 'o-list o-layout__list js-listitem js-name-data c-list-item__active');
+          };
+    };
+
+    let showAdmins = (queryResponse) => {
+        dict = queryResponse;
+    };
+
+    let showGoogleAccounts = (queryResponse) => {    
+      let adminVisability = document.querySelector(".js-admin-beheer");
+        if (dict.filter(i => getCookies('id') === i.googleid).length === 1)
+        {
+          adminVisability.style.display = "flex";
+        }
+        else
+        {
+          adminVisability.style.display = "none";
+        }
+      
+      var html_adminlist = document.querySelector(".js-adminlist");
+
+      for (const element of queryResponse) {
+        let adminState = false;
+        dict.filter(admin => element.googleid === admin.googleid);
+        if (dict.filter(admin => element.googleid === admin.googleid).length === 0) {
+          console.log(element.playername, element.googleid, "geen admin")
+          adminState = false;
+        }
+        else {
+          console.log(element.playername, element.googleid, "wel admin") 
+          adminState = true;
+        }
+
+        if (adminState == true)
+        {
+          console.log(element.playername, "admin");
+          var isadmin = "true";
+          var svg_adminbutton = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4z"/></svg>`;
+        }
+        else {
+          var isadmin = "false";
+          console.log(element.playername, "geen admin");
+          var svg_adminbutton = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>`;
+        }
+
+        
+        
+        html_adminlist.innerHTML += `<div class="c-admin--item">
+                                    <div class="o-layout__admins">
+                                        <div class="c-admin__picture">${html_svg_google}</div>
+                                        <div class="c-admin__name">${element.playername}</div>
+                                    </div>
+                                    <button class="o-button-reset c-admin__svgbutton" data-isadmin="${isadmin}" data-googlename="${element.playername}" data-googleid="${element.googleid}">${svg_adminbutton}</button>
+                                </div>`;
+        
+        document.querySelectorAll('.c-admin__svgbutton').forEach(item => {
+          if (item.dataset.isadmin == "true")
+          {
+            item.addEventListener('click', event => {
+              console.log('delete');
+              console.log(item.dataset.googlename, item.dataset.googleid);
+              deleteAdmin(item.dataset.googleid);
+            });
+          }
+          else {
+            item.addEventListener('click', event => {
+              console.log('add');
+              console.log(item.dataset.googlename, item.dataset.googleid);
+              postAdmin(item.dataset.googlename, item.dataset.googleid);
+            });
+          }
+          }); 
+      };
+  };
+
+    let showResult = (queryResponse) => {  
+      // Top 3 objects
+      var nr1 = queryResponse[0];
+      var nr2 = queryResponse[1];
+      var nr3 = queryResponse[2];
+
+      let splittedName = '';
+
+        splittedName = nr1.playername.split(' '),
+        firstName1 = splittedName[0];
+        console.log(firstName1)
+
+        splittedName = nr2.playername.split(' '),
+        firstName2 = splittedName[0];
+        console.log(firstName2)
+
+        splittedName = nr3.playername.split(' '),
+        firstName3 = splittedName[0];
+        console.log(firstName3)
+
+      const top3 = document.querySelector(".o-layout__top3");
+  
+      if (queryResponse.length < 3) {        
+          if (queryResponse[1] == null && queryResponse[2] == null && queryResponse[0] != null) {
+              top3.innerHTML = `<div class="o-layout__individueel">
+                          <p class="c-card__name"></p>
+                          <p class="c-card__score"></p>
+                          <div class="c-card__podium2"><p class="c-position">2</p></div>
+                      </div>
+                      <div class="o-layout__individueel js-listitem" data-nickname="${nr1.playername}">
+                          <p class="c-card__name">${firstName1}</p>
+                          <p class="c-card__score">${nr1.score}</p>
+                          <div class="c-card__podium1"><p class="c-position">1</p></div>
+                      </div>
+                      <div class="o-layout__individueel">
+                          <p class="c-card__name"></p>
+                          <p class="c-card__score"></p>
+                          <div class="c-card__podium3"><p class="c-position">3</p></div>
+                      </div>`;
+          }
+  
+          else if (queryResponse[2] == null && queryResponse[0] != null && queryResponse[0] != null) {
+              top3.innerHTML = `<div class="o-layout__individueel js-listitem" data-nickname="${nr2.playername}">
+                          <p class="c-card__name">${firstName2}</p>
+                          <p class="c-card__score">${nr2.score}</p>
+                          <div class="c-card__podium2"><p class="c-position">2</p></div>
+                      </div>
+                      <div class="o-layout__individueel js-listitem" data-nickname="${nr1.playername}">
+                          <p class="c-card__name">${firstName1}</p>
+                          <p class="c-card__score">${nr1.score}</p>
+                          <div class="c-card__podium1"><p class="c-position">1</p></div>
+                      </div>
+                      <div class="o-layout__individueel">
+                          <p class="c-card__name"></p>
+                          <p class="c-card__score"></p>
+                          <div class="c-card__podium3"><p class="c-position">3</p></div>
+                      </div>`;
+          }
+  
+          else if (queryResponse[1] == null && queryResponse[2] == null && queryResponse[0] == null) {
+              top3.innerHTML = `<div class="o-layout__individueel">
+                          <p class="c-card__name"></p>
+                          <p class="c-card__score"></p>
+                          <div class="c-card__podium2"><p class="c-position">2</p></div>
+                      </div>
+                      <div class="o-layout__individueel">
+                          <p class="c-card__name"></p>
+                          <p class="c-card__score"></p>
+                          <div class="c-card__podium1"><p class="c-position">1</p></div>
+                      </div>
+                      <div class="o-layout__individueel">
+                          <p class="c-card__name"></p>
+                          <p class="c-card__score"></p>
+                          <div class="c-card__podium3"><p class="c-position">3</p></div>
+                      </div>`;
+          }
+          
+      }
+      else {
+
+          top3.innerHTML = `<div class="o-layout__individueel js-listitem" data-nickname="${nr2.playername}">
+                          <p class="c-card__name">${firstName2}</p>
+                          <p class="c-card__score">${nr2.score}</p>
+                          <div class="c-card__podium2"><p class="c-position">2</p></div>
+                      </div>
+                      <div class="o-layout__individueel js-listitem" data-nickname="${nr1.playername}">
+                          <p class="c-card__name">${firstName1}</p>
+                          <p class="c-card__score">${nr1.score}</p>
+                          <div class="c-card__podium1"><p class="c-position">1</p></div>
+                      </div>
+                      <div class="o-layout__individueel js-listitem" data-nickname="${nr3.playername}">
+                          <p class="c-card__name">${firstName3}</p>
+                          <p class="c-card__score">${nr3.score}</p>
+                          <div class="c-card__podium3"><p class="c-position">3</p></div>
+                      </div>`;
+      }
+  
+      // List outside of top 3
+      const html_list = document.querySelector(".js-leaderboard");
+      html_list.innerHTML = ``;
+      var html_place = 3;
+      var arrLeaderboard = queryResponse.slice(3);
+  
+      if (arrLeaderboard.length == 0) {
+          html_list.innerHTML = ``;
+      }
+  
+      for (const element of arrLeaderboard) {
+          html_place = html_place + 1;
+          html_list.innerHTML += `<ul class="o-list o-layout__list js-listitem js-name-data" data-nickname="${element.playername}" data-playerid="${element.playerID}">
+                              <div class="o-layout__list-item">
+                                  <li class="c-list__position">${html_place}</li>
+                                  <li class="c-list__name">${element.playername}</li>
+                              </div>
+                              <div class="o-layout__list-item">
+                                  <li class="c-leaderboard__steps">${element.steps} steps</li>
+                                  <li class="c-list__score">${element.score}</li>
+                              </div>
+                          </ul>`;
+      };
+      
+      document.querySelectorAll('.js-listitem').forEach(item => {
+        item.addEventListener('click', event => {
+              console.log(item.dataset.nickname);
+              getAPIpersonal(item.dataset.nickname);
+              toggleLeaderboard();
+          });
+      });      
+    };
+
+    let showPersonalResult = (queryResponse) => {
+      const html_list = document.querySelector(".js-personalleaderboard");
+      const html_leaderboardname = document.querySelector(".js-leaderboard__title");
+      html_list.innerHTML = ``;
+      var html_place = 0;
+  
+      var top3 = queryResponse.slice(0, 3);
+      
+      for (const element of queryResponse) {
+          html_place = html_place + 1;
+          html_leaderboardname.innerHTML = `Prestaties <b>${element.playername}</b>`;
+          var fulldate = element.date.slice(0, 16).replace(/-/g, "/").replace("T", " ");
+          var actualdate = fulldate.slice(0, 10);
+          var actualtime = fulldate.slice(11);
+          html_list.innerHTML += `<ul class="o-list o-layout__list js-listitem js-name-data" data-nickname="${element.playername}" data-position="${html_place}">
+                              <div class="o-layout__list-item">
+                                  <li class="c-list__position">${html_place}</li>
+                                  <li class="c-list__date"><strong style="font-weight: 500">${actualdate}</strong> ${actualtime}</li>
+                              </div>
+                              <div class="o-layout__list-item">
+                                  <li class="c-leaderboard__steps">${element.steps} steps</li>
+                                  <li class="c-list__score">${element.score}</li>
+                                  <li class="c-list__options" style="margin-left: 8px; display: flex" data-id="${element.playerID}">${html_svg_vuilbak}</li>  
+                              </div>
+                          </ul>`;
+          document.querySelectorAll('.c-list__options').forEach(item => {
+            var id = getCookies('id');
+            if (dict.filter(i => getCookies('id') === i.googleid).length === 1) {
+              item.style.display = "flex";
+              
+            }
+            else {
+              item.style.display = "none";
+            }
+
+            item.addEventListener('click', event => {
+              console.log(item.dataset.id, "click");
+              deleteAPIselected(item.dataset.id);
+            });
+          }); 
+      };
+          var goud = document.querySelector('[data-position="1"]');
+          if (goud) {
+              goud.setAttribute('class', 'o-list o-layout__list js-listitem js-name-data c-list-item__gold');
+          };
+  
+          var zilver = document.querySelector('[data-position="2"]');
+          if (zilver) {
+              zilver.setAttribute('class', 'o-list o-layout__list js-listitem js-name-data c-list-item__silver');
+          };
+          
+          var brons = document.querySelector('[data-position="3"]');
+          if (brons) {
+              brons.setAttribute('class', 'o-list o-layout__list js-listitem js-name-data c-list-item__bronze');
+          }
+   };
+
+    const toggleLeaderboard = function() {
+      var list_closed = document.querySelector(".js-list__closed");
+      var list_open = document.querySelector(".js-list__open");
+      var micro = document.querySelector(".js-microinteraction");
+      var leaderboard__subtitle = document.querySelector(".c-leaderboard__subtitle");
+      console.log(leaderboard__subtitle);
+  
+      var btn_opnieuw = document.querySelector(".js-button-opnieuw");
+      var btn_klassement = document.querySelector(".js-button-klassement");
+  
+      if( list_open.style.display == "none" )
+      {
+         list_closed.style.display = "none";
+         list_open.style.display = "block";
+         micro.style.display = "flex";
+         btn_opnieuw.style.display = "block";
+         btn_klassement.style.display = "none";
+         console.log("hide subtitle");
+         leaderboard__subtitle.style.display = "none";
+      }
+      else
+      {
+         list_closed.style.display = "block";
+         list_open.style.display = "none";
+         micro.style.display = "none";
+         btn_opnieuw.style.display = "none";
+         btn_klassement.style.display = "block";
+         console.log("toon subtitle");
+         leaderboard__subtitle.style.display = "block";
+      }
+    };
+
+    const getAPI = async () => {
+      const data = await fetch(`https://trappenspel-api.azurewebsites.net/api/leaderboard`)
+          .then((r) => r.json())
+          .catch((err) => console.error('An error occured', err));
+          showResult(data);
+    };
+  
+    const getAPIdifficulty = async (difficulty) => {
+        const data = await fetch(`https://trappenspel-api.azurewebsites.net/api/leaderboard/${difficulty}`)
+            .then((r) => r.json())
+            .catch((err) => console.error('An error occured', err));
+            showResult(data);
+            getAPIlatestPersonal(getCookies('name'));
+    };
+    
+    const getAPIpersonal = async (name) => {
+        const data = await fetch(`https://trappenspel-api.azurewebsites.net/api/personalleaderboard/${name}`)
+            .then((r) => r.json())
+            .catch((err) => console.error('An error occured', err));
+            showPersonalResult(data);
+            console.log(data);
+    };
+    
+    const getAPIlatestPersonal = async (name) => {
+        const data = await fetch(`https://trappenspel-api.azurewebsites.net/api/getlatestscore/${name}`)
+            .then((r) => r.json())
+            .catch((err) => console.error('An error occured', err));
+            highlightItem(data);
+            console.log(data);
+    };
+
+    const getGoogleAccounts = async () => {
+      const data = await fetch(`https://trappenspel-api.azurewebsites.net/api/getgoogle`)
+          .then((r) => r.json())
+          .catch((err) => console.error('An error occured', err));
+          showGoogleAccounts(data);
+          console.log(data);
+  };
+
+    const getAdmins = async () => {
+      const data = await fetch(`https://trappenspel-api.azurewebsites.net/api/getadmins`)
+          .then((r) => r.json())
+          .catch((err) => console.error('An error occured', err));
+          showAdmins(data); 
+  };
+
+  const postAdmin = async (name, id) => {
+    const data = await fetch(`https://trappenspel-api.azurewebsites.net/api/postadmin`, {method: 'POST', body: JSON.stringify({playername: name, googleid: id})})
+        .then((r) => r.json())
+        .catch((err) => console.error('An error occured', err));
+        window.location.reload();
+};
+
+  const deleteAdmin = async (id) => {
+    const data = await fetch(`https://trappenspel-api.azurewebsites.net/api/deleteadmin/${id}`, {method: 'DELETE'})
+        .then((r) => r.json())
+        .catch((err) => console.error('An error occured', err));
+        window.location.reload();
+  };
+
+    const deleteAPIselected = async (id) => {
+      const data = await fetch(`https://trappenspel-api.azurewebsites.net/api/deletelatestscore/${id}`, {method: 'DELETE'})
+          .then((r) => r.json())
+          .catch((err) => console.error('An error occured', err));
+          window.location.reload();
+  };
+
+    const cookieCheck = () =>{
+      name = getCookies('name');
+      if(window.location.href==`${url}/` || window.location.href==`${url}/index.html`){
+        if(name != undefined){
+          window.location.href=`${url}/main.html`
+      }
+    } 
+    else{
+      if(name == undefined) window.location.href=`${url}/index.html`;
+    }
+  };
+
+  const onClickLogout = () =>{
+    deleteAllCookies();
+    window.location.href=`${url}/`;
+
+  };
+
+
     const init = () => {
-        html_button_quantity = document.querySelector(".js-button-quantity");
-        html_button_start = document.querySelector(".js-button-start");
+
+        if(window.location.href != `${url}/` && window.location.href != `${url}/index.html`){
+          name = getCookies('name');
+          
+          if(name == undefined){
+            window.location.href = `${url}/`;
+            console.log(name);
+          }
+        }
+
+        if(window.location.href == `${url}/` || window.location.href == `${url}/index.html`){
+          name = getCookies('name');
+          if(name) window.location.href = `${url}/main.html`;
+        }
+
+      
+        /*Buttons*/
         html_button_stop = document.querySelector(".js-button-stop");
+        html_button_backtomenu = document.querySelector(".js-button-backtomenu");
+        html_button_back = document.querySelectorAll('.js-button-back');
+        html_dropdown_button = document.querySelector('.js-dropdown');
+        html_buttton_uitleg_gesloten = document.querySelector(".js-uitleg__gesloten");
+        html_buttton_uitleg_open = document.querySelector(".js-uitleg__open");
+        html_button_main_start = document.querySelector('.js-main-start');
+        html_button_main_leaderboard = document.querySelector('.js-main-leaderboard');
+        html_button_logout = document.querySelector('.js-log-out');
+        html_button_mainmenu = document.querySelector(".js-maintitle");
+        html_button_mainmenu2 = document.querySelector(".js-button-opnieuw");
 
-        html_button_quantity.addEventListener("click", onClickQuantity);
-        html_button_start.addEventListener("click", onClickStart);
-        html_button_stop.addEventListener("click", onClickStop);
+        /*Dropdown properties*/
+        html_dropdown_hidden = document.querySelector('.js-dropdown-hidden');
+        html_difficulty = document.querySelector('.js-difficulty');
+        html_dropdown_items = document.querySelectorAll('.js-dropdown-items');
 
+        /*Text*/
+        html_text_timer = document.querySelector('.js-text-timer');
+        html_text_busy = document.querySelector('.js-text-busy')
+        html_text_name = document.querySelector('.js-name');
+
+
+        /*Forms*/
+        html_form_quantity = document.querySelector('.js-form-quantity');
+        html_form_difficulty = document.querySelector('.js-form-difficulty');
+        html_form_name = document.querySelector('.js-form-name');
+        html_form_main = document.querySelector('.js-form-main');
+
+        /*Input values*/
+        html_input_quantity = document.querySelector(".js-quantity-input");
+
+
+        /* Database callls */
+        if(document.querySelector('.leaderboard-background')){
+          getAPI(); 
+          getAPIlatestPersonal(getCookies('name'));
+        };
+
+          getAdmins();
+          getGoogleAccounts();
+        
+      
+        /*Eventlisteners*/
+        if(html_button_logout) html_button_logout.addEventListener('click', onClickLogout);
+        const btn_makkelijk = document.querySelector(".js-filter__makkelijk");
+        if (btn_makkelijk) {btn_makkelijk.addEventListener('click', event => {
+          getAPIdifficulty("easy");
+        });};
+
+        const btn_gemiddeld = document.querySelector(".js-filter__gemiddeld");
+        if (btn_gemiddeld) { btn_gemiddeld.addEventListener('click', event => {
+          getAPIdifficulty("medium");
+        }); };
+
+        const btn_moeilijk = document.querySelector(".js-filter__moeilijk");
+        if (btn_moeilijk) { btn_moeilijk.addEventListener('click', event => {
+          getAPIdifficulty("hard");
+        }); };
+
+        const btn_opnieuw = document.querySelector(".js-button-klassement");
+        if (btn_opnieuw) {
+          btn_opnieuw.addEventListener('click', event => {
+            location.reload();
+          }); };
+        
+        if (html_button_mainmenu) {
+          html_button_mainmenu.addEventListener('click', event => {
+            window.location.href = `${url}/main.html`;
+          });
+        };
+
+        if (html_button_mainmenu2) {
+          html_button_mainmenu2.addEventListener('click', event => {
+            window.location.href = `${url}/main.html`;
+          });
+        };
+        
+        if(html_input_quantity) html_input_quantity.addEventListener("blur", onInputQuantity);
+
+        if(html_form_quantity) html_form_quantity.addEventListener('submit', onClickQuantity);
+        if(html_form_name) html_form_name.addEventListener('submit', onClickName);
+        if(html_form_difficulty) html_form_difficulty.addEventListener('submit', onClickDifficulty);
+        if(html_form_main) html_form_main.addEventListener('submit', onClickMain)
+        if(html_button_backtomenu) html_button_backtomenu.addEventListener('click', onClickBackToMenu);
+
+        if(html_button_main_start) html_button_main_start.addEventListener('click', onClickMainStart);
+        if(html_button_main_leaderboard) html_button_main_leaderboard.addEventListener('click', onClickLeaderboard);
+
+        if(html_buttton_uitleg_gesloten) html_buttton_uitleg_gesloten.addEventListener('click', toggleState);
+        if(html_buttton_uitleg_open) html_buttton_uitleg_open.addEventListener('click', toggleState);
+
+        if(html_button_stop) html_button_stop.addEventListener("click", onClickStop);
+        if(html_button_back) html_button_back.forEach(element => {
+          element.addEventListener('click', onClickBack);
+        });
+        if(html_dropdown_items) html_dropdown_items.forEach(element => {
+          element.addEventListener('click', () =>{ html_difficulty.innerText = element.innerText; })});
+        if(html_dropdown_button) html_dropdown_button.addEventListener('click', onClickDropdown);
+        
         mqtt = require('mqtt');
         client  = mqtt.connect("ws://13.81.105.139");
+        
+
+        if(html_text_name) setName();
 
         client.on('connect', function () {
-            client.subscribe(`${prefix}quantitysteps/answer`);
-            client.subscribe(`${prefix}gamestart/answer`);
             client.subscribe(`${prefix}game/answer`);
+            client.subscribe(`${prefix}gamestarted/answer`);
+            client.subscribe(`${prefix}gamestart/answer`);
+            
         });
          
         client.on('message', function (topic, message) {
             html_quantity_steps_answer = document.querySelector(".js-quantity-steps-answer");
-            html_game_answer = document.querySelector(".js-game-answer");
-            html_gamestart_start = document.querySelector(".js-gamestart-start");
-            html_gamestart_name = document.querySelector(".js-gamestart-name");
-            html_gamestart_score = document.querySelector(".js-gamestart-score");
-            html_game = document.querySelector(".js-game");
-            html_quantity = document.querySelector(".js-quantity");
 
-            if(topic == `${prefix}quantitysteps/answer`) {
+            if(topic == `${prefix}gamestart/answer`) {
+              
+              Swal.fire({
+                title: 'Er is een spel gestart',
+                text: "Naar game pagina gaan?",
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Nee!',
+                confirmButtonText: 'Ja!'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  window.location.href = `${url}/game.html`;
+                }
+              })
+            } 
+            else if (topic == `${prefix}game/answer`) {
                 answer = JSON.parse(message);
-                html_quantity_steps_answer.innerHTML = answer.answer;
-            } else if(topic == `${prefix}gamestart/answer`) {
-                answer = JSON.parse(message);
-                html_game_answer.innerHTML = answer.answer;
-            } else if (topic = `${prefix}game/answer`) {
-                answer = JSON.parse(message);
-                console.log(answer)
-
-                if(answer.start) {
-                    html_gamestart_start.innerHTML = "Spel is gestart";
-                    html_gamestart_name.innerHTML = `Naam: ${answer.name}`;
-                    html_gamestart_score.innerHTML = `Score: ${answer.score}`;
-                    // TODO: maak het onmogelijk dat de speler nieuwe data kan ingeven
-                    html_game.style.opacity = "0.4";
-                    html_quantity.style.opacity = "0.4";
-                } else {
-                    html_gamestart_start.innerHTML = "Spel is gestopt";
-                    html_gamestart_name.innerHTML = `Naam: ${answer.name}`;
-                    html_gamestart_score.innerHTML = `Score: ${answer.score}`;
-                    html_game.style.opacity = "1";
-                    html_quantity.style.opacity = "1";
-                };
-            };
+                if(window.location.href == `${url}/game.html`){
+                  if(answer.game == true){
+                    if(answer.seconds==0){
+                      document.querySelector('.js-text-busy').innerHTML = `${answer.name} is aan het spelen...`;
+                      document.querySelector('.js-text-timer').innerHTML = `${answer.score}`;
+                      document.querySelector('.js-text-start').innerHTML = `Huidige score`;
+                      document.querySelectorAll('.jumpingman').forEach(item =>{item.setAttribute('id', 'jumpingman')});
+                      console.log(answer);
+                      name = getCookies('name');
+                      if(name == answer.name) document.querySelector('.js-button-stop').setAttribute('class', 'o-button-reset c-button c-button--stop js-button-stop');
+                    }
+    
+                    if(answer.seconds>0){
+                      document.querySelector('.js-text-busy').innerHTML = `Spel wordt gestart...`;
+                      document.querySelector('.js-text-timer').innerHTML = `${answer.seconds}`;
+                      document.querySelector('.js-text-start').innerHTML = `Spel start in`;
+                      console.log('seconds > 0');
+                      html_button_stop.setAttribute("class", "js-button-stop o-hide");
+                    }
+                  }
+                  else {
+                      document.querySelector('.js-text-busy').innerHTML = `Spel is gespeeld...`;
+                      document.querySelector('.js-text-timer').innerHTML = `${answer.score}`;
+                      document.querySelector('.js-text-start').innerHTML = `Behaalde score`;;
+                      document.querySelectorAll('.jumpingman').forEach(item =>{item.setAttribute('id', 'jumpan')});
+                      html_button_stop.setAttribute("class", "js-button-stop o-hide");
+                  }
+                }
+                
+            } 
+            
         });
     };
 
@@ -16825,4 +17509,6 @@
     };
     
     },{}]},{},[1]);
+
+    /*Controle lijn*/
     
