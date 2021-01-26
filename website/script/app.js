@@ -52,7 +52,7 @@
         setTimeout(function(){
           client.publish(`${prefix}gamestart`, JSON.stringify(payload));
           window.location.href = `${url}/game.html`;
-        }, 2000);
+        }, 1000);
         
     };
 
@@ -640,7 +640,7 @@
         /*Buttons*/
         html_button_stop = document.querySelector(".js-button-stop");
         html_button_backtomenu = document.querySelector(".js-button-backtomenu");
-        html_button_back = document.querySelector('.js-button-back');
+        html_button_back = document.querySelectorAll('.js-button-back');
         html_dropdown_button = document.querySelector('.js-dropdown');
         html_buttton_uitleg_gesloten = document.querySelector(".js-uitleg__gesloten");
         html_buttton_uitleg_open = document.querySelector(".js-uitleg__open");
@@ -736,7 +736,10 @@
         if(html_buttton_uitleg_open) html_buttton_uitleg_open.addEventListener('click', toggleState);
 
         if(html_button_stop) html_button_stop.addEventListener("click", onClickStop);
-        if(html_button_back) html_button_back.addEventListener('click', onClickBack);
+        if(html_button_back) html_button_back.forEach(element => {
+          element.addEventListener('click', onClickBack);
+        });
+        // html_button_back.addEventListener('click', onClickBack);
         if(html_dropdown_items) html_dropdown_items.forEach(element => {
           element.addEventListener('click', () =>{ html_difficulty.innerText = element.innerText; })});
         if(html_dropdown_button) html_dropdown_button.addEventListener('click', onClickDropdown);
