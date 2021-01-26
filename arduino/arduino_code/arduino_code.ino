@@ -3,8 +3,8 @@
 #include <FastLED.h>
 #include <pt.h>
 
-const char* ssid = "Groep8"; //"telenet-65213"
-const char* password = "TrappenspelGroep8"; //"0CuyNfV9fJ4c"
+const char* ssid = "telenet-65213"; // "Trappenspel"
+const char* password = "0CuyNfV9fJ4c"; // "EaFjnaefiJAE"
 const char* mqttServer = "13.81.105.139";
 const char* mqttUsername = "";
 const char* mqttPassword = "";
@@ -12,9 +12,12 @@ const char* mqttPassword = "";
 WiFiClient wifiClient;
 PubSubClient client(wifiClient);
 
-char subTopicStep1[] = "kobemarchal/groep8/step1";
-char subTopicStep2[] = "kobemarchal/groep8/step2";
-char pubTopicScore[] = "kobemarchal/groep8/score";
+char subTopicStep1[] = "kobemarchal/groep8/step9";
+char subTopicStep2[] = "kobemarchal/groep8/step10";
+char subTopicSensor1[] = "kobemarchal/groep8/step9/sensor";
+char subTopicSensor2[] = "kobemarchal/groep8/step10/sensor";
+char pubTopicStep1[] = "kobemarchal/groep8/step9/answer";
+char pubTopicStep2[] = "kobemarchal/groep8/step10/answer";
 char pubTopicStop[] = "kobemarchal/groep8/gamestop";
 
 #define NUM_LEDS      50
@@ -26,6 +29,8 @@ CRGB leds1[NUM_LEDS];
 long duration1;
 int distance1;
 int distance1prev = -1;
+bool measureSensor1 = false;
+int measurementWhenSteppedOn1 = -1;
 
 #define RGB2          10
 #define SENSOR2_ECHO  12
@@ -34,14 +39,11 @@ CRGB leds2[NUM_LEDS];
 long duration2;
 int distance2;
 int distance2prev = -1;
+bool measureSensor2 = false;
+int measurementWhenSteppedOn2 = -1;
 
 bool stepQuantity = false;
 bool game = false;
-bool doOnce = true;
-
-int points = 0;
-bool startStep1 = false;
-String color1 = "green";
 
 static struct pt pt1, pt2, pt3;
 
@@ -75,6 +77,8 @@ void reconnect() {
       Serial.println("connected");
       client.subscribe(subTopicStep1);
       client.subscribe(subTopicStep2);
+      client.subscribe(subTopicSensor1);
+      client.subscribe(subTopicSensor2);
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
@@ -86,31 +90,73 @@ void reconnect() {
 
 void callback(char* topic, byte* payload, unsigned int length) 
 {
+  String topicStr = topic;
+  
   String message;
-  Serial.print("Message arrived [");
-  Serial.print(topic);
-  Serial.print("] : ");
+//  Serial.print("Message arrived [");
+//  Serial.print(topic);
+//  Serial.print("] : ");
   for (int i = 0; i < length; i++) {
-    Serial.print((char)payload[i]);
+//    Serial.print((char)payload[i]);
     message += (char)payload[i];
   }
-  Serial.println();
+//  Serial.println();
 
   if(message == "quantityset") {
     stepQuantity = true;
+    fill_solid(leds1, NUM_LEDS, CRGB(250, 0, 0));
+    fill_solid(leds2, NUM_LEDS, CRGB(250, 0, 0));
+    FastLED.show();
+  }
+
+  if(message == "quantitysetoff") {
+    stepQuantity = false;
+    fill_solid(leds1, NUM_LEDS, CRGB(0, 0, 0));
+    fill_solid(leds2, NUM_LEDS, CRGB(0, 0, 0));
+    FastLED.show();
   }
 
   if(message == "gamestart") {
-    doOnce = true;
-    points = 0;
-    startStep1 = false;
-    color1 = "green";
-    stepQuantity = false;
     game = true;
   }
 
   if(message == "gamestop") {
     game = false;
+  }
+
+  if(topicStr == subTopicStep1) {
+    if(message == "1") {
+      fill_solid(leds1, NUM_LEDS, CRGB(0, 250, 0));
+      FastLED.show();
+    } else if(message == "2") {
+      Serial.println(message);
+      fill_solid(leds1, NUM_LEDS, CRGB(250, 250, 0));
+      FastLED.show();
+    } else if(message == "3") {
+      fill_solid(leds1, NUM_LEDS, CRGB(250, 0, 0));
+      FastLED.show();
+    }
+  }
+
+  if(topicStr == subTopicStep2) {
+    if(message == "1") {
+      fill_solid(leds2, NUM_LEDS, CRGB(0, 250, 0));
+      FastLED.show();
+    } else if(message == "2") {
+      fill_solid(leds2, NUM_LEDS, CRGB(250, 250, 0));
+      FastLED.show();
+    } else if(message == "3") {
+      fill_solid(leds2, NUM_LEDS, CRGB(250, 0, 0));
+      FastLED.show();
+    }
+  }
+
+  if(topicStr == subTopicSensor1) {
+    measureSensor1 = true;
+  }
+
+  if(topicStr == subTopicSensor2) {
+    measureSensor2 = true;
   }
 }
 
@@ -118,48 +164,20 @@ static int gameLoop(struct pt *pt) {
   static unsigned long timestamp = 0;
   PT_BEGIN(pt);
 
-  if(stepQuantity and game == false) {
-    fill_solid(leds1, NUM_LEDS, CRGB(250, 0, 0));
-    fill_solid(leds2, NUM_LEDS, CRGB(250, 0, 0));
+  if(stepQuantity == false and game == false) {
+    fill_solid(leds1, NUM_LEDS, CRGB(0, 0, 0));
+    fill_solid(leds2, NUM_LEDS, CRGB(0, 0, 0));
     FastLED.show();
-    
-    timestamp = millis();
-    PT_WAIT_UNTIL(pt, millis() - timestamp > 300);
-    
-    stepQuantity = false;
-  }
-
-  if(game == false) {
-    timestamp = millis();
-    PT_WAIT_UNTIL(pt, millis() - timestamp > 300);
-
-    if(stepQuantity == false) {
-      fill_solid(leds1, NUM_LEDS, CRGB(0, 0, 0));
-      fill_solid(leds2, NUM_LEDS, CRGB(0, 0, 0));
-      FastLED.show();
-    }
-  }
-
-  if(game) {
-    if(doOnce == true) {
-      fill_solid(leds1, NUM_LEDS, CRGB(0, 0, 0));
-      fill_solid(leds2, NUM_LEDS, CRGB(0, 0, 0));
-      FastLED.show();
-      
-      fill_solid(leds1, NUM_LEDS, CRGB(0, 250, 0));
-      FastLED.show();
-      doOnce = false;
-    }
   }
 
   PT_END(pt);
 }
 
-static int trapSensor(struct pt *pt) {
+static int trapSensor1(struct pt *pt) {
   static unsigned long timestamp = 0;
   PT_BEGIN(pt);
 
-  if(game) {
+  if(game and measureSensor1) {
     digitalWrite(SENSOR1_TRIG, LOW);
     delayMicroseconds(2);
     digitalWrite(SENSOR1_TRIG, HIGH);
@@ -169,66 +187,61 @@ static int trapSensor(struct pt *pt) {
     duration1 = pulseIn(SENSOR1_ECHO, HIGH);
     distance1 = duration1 * 0.034 / 2;
     
-    Serial.print("Distance: ");
-    Serial.print(distance1);
-    Serial.println(" cm");
+//    Serial.print("Distance: ");
+//    Serial.print(distance1);
+//    Serial.println(" cm");
   
-    if(distance1prev != -1 and(distance1prev - distance1 > 5)) {
-      if(color1 == "green") {
-        points += 1;
-        startStep1 = true;
-      } else if (color1 == "orange") {
-        points += 2;
-      } else if (color1 == "red") {
-        points = -1;
-        client.publish(pubTopicStop, "stop");
-      }
-
-      if(points != -1) {
-        char pointsConverted[16];
-        itoa(points, pointsConverted, 10);
-        client.publish(pubTopicScore, pointsConverted);
-
-        timestamp = millis();
-        PT_WAIT_UNTIL(pt, millis() - timestamp > 400);
+    if(measurementWhenSteppedOn1 == -1 and (distance1prev != -1 and (distance1prev - distance1 > 20))) {
+      client.publish(pubTopicStep1, "{\"stepped\": true}");
+      measurementWhenSteppedOn1 = distance1;
+    } else {
+      if(distance1 < measurementWhenSteppedOn1 + 5) {
+        client.publish(pubTopicStep1, "{\"stepped\": true}");
+      } else {
+        measurementWhenSteppedOn1 = -1;
       }
     }
   
     distance1prev = distance1;
     
-    timestamp = millis();
-    PT_WAIT_UNTIL(pt, millis() - timestamp > 50);
+    measureSensor1 = false;
   }
 
   PT_END(pt);
 }
 
-static int trapRGB(struct pt *pt) {
+static int trapSensor2(struct pt *pt) {
   static unsigned long timestamp = 0;
   PT_BEGIN(pt);
 
-  if(game) {
-    if(startStep1 == true) {
-      fill_solid(leds1, NUM_LEDS, CRGB(250, 250, 0));
-      FastLED.show();
-      color1 = "orange";
-      
-      timestamp = millis();
-      PT_WAIT_UNTIL(pt, millis() - timestamp > 4000);
-  
-      fill_solid(leds1, NUM_LEDS, CRGB(250, 0, 0));
-      FastLED.show();
-      color1 = "red";
-  
-      timestamp = millis();
-      PT_WAIT_UNTIL(pt, millis() - timestamp > 4000);
-  
-      fill_solid(leds1, NUM_LEDS, CRGB(0, 250, 0));
-      FastLED.show();
-      color1 = "green";
-  
-      startStep1 = false;
+  if(game and measureSensor2) {
+    digitalWrite(SENSOR2_TRIG, LOW);
+    delayMicroseconds(2);
+    digitalWrite(SENSOR2_TRIG, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(SENSOR2_TRIG, LOW);
+    
+    duration2 = pulseIn(SENSOR2_ECHO, HIGH);
+    distance2 = duration2 * 0.034 / 2;
+    
+//    Serial.print("Distance: ");
+//    Serial.print(distance2);
+//    Serial.println(" cm");
+
+    if(measurementWhenSteppedOn2 == -1 and (distance2prev != -1 and (distance2prev - distance2 > 20))) {
+      client.publish(pubTopicStep2, "{\"stepped\": true}");
+      measurementWhenSteppedOn2 = distance2;
+    } else {
+      if(distance2 < measurementWhenSteppedOn2 + 5) {
+        client.publish(pubTopicStep2, "{\"stepped\": true}");
+      } else {
+        measurementWhenSteppedOn2 = -1;
+      }
     }
+  
+    distance2prev = distance2;
+
+    measureSensor2 = false;
   }
 
   PT_END(pt);
@@ -259,6 +272,6 @@ void loop() {
   client.loop();
 
   gameLoop(&pt1);
-  trapSensor(&pt2);
-  trapRGB(&pt3);
+  trapSensor1(&pt2);
+  trapSensor2(&pt3);
 }
